@@ -4,7 +4,7 @@ import java.time.*;
 
 public class CurrentDateTime {
 
-	//@example: 
+	//@example: Java - java.time.* - Local Date
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		LocalDate dNow = LocalDate.now();
