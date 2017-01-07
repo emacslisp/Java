@@ -9,7 +9,8 @@
   <!-- @example: spring - constructor-arg for constructor of class -->
   <bean id="helloWorld" class="SpringMain.SpringMain.HelloWorld" scope="prototype">
        <!-- <property name="message" value="Hello World!"/> -->
-       <constructor-arg value="777"></constructor-arg>
+       <constructor-arg value="777" type="String"></constructor-arg>
+       <property name="id" value="3"/>
    </bean>
     
 </beans>

@@ -16,6 +16,8 @@ public class App
          obj.setMessage("this is a test message");
          obj.getMessage();
          
+         System.out.println(obj.getId());
+         
          log.info("Hello Spring");
          
          HelloWorld objB = (HelloWorld) context.getBean("helloWorld");
