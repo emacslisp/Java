@@ -5,6 +5,8 @@ public class HelloWorld {
 	
 	private int id;
 	
+	private Address address;
+	
 	public HelloWorld()
 	{
 		
@@ -18,7 +20,7 @@ public class HelloWorld {
 	   public void setMessage(String message){
 	      this.message  = message;
 	   }
-
+	
 	   public void getMessage(){
 	      System.out.println("Your Message : " + message);
 	   }
@@ -29,5 +31,20 @@ public class HelloWorld {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return "HelloWorld [message=" + message + ", id=" + id + ", address="
+				+ address + "]";
 	}
 }

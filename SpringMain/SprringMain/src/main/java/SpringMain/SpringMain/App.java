@@ -11,7 +11,7 @@ public class App
     	ClassPathXmlApplicationContext context = 
                 new ClassPathXmlApplicationContext("SpringMain/SpringMain/Beans.xml");
 
-    	Logger log = Logger.getLogger(App.class.getName());
+    	Logger log = Logger.getLogger("test");
          HelloWorld obj = (HelloWorld) context.getBean("helloWorld");
          obj.setMessage("this is a test message");
          obj.getMessage();
@@ -23,6 +23,11 @@ public class App
          HelloWorld objB = (HelloWorld) context.getBean("helloWorld");
          
          objB.getMessage();
+         
+         
+         Address address = (Address) context.getBean("address");
+         
+         System.out.println(address);
          
          context.close();
     }

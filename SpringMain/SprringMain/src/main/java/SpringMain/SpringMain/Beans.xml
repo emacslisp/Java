@@ -9,8 +9,15 @@
   <!-- @example: spring - constructor-arg for constructor of class -->
   <bean id="helloWorld" class="SpringMain.SpringMain.HelloWorld" scope="prototype">
        <!-- <property name="message" value="Hello World!"/> -->
-       <constructor-arg value="777" type="String"></constructor-arg>
+       <constructor-arg value="777" name="message" type="String"></constructor-arg>
        <property name="id" value="3"/>
+       <property name="address" ref="address"/>
+   </bean>
+   
+   
+   <bean id="address" class="SpringMain.SpringMain.Address">
+		<constructor-arg value="1 Jessie" name="street" type="String"></constructor-arg>
+		<constructor-arg value="12345" name="postcode" type="String"></constructor-arg>
    </bean>
     
 </beans>
