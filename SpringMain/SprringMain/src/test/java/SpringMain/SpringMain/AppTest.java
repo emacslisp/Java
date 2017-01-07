@@ -1,4 +1,4 @@
-package SpringMain.SprringMain;
+package SpringMain.SpringMain;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
