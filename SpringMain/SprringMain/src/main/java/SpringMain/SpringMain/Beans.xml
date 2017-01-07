@@ -6,8 +6,10 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     
   <!-- @example: spring - bean declare and scope such as 'singleton', 'prototype' -->
+  <!-- @example: spring - constructor-arg for constructor of class -->
   <bean id="helloWorld" class="SpringMain.SpringMain.HelloWorld" scope="prototype">
-       <property name="message" value="Hello World!"/>
+       <!-- <property name="message" value="Hello World!"/> -->
+       <constructor-arg value="777"></constructor-arg>
    </bean>
     
 </beans>

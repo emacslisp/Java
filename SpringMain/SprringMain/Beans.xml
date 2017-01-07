@@ -6,7 +6,7 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     
   <bean id="helloWorld" class="SpringMain.Spring.HelloWorld">
-       <property name="message" value="Hello World!"/>
+       <constructor-arg value="777"></constructor-arg>
    </bean>
     
 </beans>
