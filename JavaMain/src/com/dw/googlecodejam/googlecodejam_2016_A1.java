@@ -12,8 +12,8 @@ public class googlecodejam_2016_A1 {
         PrintStream outstream = null;
         
         try{
-            instream = new FileInputStream("1.txt");
-            outstream = new PrintStream("1.out");
+            instream = new FileInputStream("/Users/ewu/1.txt");
+            outstream = new PrintStream("/Users/ewu/1.out");
             System.setIn(instream);
             System.setOut(outstream);
         }
@@ -30,11 +30,11 @@ public class googlecodejam_2016_A1 {
             	String wholeLine = in.nextLine();
             	String[] t = wholeLine.split(" ");
             	//Parse Integer.parse string to int or some other things to go
-                System.out.println(in.nextInt() + " " + in.nextInt());
+                //System.out.println(in.nextInt() + " " + in.nextInt());
             }
         }
 
-        String[] strings = { " Hello ", " This ", "is ", "Sorting ", "Example" };
+        String[] strings = { "Hello ", "This ", "is", "Sorting", "Example" };
         Arrays.sort(strings);
 
         for(int j=0;j<strings.length;j++)
