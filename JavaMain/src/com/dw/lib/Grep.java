@@ -28,6 +28,9 @@ import static java.util.stream.Collectors.toList;
  * </ul>
  *
  */
+
+//@example: Java Grep
+//@todo: make java as command line such as  run "java Grep xx xxx"
 public class Grep {
 
     private static void printUsageAndExit(String... str) {
