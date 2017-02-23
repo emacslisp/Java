@@ -38,6 +38,11 @@
  */
 
 
+/*
+ * @todo: 1. add more function, such as show/hide line number, java/c++ syntax hight light
+ * @todo: 2. resource with zh jp and so on.
+ * 
+ */
 
 import java.awt.*;
 import java.awt.event.*;
