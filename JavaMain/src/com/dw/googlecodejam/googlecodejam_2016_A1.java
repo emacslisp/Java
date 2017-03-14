@@ -12,36 +12,47 @@ public class googlecodejam_2016_A1 {
         PrintStream outstream = null;
         
         try{
-            instream = new FileInputStream("/Users/ewu/1.txt");
-            outstream = new PrintStream("/Users/ewu/1.out");
+            instream = new FileInputStream("/Users/ewu/test/1.txt");
+            outstream = new PrintStream("/Users/ewu/test/1.out");
             System.setIn(instream);
             System.setOut(outstream);
         }
         catch(Exception e){
             System.err.println("Error Occurred");
         }
+        
+        int arraySize = 3000;
+        int array[] = new int[arraySize];
 
         Scanner in = new Scanner(System.in);
-        int T = in.nextInt();
+        int N = in.nextInt();
+        
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < arraySize; j++) {
+				array[j] = 0;
+			}
+			int T = in.nextInt();
 
-        for(;in.hasNext();){
-            for(int j=0;j<T;j++){
-            	
-            	String wholeLine = in.nextLine();
-            	String[] t = wholeLine.split(" ");
-            	//Parse Integer.parse string to int or some other things to go
-                //System.out.println(in.nextInt() + " " + in.nextInt());
-            }
-        }
+			int temp;
+			for (int m = 0; m < 2 * T - 1; m++) {
+				for (int n = 0; n < T; n++) {
+					temp = in.nextInt();
+					array[temp]++;
+				}
+			}
+			
+			System.out.print(String.format("Case #%d: ",(i+1)));
+			 
+			  for(int m=0;m<3000;m++)
+			  {
+				  if(array[m]>0 && array[m]%2==1)
+				  {
+					  System.out.print(String.format("%d ", m));
+				  }
+			  }
+			  System.out.println();
 
-        String[] strings = { "Hello ", "This ", "is", "Sorting", "Example" };
-        Arrays.sort(strings);
-
-        for(int j=0;j<strings.length;j++)
-        System.out.println(strings[j]);
-
-        System.err.println("done.");
-        return;
+		}
 
 	}
 

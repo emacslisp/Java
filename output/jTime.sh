@@ -1,1 +1,1 @@
-java -cp .:./dw-lib.jar com.dw.lib.CurrentDateTime
+java -cp /Users/ewu/dev/Java/output/dw-lib.jar com.dw.lib.CurrentDateTime
