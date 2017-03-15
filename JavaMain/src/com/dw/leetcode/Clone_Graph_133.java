@@ -25,10 +25,11 @@ public class Clone_Graph_133 {
     	
     	
     	
+    	
     	return root;
     }
     
-    public static void foo() {
+    public static void foo(UndirectedGraphNode node, UndirectedGraphNode root, Map<Integer,UndirectedGraphNode> nodeMap, Map<Integer,UndirectedGraphNode> rootMap) {
     	
     }
 
