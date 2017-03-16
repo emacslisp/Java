@@ -20,6 +20,7 @@ public class Clone_Graph_133 {
     	
     	Map<Integer,UndirectedGraphNode> nodeMap = new HashMap<Integer,UndirectedGraphNode>();
     	Map<Integer,UndirectedGraphNode> rootMap = new HashMap<Integer,UndirectedGraphNode>();
+    	Map<Integer,UndirectedGraphNode> visited = new HashMap<Integer,UndirectedGraphNode>();
     	
     	UndirectedGraphNode root = new UndirectedGraphNode(node.label);
     	
