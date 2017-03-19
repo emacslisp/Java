@@ -1,7 +1,7 @@
 package com.dw.leetcode;
 
 
-
+//@example: Leetcode - 492. Construct the Rectangle - https://leetcode.com/problems/construct-the-rectangle/#/description
 public class Construct_the_Rectangle_492 {
 	public static int[] constructRectangle(int area) {
 		int[] result = new int[2];
