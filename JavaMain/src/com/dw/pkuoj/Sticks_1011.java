@@ -30,7 +30,7 @@ public class Sticks_1011 {
 	 * 
 	 * max = findMaxSize(array);
 	 * 
-	 * for(int i=max;i<=sum;i++) {
+	 * for(int i=max+1;i<=sum;i++) {
 	 *    if(sum %i == 0) {
 	 *       
 	 *    }
