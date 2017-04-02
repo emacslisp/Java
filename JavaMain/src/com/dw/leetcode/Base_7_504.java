@@ -1,8 +1,12 @@
 package com.dw.leetcode;
 
 /*
- * 
+ * a = n%7;
+
+n = (n-n%7)/7
  * */
+
+//@example: Leetcode - 504 Base_7 - https://leetcode.com/problems/base-7/#/description
 public class Base_7_504 {
 
 	public static String revert(String s)
