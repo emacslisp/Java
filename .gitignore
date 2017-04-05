@@ -6,6 +6,7 @@
 # Package Files #
 *.jar
 !output/*.jar
+!JavaMain/third-party/*.jar
 *.war
 *.ear
 
