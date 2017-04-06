@@ -9,6 +9,8 @@ public class jsoupTest {
 	
 	public static void printByClass(Document doc, String className) {
 		Elements e = doc.getElementsByClass(className);
+		String output = e.toString();
+		if(output.equals("")) return;
 		
 		System.out.println(jtidyTest.html2text(e.toString()));
 	}
@@ -20,6 +22,8 @@ public class jsoupTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
+			args = new String[1];
+			args[0] = "emacs";
 			
 			if(args.length <= 0) {
 				printUsage();
@@ -37,7 +41,7 @@ public class jsoupTest {
 					"layout nfo",
 					"layout nwd"
 					};
-			
+
 			for (int i = 0; i < args.length; i++) {
 				System.out.println(String.format("%s: ", args[i]));
 
