@@ -1,1 +1,3 @@
-java -cp .:./dw-lib-test.jar:./jsoup-1.10.2.jar com.dw.lib.test.jsoupTest $@
+NAME="$(dirname `which $0`)"
+
+java -cp $NAME/dw-lib-test.jar:$NAME/jsoup-1.10.2.jar com.dw.lib.test.jsoupTest $@

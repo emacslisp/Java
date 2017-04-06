@@ -14,7 +14,7 @@ public class jsoupTest {
 	}
 	
 	public static void printUsage() {
-		
+		System.out.println("jdict [word list]");
 	}
 	
 	public static void main(String[] args) {
