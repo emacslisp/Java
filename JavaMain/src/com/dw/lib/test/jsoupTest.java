@@ -22,8 +22,6 @@ public class jsoupTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			args = new String[1];
-			args[0] = "emacs";
 			
 			if(args.length <= 0) {
 				printUsage();
