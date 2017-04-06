@@ -41,7 +41,7 @@ public class jtidyTest {
 		tidy.setShowErrors(0);
 		tidy.setMakeClean(true);
 		try {
-			String search = "stub";
+			String search = "juncture";
 			URL urlObj = new URL("http://www.dict.org/bin/Dict?Form=Dict1&Query=" + search + "&Strategy=*&Database=*");
 			URLConnection con = urlObj.openConnection();
 
@@ -51,6 +51,8 @@ public class jtidyTest {
 			Document document = tidy.parseDOM(con.getInputStream(), null);
 
 			Node e = document.getElementsByTagName("form").item(0);
+			
+			
 
 			e.getParentNode().removeChild(e);
 
@@ -59,10 +61,8 @@ public class jtidyTest {
 			// System.out.println(document.toString());
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
