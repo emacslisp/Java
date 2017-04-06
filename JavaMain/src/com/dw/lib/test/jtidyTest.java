@@ -12,20 +12,24 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.tidy.Tidy;
 
 public class jtidyTest {
 
-	public static final void prettyPrint(Document xml) throws Exception {
+	public static final String prettyPrint(Document xml) throws Exception {
 		Transformer tf = TransformerFactory.newInstance().newTransformer();
 		tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		tf.setOutputProperty(OutputKeys.INDENT, "yes");
 		Writer out = new StringWriter();
 		tf.transform(new DOMSource(xml), new StreamResult(out));
-		System.out.println(out.toString());
+		return (out.toString());
+	}
+	
+	public static String html2text(String html) {
+	    return Jsoup.parse(html).text();
 	}
 
 	public static void main(String[] args) {
@@ -51,7 +55,7 @@ public class jtidyTest {
 			e.getParentNode().removeChild(e);
 
 			document.normalize();
-			prettyPrint(document);
+			System.out.println(html2text(prettyPrint(document)));
 			// System.out.println(document.toString());
 
 		} catch (IOException e) {
