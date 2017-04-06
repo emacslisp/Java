@@ -1,0 +1,1 @@
+java -cp .:./dw-lib-test.jar:./jsoup-1.10.2.jar com.dw.lib.test.jsoupTest $@
