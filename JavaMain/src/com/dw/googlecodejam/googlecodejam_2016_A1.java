@@ -12,8 +12,8 @@ public class googlecodejam_2016_A1 {
         PrintStream outstream = null;
         
         try{
-            instream = new FileInputStream("/Users/ewu/test/1.txt");
-            outstream = new PrintStream("/Users/ewu/test/1.out");
+            instream = new FileInputStream("D:/test/1.txt");
+            outstream = new PrintStream("D:/test/1.out");
             System.setIn(instream);
             System.setOut(outstream);
         }
