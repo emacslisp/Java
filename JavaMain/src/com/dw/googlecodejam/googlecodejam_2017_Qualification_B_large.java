@@ -38,18 +38,39 @@ public class googlecodejam_2017_Qualification_B_large {
         	}
         	else
         	{
-        		String output = "";
-        		for(int k=0;k<line.length()-2;k++){
-        			output+="9";
-        		}
-        		StringBuilder builder = new StringBuilder();
-        		builder.append(line.charAt(0)).append(line.charAt(1));
-        		int start = Integer.parseInt(builder.toString());
-        		start = foo(start - 1);
+        		int index = 0; 
         		
-        		System.out.print(start);
-        		System.out.print(output);
-        		System.out.println();
+        		StringBuilder builder = new StringBuilder();
+        		int mode = 0;
+				for (int k = 1; k < line.length(); k++) {
+						if (line.charAt(index) < line.charAt(k)) {
+							index = k;
+							continue;
+						} else if (line.charAt(index) > line.charAt(k)) {
+							mode = 1;
+							break;
+						} else if (line.charAt(index) == line.charAt(k)) {
+							continue;
+						}
+				}
+				
+				if (mode == 1) {
+					for (int k = 0; k < index; k++) {
+						builder.append(line.charAt(k));
+					}
+					
+					int start = (line.charAt(index) - '0') - 1;
+					
+					if(start > 0)
+						builder.append(start);
+					
+					for (int k = index + 1; k < line.length(); k++) {
+						builder.append("9");
+					}
+				}
+				
+				
+        		System.out.println(mode == 0? line: builder.toString());
         	}
         }
 		
