@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+      <servlet>
+        <servlet-name>token</servlet-name>
+        <servlet-class>com.oauth2.OAuth2TokenEndpoint</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>token</servlet-name>
+        <url-pattern>/token</url-pattern>
+    </servlet-mapping>
+  
+  
 </web-app>
