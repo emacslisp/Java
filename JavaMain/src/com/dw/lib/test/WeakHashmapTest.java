@@ -1,11 +1,18 @@
 package com.dw.lib.test;
 
 import java.util.IdentityHashMap;
+import java.util.UUID;
 import java.util.WeakHashMap;
 
 public class WeakHashmapTest {
 
 	public static void main(String[] args) {
+		
+		UUID uuid = UUID.randomUUID();
+		String accessToken = uuid.toString();
+		
+		System.out.println(accessToken);
+		
 		WeakHashMap<Integer, Student> map = new WeakHashMap<>();
 		Student s1 = new Student(12345, "John", "Smith");
 		Student s2 = new Student(24680, "Jane", "Smith");
