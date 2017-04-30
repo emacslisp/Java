@@ -2,6 +2,8 @@ package com.oauth2;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +41,20 @@ public class OAuth2TokenEndpoint extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath()).append("<br/>\n");
+		Map<String, String[]> parameters = request.getParameterMap();
+		StringBuilder sb = new StringBuilder();
+		for (String parameter : parameters.keySet()) {
+			String[] values = parameters.get(parameter);
+			// your code here
+			sb.append(String.format("%s %s\n", parameter, values[0]));
+		}
+
+		PrintWriter pw = response.getWriter();
+		pw.print(sb.toString());
+		// System.out.println(r.getBody());
+		pw.flush();
+		pw.close();
 	}
 
 	/**
