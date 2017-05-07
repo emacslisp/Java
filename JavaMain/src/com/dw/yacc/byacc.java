@@ -9,6 +9,7 @@ public class byacc {
 		/*
 		 * open source file
 		 * create action_file and text_file
+		 * y.tab.c
 		 */
 		
 	}
