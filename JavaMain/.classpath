@@ -8,5 +8,10 @@
 	<classpathentry kind="lib" path="third-party/jsoup-1.10.2.jar"/>
 	<classpathentry kind="lib" path="third-party/log4j-api-2.8.2.jar"/>
 	<classpathentry kind="lib" path="third-party/log4j-core-2.8.2.jar"/>
+	<classpathentry kind="lib" path="/Users/ewu/dev/Java/JavaMain/third-party/ftpserver-core-1.1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/ewu/dev/Java/JavaMain/third-party/ftplet-api-1.1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/ewu/dev/Java/JavaMain/third-party/mina-core-2.0.16.jar"/>
+	<classpathentry kind="lib" path="/Users/ewu/dev/Java/JavaMain/third-party/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="/Users/ewu/dev/Java/JavaMain/third-party/slf4j-log4j12-1.7.21.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
