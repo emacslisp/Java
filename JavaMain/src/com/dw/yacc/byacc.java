@@ -6,7 +6,11 @@ public class byacc {
 		int SRexpect = -1;
 		int RRexpect = -1;
 		
-		
+		/*
+		 * open source file
+		 * create action_file and text_file
+		 * y.tab.c
+		 */
 		
 	}
 }
