@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="third-party/mina-core-2.0.16.jar"/>
 	<classpathentry kind="lib" path="third-party/slf4j-api-1.7.21.jar"/>
 	<classpathentry kind="lib" path="third-party/slf4j-log4j12-1.7.21.jar"/>
+	<classpathentry kind="lib" path="third-party/bcprov-jdk15on-157.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
