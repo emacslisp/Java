@@ -5,25 +5,31 @@ import java.util.regex.Pattern;
 
 public class DefunCounter {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		// TODO Auto-generated method stub
-		String FILENAME = "/Users/ewu/workspace/c/my-vps/main/lisp/lang/java-mode/java-snippet.el";
+		String[] FILENAME = { "/path/to/lisp.el" };
 		try {
-			
-		BufferedReader br = new BufferedReader(new FileReader(FILENAME));
-		int counter = 0;
-			String sCurrentLine;
-	           Pattern pattern =
-	                   Pattern.compile("\\(defun .*");
+			int total = 0;
+			for (int i = 0; i < FILENAME.length; i++) {
+				BufferedReader br = new BufferedReader(new FileReader(FILENAME[i]));
+				int counter = 0;
+				String sCurrentLine;
+				Pattern pattern = Pattern.compile("\\(defun .*");
 
-			while ((sCurrentLine = br.readLine()) != null) {
-				//System.out.println(sCurrentLine);
+				while ((sCurrentLine = br.readLine()) != null) {
+					// System.out.println(sCurrentLine);
+
+					if (pattern.matcher(sCurrentLine).find())
+						counter++;
+
+				}
+				br.close();
+				total += counter;
 				
-				if(pattern.matcher(sCurrentLine).find())
-					counter++;
-				
+				System.out.println(FILENAME[i] + "\t" + counter);
 			}
-			System.out.println(counter);
+			System.out.println("Total " + total);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
