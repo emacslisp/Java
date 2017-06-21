@@ -6,7 +6,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
+/*
+ * String outputFolderPath = "/path/to/download";
+String fileNameBase = getFileNameFromURL();
+long size = getFileSize();
+int threadNumber = 5;
 
+String[] fileName = new String();
+long start = 0;
+long step = size/5;
+long end = size/5;
+
+for(int i=0;i< threadNumber;i++) {
+    fileName[i] = fileNameBase + i + ".tmp";
+    Thread t = new Thread(downloadByRange(start,end));
+    t.start();
+    start = end + 1;
+    end += step;
+}
+
+merge(fileName);
+
+ * */
 public class TestDownloader {
 	public static void main(String[] args) {
 	    int len = 0;
