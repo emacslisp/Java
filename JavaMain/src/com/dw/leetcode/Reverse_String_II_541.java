@@ -32,6 +32,8 @@ return new String(A);
 
 public class Reverse_String_II_541 {
 	public static char[] array;
+	
+	//revert a string, array[start] <-> array[end] 
 	public static void revert(int start, int end) {
 
 		
