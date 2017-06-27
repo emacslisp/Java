@@ -38,12 +38,12 @@ public class Number_of_Islands_200 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		/*char[][] grid = {{'1','1','1','1','0'},
+		char[][] grid = {{'1','1','1','1','0'},
 				{'1','1','0','1','0'},
 				{'1','1','0','0','0'},
-				{'0','0','0','0','0'}};*/
+				{'0','0','0','0','0'}};
 		
-		char[][] grid = {};
+		/*char[][] grid = {};*/
 		
 		Number_of_Islands_200 s = new Number_of_Islands_200();
 		
