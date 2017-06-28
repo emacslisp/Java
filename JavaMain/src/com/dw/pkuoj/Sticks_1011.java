@@ -130,6 +130,10 @@ public class Sticks_1011 {
 	
 	public static int[] boolArray = new int[100];
 	
+	public static int totalLen = 0;
+	public static int totalPart = 0;
+	public static boolean isFull = false;
+	
 	public static void reverse(int[] array) {
 	    for(int i=0;i<=array.length/2-1;i++) {
 	        int temp = array[i];
@@ -182,10 +186,15 @@ public class Sticks_1011 {
             		break;
             	}
             	if(sum%i == 0) {
+            		isFull = false;
+            		totalPart = sum/i;
+            		totalLen = i;
             		for(int k=0;k<boolArray.length;k++) {
             			boolArray[k] = 0;
             		}
-            		if(checkValid(array,i,0,0)) {
+            		
+            		checkValid(array,i,0,totalPart);
+            		if(isFull) {
             			System.out.println(i);
             			break;
             		}
@@ -195,30 +204,42 @@ public class Sticks_1011 {
 		
 	}
 	
-	public static boolean checkValid(int array[], int remainLen,int startIndex,int level) {
-		
+	public static boolean checkValid(int array[], int remainLen,int startIndex,int remainPart) {
+		if(isFull) return isFull;
+		//System.out.println("xixi");
 		for(int i=startIndex;i<array.length;i++) {
+			if(isFull) return isFull;
 			if(boolArray[i] == 1) continue;
 			
 			if(remainLen > array[i]) {
 				boolArray[i] = 1;
-				if(checkValid(array,remainLen - array[i],i, level + 1) == false)
-					return false;
-				
-				if(level > 0) return true;
+				if(checkValid(array,remainLen - array[i],i, remainPart) == false) {
+					boolArray[i] = 0;
+					if(remainLen == totalLen) 
+						return false; 
+					
+					continue;
+				}
+				return true;
 			}
 			else if(remainLen == array[i]) {
 				boolArray[i] = 1;
-				return true;
+				remainPart -=1;
+				
+				if(remainPart == 0) {
+					isFull = true;
+					return true;
+				}
+				
+				if(checkValid(array,totalLen, 0 , remainPart) == false) {
+					boolArray[i] = 0;
+					remainPart += 1;
+					if(remainLen == totalLen)
+						return false; 
+					
+					continue;
+				}
 			}
-		}
-		
-		if(level == 0) {
-			for(int i=0;i<array.length;i++)
-				if(boolArray[i] == 0)
-					return false;
-			
-			return true;
 		}
 		
 		return false;
