@@ -72,7 +72,7 @@ public class Notepad2 extends JPanel {
 	static {
 		try {
 			properties = new Properties();
-			properties.load(Notepad2.class.getClassLoader().getResourceAsStream("resources/Notepad.properties"));
+			properties.load(Notepad2.class.getClassLoader().getResourceAsStream("resources/NotepadSystem.properties"));
 			resources = ResourceBundle.getBundle("resources.Notepad", Locale.getDefault());
 		} catch (MissingResourceException | IOException e) {
 			System.err.println("resources/Notepad.properties " + "or resources/NotepadSystem.properties not found");
@@ -623,7 +623,7 @@ public class Notepad2 extends JPanel {
 	{
 		String name = getResourceString(key);
 		if (name != null) {
-			return this.getClass().getResource(name);
+			return Notepad2.class.getClassLoader().getResource(name);
 		}
 		return null;
 	}
