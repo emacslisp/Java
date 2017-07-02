@@ -115,12 +115,122 @@ public class Notepad2 extends JPanel {
 		// Add this as a listener for undoable edits.
 		editor.getDocument().addUndoableEditListener(undoHandler);
 		
+		
+		
 		// install the command table
 		commands = new HashMap<Object, Action>();
 		Action[] actions = getActions();
 		for (Action a : actions) {
 			commands.put(a.getValue(Action.NAME), a);
 		}
+		
+		JScrollPane scroller = new JScrollPane();
+		JViewport port = scroller.getViewport();
+		port.add(editor);
+		
+		String vpFlag = getProperty("ViewportBackingStore");
+		if (vpFlag != null) {
+			Boolean bs = Boolean.valueOf(vpFlag);
+			port.setScrollMode(bs ? JViewport.BACKINGSTORE_SCROLL_MODE : JViewport.BLIT_SCROLL_MODE);
+		}
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.add("North", createToolbar());
+		panel.add("Center", scroller);
+		add("Center", panel);
+		add("South", createStatusbar());
+		
+	}
+	
+	class StatusBar extends JComponent {
+
+		public StatusBar() {
+			super();
+			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		}
+
+		@Override
+		public void paint(Graphics g)
+		{Thread.dumpStack();
+			super.paint(g);
+		}
+	}
+	
+	/**
+	 * Create a status bar
+	 */
+	protected Component createStatusbar()
+	{Thread.dumpStack();
+		// need to do something reasonable here
+		status = new StatusBar();
+		return status;
+	}
+	
+	/**
+	 * Create the toolbar. By default this reads the resource file for the
+	 * definition of the toolbar.
+	 */
+	private Component createToolbar()
+	{
+		toolbar = new JToolBar();
+		for (String toolKey : getToolBarKeys()) {
+			if (toolKey.equals("-")) {
+				toolbar.add(Box.createHorizontalStrut(5));
+			} else {
+				toolbar.add(createTool(toolKey));
+			}
+		}
+		toolbar.add(Box.createHorizontalGlue());
+		return toolbar;
+	}
+	
+	protected String[] getToolBarKeys()
+	{
+		return TOOLBAR_KEYS;
+	}
+	
+	/**
+	 * Hook through which every toolbar item is created.
+	 */
+	protected Component createTool(String key)
+	{Thread.dumpStack();
+		return createToolbarButton(key);
+	}
+	
+
+	protected JButton createToolbarButton(String key)
+	{Thread.dumpStack();
+		URL url = getResource(key + imageSuffix);
+		JButton b = new JButton(new ImageIcon(url)) {
+
+			@Override
+			public float getAlignmentY()
+			{Thread.dumpStack();
+				return 0.5f;
+			}
+		};
+		b.setRequestFocusEnabled(false);
+		b.setMargin(new Insets(1, 1, 1, 1));
+
+		String astr = getProperty(key + actionSuffix);
+		if (astr == null) {
+			astr = key;
+		}
+		Action a = getAction(astr);
+		if (a != null) {
+			b.setActionCommand(astr);
+			b.addActionListener(a);
+		} else {
+			b.setEnabled(false);
+		}
+
+		String tip = getResourceString(key + tipSuffix);
+		if (tip != null) {
+			b.setToolTipText(tip);
+		}
+
+		return b;
 	}
 	
 	/**
