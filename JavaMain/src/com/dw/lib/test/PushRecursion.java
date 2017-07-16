@@ -9,13 +9,14 @@ public class PushRecursion {
 	public void foo(int c, int[] array, int index) {
 		if(index == array.length - 1) {
 			array[array.length - 1 - index] = c;
+			return;
 		}
 		
 		foo(array[index+1],array,index+1);
 		array[array.length - 1 - index] = c;
 	}
 	
-	public static void print(String s) {
+	public static void main(String[] args) {
 		int[] array = {1,2,3,4,5};
 		PushRecursion pushRecursion = new PushRecursion();
 		int[] t = pushRecursion.reverseArray(array);
