@@ -14,5 +14,7 @@
 	<classpathentry kind="lib" path="third-party/slf4j-api-1.7.21.jar"/>
 	<classpathentry kind="lib" path="third-party/slf4j-log4j12-1.7.21.jar"/>
 	<classpathentry kind="lib" path="third-party/bcprov-jdk15on-157.jar"/>
+	<classpathentry kind="lib" path="third-party/commons-dbutils-1.7-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="third-party/mysql-connector-java-5.1.42-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
