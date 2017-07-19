@@ -17,3 +17,7 @@ hs_err_pid*
 .recommenders
 
 !TomcatServlet/third-party/*
+
+#ignore eclipse workspace
+eclipse_workspace
+eclipse-workspace
