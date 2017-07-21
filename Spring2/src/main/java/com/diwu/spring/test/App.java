@@ -9,15 +9,19 @@ public class App {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		ApplicationContext context = new FileSystemXmlApplicationContext("beans.xml");
+		/*ApplicationContext context = new FileSystemXmlApplicationContext("beans.xml");
 		Person person = (Person)context.getBean("person");
 		
 		
 		person.speak();
-		((FileSystemXmlApplicationContext)context).close();
-		context = new ClassPathXmlApplicationContext("com/diwu/spring/test/beans/beans.xml");
+		((FileSystemXmlApplicationContext)context).close();*/
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("com/diwu/spring/test/beans/beans.xml");
 		Person person2 = (Person)context.getBean("person");
 		person2.speak();
+		
+		System.out.println(person2);
+		
 		((ClassPathXmlApplicationContext)context).close();
 	}
 
