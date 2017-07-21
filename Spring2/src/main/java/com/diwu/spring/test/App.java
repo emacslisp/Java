@@ -18,6 +18,9 @@ public class App {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/diwu/spring/test/beans/beans.xml");
 		Person person2 = (Person)context.getBean("person");
+
+		
+		//Address address = (Address)context.getBean("address");
 		person2.speak();
 		
 		System.out.println(person2);

@@ -8,7 +8,15 @@ public class Person {
 	
 	private int taxId;
 	
+	private Address address;
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	public Person() {
 		
@@ -16,7 +24,7 @@ public class Person {
 	
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", name=" + name + ", taxId=" + taxId + "]";
+		return "Person [id=" + id + ", name=" + name + ", taxId=" + taxId + ", address=" + address + "]";
 	}
 	
 	public int getTaxId() {
