@@ -9,6 +9,14 @@ public class Address {
 		return "Address [street=" + street + ", postcode=" + postcode + "]";
 	}
 
+	public void init() {
+		System.out.println("Address init.");
+	}
+	
+	public void destroy() {
+		System.out.println("Address destroy.");
+	}
+	
 	public Address(String street, String postcode) {
 		this.street = street;
 		this.postcode = postcode;
