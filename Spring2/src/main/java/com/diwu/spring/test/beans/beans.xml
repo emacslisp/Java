@@ -5,7 +5,7 @@
 
 
 	<bean id="person" class="com.diwu.spring.test.Person"
-		scope="prototype">
+		scope="prototype" init-method="onCreate" destroy-method="onDestroy">
 		<constructor-arg value="777" name="id" type="int"></constructor-arg>
 		<constructor-arg value="Mary" name="name" type="String"></constructor-arg>
 		<property name="taxId" value="11111"></property>
