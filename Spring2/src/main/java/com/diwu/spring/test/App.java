@@ -29,6 +29,9 @@ public class App {
 		
 		System.out.println(person3);
 		
+		Address address2 = (Address)context.getBean("address2");
+		System.out.println("address2 " + address2);
+		
 		((ClassPathXmlApplicationContext)context).close();
 	}
 
