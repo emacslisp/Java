@@ -13,6 +13,12 @@ public class Person {
 	public Address getAddress() {
 		return address;
 	}
+	
+	
+	public static Person getInstance(int id, String name) {
+		System.out.println("Creating Person using factory method.");
+		return new Person(id,name);
+	}
 
 	public void setAddress(Address address) {
 		this.address = address;
