@@ -1,5 +1,10 @@
 package com.dw.leetcode;
 
+/*
+ * nothing special in this problem
+ * 
+ * only remember input 1+0i, or 1+-1i is input and output format
+ */
 public class Complex_Number_Multiplication_537 {
 	
 	private class Complex {
