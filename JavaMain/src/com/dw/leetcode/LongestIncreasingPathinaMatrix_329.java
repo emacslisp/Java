@@ -1,5 +1,19 @@
 package com.dw.leetcode;
 
+/*
+ * idea: 
+ * 
+ *       o
+ *       ^
+ *       |
+ * o <-- A --> o
+ *       |
+ *       v
+ *       o
+ *       
+ * A will compare with four direction. 
+ * the way to prevent revert-back-recursive     
+ */
 public class LongestIncreasingPathinaMatrix_329 {
 	public int longestIncreasingPath(int[][] matrix) {
 		if(matrix.length == 0) return 0;
