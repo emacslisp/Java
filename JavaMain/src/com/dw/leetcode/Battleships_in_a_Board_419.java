@@ -1,5 +1,10 @@
 package com.dw.leetcode;
 
+/*
+ * idea: input assume that all battleship having space between them
+ * 
+ * so count top left array will be number of ship.
+ */
 public class Battleships_in_a_Board_419 {
 	
     public int countBattleships(char[][] board) {
