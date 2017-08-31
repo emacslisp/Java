@@ -15,11 +15,19 @@ public class SplitPath {
 			BufferedReader br = new BufferedReader(new FileReader(FILENAME));
 
 			String sCurrentLine;
-
+			int counter = 0;
 			while ((sCurrentLine = br.readLine()) != null) {
 				//System.out.println(sCurrentLine);
 				String[] str = sCurrentLine.split("/");
-				System.out.println(str[str.length - 1] + ":.");
+				System.out.println("br s -f " + str[str.length - 1] + " --match-declaration-file --func-regex .*");
+				counter++;
+			}
+			
+			for(int i=1;i<=counter;i++) {
+				System.out.println("br com add " + i);
+				System.out.println("bt");
+				System.out.println("continue");
+				System.out.println("DONE");
 			}
 
 		} catch (IOException e) {
