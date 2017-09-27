@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="third-party/commons-dbutils-1.7-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="third-party/mysql-connector-java-5.1.42-bin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="third-party/log4j-1.2.17.jar" sourcepath="/Users/ewu/dev/log4j/apache-log4j-1.2.17/dist/lib/log4j-1.2.17-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
