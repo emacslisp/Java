@@ -1,11 +1,15 @@
 package com.dw.leetcode;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.util.*;
+
+import org.w3c.dom.NamedNodeMap;
 
 //@todo: finish clone graph with 133
 
 public class Clone_Graph_133 {
-	static class UndirectedGraphNode {
+	class UndirectedGraphNode {
 		int label;
 		List<UndirectedGraphNode> neighbors;
 
@@ -13,25 +17,29 @@ public class Clone_Graph_133 {
 			label = x;
 			neighbors = new ArrayList<UndirectedGraphNode>();
 		}
-	};
+	}
 	
-    public static UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-    	if(node == null) return null;
-    	
-    	Map<Integer,UndirectedGraphNode> nodeMap = new HashMap<Integer,UndirectedGraphNode>();
-    	Map<Integer,UndirectedGraphNode> rootMap = new HashMap<Integer,UndirectedGraphNode>();
-    	Map<Integer,UndirectedGraphNode> visited = new HashMap<Integer,UndirectedGraphNode>();
-    	
-    	UndirectedGraphNode root = new UndirectedGraphNode(node.label);
-    	
-    	
-    	
-    	
-    	return root;
+	private Map<Integer,UndirectedGraphNode> nodeMap = new HashMap<Integer,UndirectedGraphNode>();
+	
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+    	return clone(node);
     }
     
-    public static void foo(UndirectedGraphNode node, UndirectedGraphNode root, Map<Integer,UndirectedGraphNode> nodeMap, Map<Integer,UndirectedGraphNode> rootMap) {
+    public UndirectedGraphNode clone(UndirectedGraphNode node) {
+    	if(node == null) return null;
     	
+    	if(nodeMap.containsKey(node.label)) {
+    		return nodeMap.get(node.label);
+    	}
+    	
+    	UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+    	nodeMap.put(node.label, newNode);
+    	
+    	for(UndirectedGraphNode n: node.neighbors) {
+    		newNode.neighbors.add(clone(n));
+    	}
+    	
+    	return newNode;
     }
 
 	public static void main(String[] args) {
