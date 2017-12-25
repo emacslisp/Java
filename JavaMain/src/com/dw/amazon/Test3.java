@@ -24,9 +24,9 @@ public class Test3 {
 		s.queue(5);
 		
 		for(int i=0;i<220;i++) { 
-			firstElement = s.dequeue();
-			System.out.println(firstElement);
-			s.queue(i+100);
+			Integer temp = s.dequeue();
+			System.out.println(temp);
+			//s.queue(i+100);
 		}		
 	}
 	
