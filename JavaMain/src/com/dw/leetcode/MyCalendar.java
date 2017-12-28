@@ -1,37 +1,72 @@
 package com.dw.leetcode;
 
 public class MyCalendar {
-	IntervalTree root = null;
+	public static class IntervalTree {
+		public int start;
+		public int end;
+		
+		IntervalTree left;
+		IntervalTree right;
+		
+		public IntervalTree() {
+			
+		}
+		
+		public IntervalTree(int start,int end) {
+			this.start = start;
+			this.end = end;
+		}
+	}
+	IntervalTree root;
+	IntervalTree current;
     public MyCalendar() {
-        
+        root = null;
+        current = root;
     }
     
     public boolean book(int start, int end) {
-        return foo(root, new IntervalTree(start,end));
+    	current = root;
+        return foo(new IntervalTree(start,end));
     }
     
-    public boolean foo(IntervalTree root,IntervalTree target) {
+    public boolean foo(IntervalTree target) {
     	if(root == null) {
-        	root = new IntervalTree(target.start,target.end);
+    		root = new IntervalTree(target.start,target.end);
         	return true;
         }
     	
-    	if(root.start >= target.end) {
-    		return foo(root.left, target);
+    	if(current == null) {
+    		current = new IntervalTree(target.start,target.end);
+        	return true;
+        }
+    	
+    	if(current.start >= target.end) {
+    		if(current.left == null) {
+    			current.left = new IntervalTree(target.start,target.end);
+    			return true;
+    		}
+    		
+    		current = current.left;
+    		return foo(target);
     	}
-    	else if(root.end <= target.start) {
-    		return foo(root.right, target);
+    	else if(current.end <= target.start) {
+    		if(current.right == null) {
+    			current.right = new IntervalTree(target.start,target.end);
+    			return true;
+    		}
+    		current = current.right;
+    		return foo(target);
     	}
-    	else if(root.start>=target.start && root.end<=target.end) {
+    	else if(current.start>=target.start && current.end<=target.end) {
     		return false;
     	}
-    	else if(root.start<=target.start && root.end>=target.end) {
+    	else if(current.start<=target.start && current.end>=target.end) {
     		return false;
     	}
-    	else if(root.start>=target.start && root.start<=target.end) {
+    	else if(current.start>=target.start && current.start<=target.end) {
     		return false;
     	}
-    	else if(root.end>=target.start && root.end<=target.end) {
+    	else if(current.end>=target.start && current.end<=target.end) {
     		return false;
     	}
     	
