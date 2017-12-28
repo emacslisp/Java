@@ -3,7 +3,17 @@ package com.dw.amazon;
 //Test amazon sdk code
 public class test4 {
 
-	
+	/*
+	 * 
+	 * ----------------
+	 *                 ^
+	 *                 | start/end
+	 * ----------------
+	 * ^               ^
+	 * |start          | end
+	 *                 
+	 *               
+	 * */
 	int[] array = new int[20];
 	int start = array.length;
 	
