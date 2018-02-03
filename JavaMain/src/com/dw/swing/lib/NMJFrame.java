@@ -10,12 +10,14 @@ public class NMJFrame extends JFrame {
 	
 	public NMJFrame(String title) {
 		super();
+		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500,500);
 	}
 
 	public NMJFrame(String title, int height, int width) {
 		super();
+		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(height, width);
 	}
