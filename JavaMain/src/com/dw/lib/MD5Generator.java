@@ -1,5 +1,7 @@
 package com.dw.lib;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.util.UUID;
 
@@ -32,6 +34,18 @@ public class MD5Generator {
 			return toHexString(messageDigest);
 		} catch (Exception e) {
 			throw new Exception("OAuth Token cannot be generated.", e);
+		}
+	}
+	
+	public String generateFileValue(String filePath) throws Exception {
+		try {
+			MessageDigest algorithm = MessageDigest.getInstance("MD5");
+			algorithm.reset();
+			algorithm.update(Files.readAllBytes(Paths.get(filePath)));
+			byte[] messageDigest = algorithm.digest();
+			return toHexString(messageDigest);
+		} catch (Exception e) {
+			throw new Exception("Generate MD5 of file show exceptions: ", e);
 		}
 	}
 }
