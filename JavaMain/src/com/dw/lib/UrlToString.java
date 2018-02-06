@@ -8,11 +8,11 @@ public class UrlToString {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String result = getUrlAsString("http://www.baidu.com");
+		String result = getUrlAsHtmlString("http://www.baidu.com");
 		System.out.println(result);
 	}
 	
-	public static String getUrlAsString(String url)
+	public static String getUrlAsHtmlString(String url)
 	{
 	    try
 	    {

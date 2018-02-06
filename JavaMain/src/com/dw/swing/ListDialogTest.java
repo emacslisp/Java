@@ -13,13 +13,7 @@ public class ListDialogTest {
     	frame.setVisible(true);
     	final JButton button = new JButton("Pick a new name...");
     	 String[] choices = {"A", "long", "array", "of", "strings"};
-    	    String selectedName = ListDialog.showDialog(
-    	    		frame,
-    	                                locatorComponent,
-    	                                "A description of the list:",
-    	                                "Dialog Title",
-    	                                choices,
-    	                                choices[0]);
+    	 
     }
 
 
