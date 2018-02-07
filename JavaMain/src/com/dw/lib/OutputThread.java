@@ -29,7 +29,7 @@ public class OutputThread implements Runnable {
         
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) {
         final Object lock = new Object();
         
         Thread thread1 = new Thread(new OutputThread(1,lock));
