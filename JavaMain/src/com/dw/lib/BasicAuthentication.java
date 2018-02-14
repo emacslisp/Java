@@ -27,5 +27,17 @@ public class BasicAuthentication {
 		//System.out.println("Base64 encoded auth string: " + authStringEnc);
 		return authStringEnc;
 	}
+	
+	public boolean auth(String username,String password, String dbUsername, String dbPassword, String salt) throws Exception {
+		
+		MD5Generator generator = new MD5Generator();
+		if(username != dbUsername) return false;
+		
+		if(generator.generateValue(password + salt) != dbPassword) {
+			return false;
+		}
+		
+		return true;
+	}
 
 }
