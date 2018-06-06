@@ -12,4 +12,9 @@ public class TimeStringToDate {
 		
 		System.out.println(String.format("%s-%s-%s", dt.getDayOfMonth(), dt.getMonthValue(), dt.getYear()));
 	}
+	
+	public LocalDateTime convertStrToDateTime(String strTime) {
+		LocalDateTime dt = LocalDateTime.parse(strTime);
+		return dt;
+	}
 }
