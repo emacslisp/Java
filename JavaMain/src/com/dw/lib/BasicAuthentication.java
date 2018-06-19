@@ -19,6 +19,14 @@ public class BasicAuthentication {
 		System.out.println("Base64 encoded auth string: " + authStringEnc);
 	}
 	
+	public static String base64Generator(String input) {
+		if(input == null) return "";
+		
+		byte[] authEncBytes = Base64.getEncoder().encode(input.getBytes());
+		String authStringEnc = new String(authEncBytes);
+		return authStringEnc;
+	}
+	
 	public static String GetBase64AuthCode(String username,String password)	{
 		String authString = username + ":" + password;
 		System.out.println("auth string: " + authString);

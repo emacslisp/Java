@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Permutations {
 	
 	private ArrayList<String> aList = new ArrayList<String>();
-	 /**
+	/**
      * permutation function
      * @param str string to calculate permutation for
      * @param l starting index

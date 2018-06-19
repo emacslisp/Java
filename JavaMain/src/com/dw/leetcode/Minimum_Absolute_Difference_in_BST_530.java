@@ -1,11 +1,11 @@
 package com.dw.leetcode;
 
-class TreeNode {
-	
-}
+
 
 public class Minimum_Absolute_Difference_in_BST_530 {
-
+	class TreeNode {
+		
+	}
 	public int getMinimumDifference(TreeNode root) {
         return 0;
     }
