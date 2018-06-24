@@ -17,6 +17,6 @@ public class JsonOp {
 	
 	public void FormatJson(String inputfile, String outputFile) throws IOException {
 		FileUtils fileUtils = new FileUtils();
-		fileUtils.stringToFile(fileUtils.fileToString(inputfile),outputFile);
+		fileUtils.stringToFile(JsonFormater(fileUtils.fileToString(inputfile)),outputFile);
 	}
 }

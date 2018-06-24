@@ -50,7 +50,7 @@ public class FileUtils {
 	//get list of Path
 	public static List<Path> listFiles(String rootDirectory)
 	{
-	    List<Path> files = new ArrayList<>();
+	    List<Path> files = new ArrayList<Path>();
 	    listFiles(rootDirectory, files);
 
 	    return files;
