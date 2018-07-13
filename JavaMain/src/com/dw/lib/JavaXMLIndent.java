@@ -12,9 +12,6 @@ import javax.xml.transform.stream.StreamSource;
 
 public class JavaXMLIndent {
 
-
-	
-
 	public static String prettyFormat(String input) {
 	    return prettyFormat(input, "2");
 	}

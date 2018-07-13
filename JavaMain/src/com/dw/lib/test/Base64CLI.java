@@ -12,6 +12,7 @@ public class Base64CLI {
 			System.out.println("  <arg1_base64_hash>");
 			System.out.println("  <arg2_base64_hash>");
 			System.out.println("...");
+			return;
 		}
 		
 		for(String s: args) {

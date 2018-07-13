@@ -34,7 +34,7 @@ public class FileUtils {
 	public void stringToFile(String content, String filePath) throws IOException {
 		BufferedWriter writer = null;
 		writer = new BufferedWriter( new FileWriter( filePath));
-		writer.write(filePath);
+		writer.write(content);
 		writer.flush();
 		writer.close();
 	}
