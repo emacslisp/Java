@@ -1,5 +1,6 @@
 package com.dw.lib;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -35,11 +36,22 @@ public class JavaXMLIndent {
 	    }
 	}
 	
+	public void FormatXML(String inputfile, String outputFile) throws IOException {
+		FileUtils fileUtils = new FileUtils();
+		fileUtils.stringToFile(prettyFormat(fileUtils.fileToString(inputfile)),outputFile);
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String formattedXml1 = prettyFormat("<root><child>aaa</child><child/></root>");
-		
-		System.out.println(formattedXml1);
+		// TODO Auto-generated method stub
+		JavaXMLIndent xmlIndent = new JavaXMLIndent();
+		//String formattedJson1="";
+		try {
+			xmlIndent.FormatXML("/Users/di.wu/test/1.xml", "/Users/di.wu/test/2.xml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
