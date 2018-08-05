@@ -5,13 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class MaximumBinaryTree_654 {
-	private class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
-		TreeNode(int x) { val = x; }
-	}
-	
+
 	private class NumIndex {
 		public int index;
 		public int value;
