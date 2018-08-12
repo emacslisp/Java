@@ -8,6 +8,7 @@ public class NetUtilsCLI {
 		if(args.length == 0) {
 			System.out.println("get <ULR>");
 			System.out.println("get <URL> <output file> ");
+			return;
 		}
 		
 		try {

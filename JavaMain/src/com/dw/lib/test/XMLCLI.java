@@ -11,6 +11,7 @@ public class XMLCLI {
 		
 		if(args.length != 1) {
 			System.out.println("xml <input file>");
+			return;
 		}
 		
 		try {
