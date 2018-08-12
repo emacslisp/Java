@@ -5,13 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
 public class NetUtils {
-	public static void ping(String host) {
+	public static void ping(String host, int counter) {
 		String ipAddress = "127.0.0.1";
 		InetAddress inet;
 		try {
@@ -24,8 +25,11 @@ public class NetUtils {
 			//ipAddress = "173.194.32.38";
 			inet = InetAddress.getByName(host);
 
-			System.out.println("Sending Ping Request to " + ipAddress);
-			System.out.println(inet.isReachable(5000) ? "Host is reachable" : "Host is NOT reachable");
+			while(counter > 0) {
+				System.out.println("Sending Ping Request to " + ipAddress);
+				System.out.println(inet.isReachable(5000) ? "Host is reachable" : "Host is NOT reachable");
+				counter--;
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,11 +42,49 @@ public class NetUtils {
 	    URL url;
 		try {
 			url = new URL(urlPath);
-		
-		    URLConnection connectUrl = url.openConnection();
+			
+			HttpURLConnection connectUrl = (HttpURLConnection) url.openConnection();
 		    //connectUrl.setRequestProperty("Range", "Bytes=0-1024");
 		    //System.out.println(len = connectUrl.getContentLength());
 		    System.out.println(connectUrl.getContentType());
+		    
+		    boolean redirect = false;
+		    
+		    // normally, 3xx is redirect
+			int status = connectUrl.getResponseCode();
+			if (status != HttpURLConnection.HTTP_OK) {
+				if (status == HttpURLConnection.HTTP_MOVED_TEMP
+					|| status == HttpURLConnection.HTTP_MOVED_PERM
+						|| status == HttpURLConnection.HTTP_SEE_OTHER)
+				redirect = true;
+			}
+		
+			// following multiple redirect
+			while(redirect) {
+				
+				String newUrl = connectUrl.getHeaderField("Location");
+
+				// get the cookie if need, for login
+				String cookies = connectUrl.getHeaderField("Set-Cookie");
+
+				// open the new connnection again
+				connectUrl = (HttpURLConnection) new URL(newUrl).openConnection();
+				
+				// done first time redirect.
+				redirect = false;
+				
+				// normally, 3xx is redirect
+				status = connectUrl.getResponseCode();
+				if (status != HttpURLConnection.HTTP_OK) {
+					if (status == HttpURLConnection.HTTP_MOVED_TEMP
+						|| status == HttpURLConnection.HTTP_MOVED_PERM
+							|| status == HttpURLConnection.HTTP_SEE_OTHER)
+					redirect = true;
+				}
+			}
+			
+			double totalFileSize = connectUrl.getContentLength(); 
+			
 		    connectUrl.connect();
 		    File file = new File(path);
 		    
@@ -51,10 +93,13 @@ public class NetUtils {
 		    InputStream inputStream = connectUrl.getInputStream();
 		    int read = 0;
 			byte[] bytes = new byte[len];
-			int off = 0;
+			double off = 0;
 		    while ((read = inputStream.read(bytes)) != -1) {
 				outputStream.write(bytes, 0, read);
+				off += read;
 				
+				System.out.printf("%.2f%%", (off/totalFileSize) * 100);
+				System.out.println("\r");
 			}
 		    
 		    outputStream.flush();

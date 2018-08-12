@@ -3,7 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="third-party"/>
 	<classpathentry kind="src" path="resource"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="third-party/jtidy-r938.jar"/>
 	<classpathentry kind="lib" path="third-party/jsoup-1.10.2.jar"/>
 	<classpathentry kind="lib" path="third-party/log4j-api-2.8.2.jar"/>
@@ -14,10 +18,33 @@
 	<classpathentry kind="lib" path="third-party/bcprov-jdk15on-157.jar"/>
 	<classpathentry kind="lib" path="third-party/commons-dbutils-1.7-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="third-party/mysql-connector-java-5.1.42-bin.jar"/>
+	<classpathentry kind="lib" path="third-party/commons-io-2.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="third-party/log4j-1.2.17.jar" sourcepath="/Users/ewu/dev/log4j/apache-log4j-1.2.17/dist/lib/log4j-1.2.17-sources.jar"/>
 	<classpathentry kind="lib" path="third-party/ftplet-api-1.1.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="third-party/ftpserver-core-1.1.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="third-party/gson-2.6.2.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="target/generated-sources/annotations">
+		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="m2e-apt" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="target/generated-test-sources/test-annotations">
+		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="m2e-apt" value="true"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
