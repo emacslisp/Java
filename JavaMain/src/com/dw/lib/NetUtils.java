@@ -1,4 +1,5 @@
 package com.dw.lib;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,10 +44,14 @@ public class NetUtils {
 		try {
 			url = new URL(urlPath);
 			
+			if(path == null)
+				path = FilenameUtils.getName(url.getPath());
+			
 			HttpURLConnection connectUrl = (HttpURLConnection) url.openConnection();
 		    //connectUrl.setRequestProperty("Range", "Bytes=0-1024");
 		    //System.out.println(len = connectUrl.getContentLength());
 		    System.out.println(connectUrl.getContentType());
+		    
 		    
 		    boolean redirect = false;
 		    
@@ -87,6 +92,7 @@ public class NetUtils {
 			
 		    connectUrl.connect();
 		    File file = new File(path);
+		    file.createNewFile();					// create a new file for each url
 		    
 		    OutputStream outputStream = null;
 		    outputStream = new FileOutputStream(file);
@@ -98,8 +104,7 @@ public class NetUtils {
 				outputStream.write(bytes, 0, read);
 				off += read;
 				
-				System.out.printf("%.2f%%", (off/totalFileSize) * 100);
-				System.out.println("\r");
+				System.out.printf("\r%.2f%%", (off/totalFileSize) * 100);
 			}
 		    
 		    outputStream.flush();

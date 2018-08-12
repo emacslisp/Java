@@ -10,13 +10,13 @@ public class JsonOpTest {
 		// TODO Auto-generated method stub
 		JsonOp jsonOp = new JsonOp();
 		
-		if(args.length != 2) {
-			System.out.println("json <input file> <output file>");
+		if(args.length != 1) {
+			System.out.println("json <input file>");
 			return;
 		}
 		
 		try {
-			jsonOp.FormatJson(args[0], args[1]);
+			jsonOp.FormatJson(args[0], args[0]);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
