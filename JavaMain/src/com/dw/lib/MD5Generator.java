@@ -48,4 +48,8 @@ public class MD5Generator {
 			throw new Exception("Generate MD5 of file show exceptions: ", e);
 		}
 	}
+	
+	public static void main(String[] args) {
+		
+	}
 }

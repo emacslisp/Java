@@ -77,4 +77,22 @@ public class FileUtils {
 	        }
 	    }
 	}
+	
+	public boolean isExisted (String filePath) {
+		boolean result = false;
+		
+		Path path = Paths.get(filePath);
+		
+		result = Files.exists(path);
+		
+		return result;
+	}
+	
+	public boolean isFile(String filePath) {
+		boolean result = false;
+		
+		
+		
+		return result;
+	}
 }
