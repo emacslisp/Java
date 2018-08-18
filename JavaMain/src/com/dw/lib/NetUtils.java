@@ -52,7 +52,6 @@ public class NetUtils {
 		    //System.out.println(len = connectUrl.getContentLength());
 		    System.out.println(connectUrl.getContentType());
 		    
-		    
 		    boolean redirect = false;
 		    
 		    // normally, 3xx is redirect
@@ -96,6 +95,7 @@ public class NetUtils {
 		    
 		    OutputStream outputStream = null;
 		    outputStream = new FileOutputStream(file);
+		    System.out.println("Download file name: " + path);
 		    InputStream inputStream = connectUrl.getInputStream();
 		    int read = 0;
 			byte[] bytes = new byte[len];
