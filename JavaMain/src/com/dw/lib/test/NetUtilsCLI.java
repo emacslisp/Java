@@ -6,7 +6,7 @@ public class NetUtilsCLI {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		if(args.length == 0) {
-			System.out.println("get <ULR>");
+			System.out.println("get <URL>");
 			System.out.println("get <URL> <output file> ");
 			return;
 		}
