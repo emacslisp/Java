@@ -50,6 +50,13 @@ public class MD5Generator {
 	}
 	
 	public static void main(String[] args) {
-		
+		MD5Generator m = new MD5Generator();
+		try {
+			System.out.println(m.generateFileValue("/Users/di.wu/test/1.json"));
+			System.out.println(m.generateValue("1234"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
