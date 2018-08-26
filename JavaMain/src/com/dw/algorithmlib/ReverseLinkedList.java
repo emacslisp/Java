@@ -1,23 +1,7 @@
 package com.dw.algorithmlib;
 
-import com.dw.leetcode.ListNode;
-
 public class ReverseLinkedList {
 	static ListNode head;
-	/**
-	 * data struction for Linked list single node
-	 * @author ewu
-	 *
-	 */
-    static class ListNode {
-        int data;
-        ListNode next;
- 
-        ListNode(int d) {
-            data = d;
-            next = null;
-        }
-    }
     
     /**
      * 
