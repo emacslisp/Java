@@ -1,44 +1,61 @@
 package com.dw.lib;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
 public class JavaXMLIndent {
 
-	public static String prettyFormat(String input) {
-	    return prettyFormat(input, "2");
-	}
-
-	public static String prettyFormat(String input, String indent) {
-	    Source xmlInput = new StreamSource(new StringReader(input));
-	    StringWriter stringWriter = new StringWriter();
+	public static void prettyFormat(String input, String output) {    
 	    try {
+	    	FileUtils f = new FileUtils();
+	    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    	factory.setNamespaceAware(true);
+	    	DocumentBuilder db = factory.newDocumentBuilder();
+		    Document doc = db.parse( new InputSource( new StringReader( f.fileToString(input) ) ) ); 
+		    DOMSource source = new DOMSource(doc);
+		    
 	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        transformerFactory.setAttribute("indent-number", new Integer(2));
 	        Transformer transformer = transformerFactory.newTransformer();
 	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,"yes");
 	        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", indent);
-	        transformer.transform(xmlInput, new StreamResult(stringWriter));
-
-	        String pretty = stringWriter.toString();
-	        pretty = pretty.replace("\r\n", "\n");
-	        return pretty;              
+	        
+	        File file = new File(output); 
+	        if(!file.exists()){ 
+	            file.createNewFile(); 
+	        } 
+	        
+	        FileOutputStream out1 = new FileOutputStream(file); 
+	         
+	        StreamResult xmlResult = new StreamResult(out1); 
+	      
+	        transformer.transform(source, xmlResult); 
+            
 	    } catch (Exception e) {
 	        throw new RuntimeException(e);
 	    }
 	}
 	
 	public void FormatXML(String inputfile, String outputFile) throws IOException {
-		FileUtils fileUtils = new FileUtils();
-		fileUtils.stringToFile(prettyFormat(fileUtils.fileToString(inputfile)),outputFile);
+		// FileUtils fileUtils = new FileUtils();
+		prettyFormat(inputfile ,outputFile);
 	}
 	
 	public static void main(String[] args) {
