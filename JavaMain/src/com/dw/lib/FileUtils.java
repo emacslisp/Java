@@ -89,10 +89,7 @@ public class FileUtils {
 	}
 	
 	public boolean isFile(String filePath) {
-		boolean result = false;
-		
-		
-		
-		return result;
+		File file = new File(filePath);
+		return file.isFile();
 	}
 }

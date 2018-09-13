@@ -2,6 +2,7 @@ package com.dw.lib.test;
 
 import com.dw.lib.EnvironmentHelper;
 import com.dw.lib.FileUtils;
+import java.util.*;
 
 public class WhereCLI {
 
@@ -19,15 +20,21 @@ public class WhereCLI {
 			String executeFile = args[0];
 			FileUtils utils = new FileUtils();
 			String pathSplitter = EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN? "\\": "/";
+			List<String> result = new ArrayList<String>();
 			
 			for(String p : paths) {
 				if(p.endsWith(pathSplitter)) {
 					p = p.substring(0, p.length() - 2);
 				}
 				String tempFullPath = p + pathSplitter + executeFile;
-				if(utils.isExisted(tempFullPath)) {
-					System.out.println(tempFullPath);
+				if(utils.isExisted(tempFullPath) && utils.isFile(tempFullPath)) {
+					if(!result.contains(tempFullPath))
+						result.add(tempFullPath);
 				}
+			}
+			
+			for (String s: result) {
+				System.out.println(s);
 			}
 
 		} catch (Exception e) {
