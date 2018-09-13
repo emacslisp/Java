@@ -9,7 +9,8 @@ public class WhereCLI {
 		// TODO Auto-generated method stub
 		try {
 			if (args.length != 1){
-				System.out.println("UUID didn't take any arguements");
+				System.out.println("List all execute file within PATH environment");
+				System.out.println("jwhere <execute file>");
 				return;
 			}
 			
