@@ -15,11 +15,19 @@ public class WhereCLI {
 				return;
 			}
 			
+			String pathSplitter = "/";
+			String envSplitter = ":";
+			
+			if (EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN) {
+				pathSplitter = "\\";
+				envSplitter = ";";
+			}
+			
 			String path = EnvironmentHelper.getEnv("PATH");
-			String[] paths = path.split(":");
+			String[] paths = path.split(envSplitter);
 			String executeFile = args[0];
 			FileUtils utils = new FileUtils();
-			String pathSplitter = EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN? "\\": "/";
+			
 			List<String> result = new ArrayList<String>();
 			
 			for(String p : paths) {
