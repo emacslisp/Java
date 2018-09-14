@@ -15,12 +15,15 @@ public class WhereCLI {
 				return;
 			}
 			
+			boolean isWindows = EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN;
 			String pathSplitter = "/";
 			String envSplitter = ":";
+			String pathExt = "";
 			
-			if (EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN) {
+			if (isWindows) {
 				pathSplitter = "\\";
 				envSplitter = ";";
+				pathExt = EnvironmentHelper.getEnv("PATHEXT");
 			}
 			
 			String path = EnvironmentHelper.getEnv("PATH");
@@ -38,6 +41,16 @@ public class WhereCLI {
 				if(utils.isExisted(tempFullPath) && utils.isFile(tempFullPath)) {
 					if(!result.contains(tempFullPath))
 						result.add(tempFullPath);
+				}
+				
+				if(isWindows) {
+					for(String ext : pathExt.split(envSplitter)) {
+						tempFullPath = p + pathSplitter + executeFile + ext;
+						if(utils.isExisted(tempFullPath) && utils.isFile(tempFullPath)) {
+							if(!result.contains(tempFullPath))
+								result.add(tempFullPath);
+						}
+					}
 				}
 			}
 			
