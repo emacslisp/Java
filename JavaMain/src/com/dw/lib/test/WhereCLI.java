@@ -45,7 +45,7 @@ public class WhereCLI {
 				
 				if(isWindows) {
 					for(String ext : pathExt.split(envSplitter)) {
-						tempFullPath = p + pathSplitter + executeFile + ext;
+						tempFullPath = p + pathSplitter + executeFile + ext.toLowerCase();
 						if(utils.isExisted(tempFullPath) && utils.isFile(tempFullPath)) {
 							if(!result.contains(tempFullPath))
 								result.add(tempFullPath);
