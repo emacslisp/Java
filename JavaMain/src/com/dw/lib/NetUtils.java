@@ -107,6 +107,8 @@ public class NetUtils {
 				System.out.printf("\r%.2f%%", (off/totalFileSize) * 100);
 			}
 		    
+		    System.out.println();
+		    
 		    outputStream.flush();
 		    outputStream.close();
 	    
