@@ -8,16 +8,11 @@ import org.jsoup.select.Elements;
 public class jsoupTest {
 	
 	public static void printByClass(Document doc, String className) {
-		try {
-			Elements e = doc.getElementsByClass(className);
-			String output = e.toString();
-			if (output.equals(""))
-				return;
-
-			System.out.println(jtidyTest.html2text(new String(output.getBytes("UTF-8"))));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Elements e = doc.getElementsByClass(className);
+		String output = e.toString();
+		if(output.equals("")) return;
+		
+		System.out.println(jtidyTest.html2text(output));
 	}
 	
 	public static void printUsage() {
