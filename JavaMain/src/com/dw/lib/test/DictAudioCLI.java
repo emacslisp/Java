@@ -10,13 +10,13 @@ public class DictAudioCLI {
 	public static void main(String[] args) {
 
 		try {
-			/*if (args.length != 1){
+			if (args.length != 1){
 				System.out.println("JDict associated tools to pronanuce a word");
 				System.out.println("jAudio <execute file>");
 				return;
-			}*/
+			}
 			
-			String word = "paradox";
+			String word = args[0];
 			String targetUrl = "http://dict.youdao.com/dictvoice?type=2&audio=" + word;
 			String tempPath = "/tmp";
 			String pathSpliter = "/";
