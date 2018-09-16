@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 public class YouDaoCLI {
 	public static void printByClass(Document doc, String className) {
 		Elements e = doc.getElementsByClass(className);
+		if(e == null) return;
 		String output = e.toString();
 		if(output.equals("")) return;
 		
@@ -19,6 +20,7 @@ public class YouDaoCLI {
 	
 	public static void printById(Document doc, String id) {
 		Element e = doc.getElementById(id);
+		if(e == null) return;
 		String output = e.toString();
 		if(output.equals("")) return;
 		
@@ -27,6 +29,7 @@ public class YouDaoCLI {
 	
 	public static void printUsage() {
 		System.out.println("youdao [word list]");
+		System.out.println("youdao -p [word list]");
 	}
 	
 	public static void main(String[] args) {
@@ -35,6 +38,12 @@ public class YouDaoCLI {
 			
 			if(args.length <= 0) {
 				printUsage();
+			}
+			
+			boolean pronaunce = false;
+			
+			if(args[0] == "-p") {
+				pronaunce = true;
 			}
 			
 			//String word = args[0];
