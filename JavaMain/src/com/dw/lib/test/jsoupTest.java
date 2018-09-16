@@ -29,7 +29,9 @@ public class jsoupTest {
 			
 			//String word = args[0];
 			
-			String[] className = {"dict-basic-ul", 
+			String[] className = {
+					"phonetic",
+					"dict-basic-ul", 
 					"layout detail", 
 					"layout dual",
 					"layout en", 

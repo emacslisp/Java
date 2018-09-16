@@ -92,4 +92,9 @@ public class FileUtils {
 		File file = new File(filePath);
 		return file.isFile();
 	}
+	
+	public boolean isDirectory(String filePath) {
+		File file = new File(filePath);
+		return file.isDirectory();
+	}
 }
