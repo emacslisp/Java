@@ -42,7 +42,7 @@ public class jsoupTest {
 			
 			boolean e2e = false;
 			int index = 0;
-			if(args[0] == "-e") {
+			if(args[0].equals("-e")) {
 				e2e = true;
 				index = 1;
 			}
