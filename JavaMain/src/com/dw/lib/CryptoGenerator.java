@@ -3,6 +3,8 @@ package com.dw.lib;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
+import java.security.Provider;
+import java.security.Security;
 import java.util.UUID;
 
 public class CryptoGenerator {
@@ -72,6 +74,23 @@ public class CryptoGenerator {
 		} catch (Exception e) {
 			throw new Exception("Generate MD5 of file show exceptions: ", e);
 		}
+	}
+	
+	public void printSupportAlgorithm() {
+		System.out.println("Algorithms Supported in this JCE.");
+        System.out.println("====================");
+        // heading
+        System.out.println("Provider: type.algorithm -> className" + "\n  aliases:" + "\n  attributes:\n");
+        // discover providers
+        Provider[] providers = Security.getProviders();
+        for (Provider provider : providers) {
+            System.out.println("<><><>" + provider + "<><><>\n");
+            // discover services of each provider
+            for (Provider.Service service : provider.getServices()) {
+                System.out.println(service);
+            }
+            System.out.println();
+        }
 	}
 	
 	public static void main(String[] args) {
