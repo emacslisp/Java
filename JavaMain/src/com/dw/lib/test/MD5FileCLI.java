@@ -1,6 +1,6 @@
 package com.dw.lib.test;
 
-import com.dw.lib.MD5Generator;
+import com.dw.lib.CryptoGenerator;
 import com.dw.lib.NetUtils;
 
 public class MD5FileCLI {
@@ -12,7 +12,7 @@ public class MD5FileCLI {
 		}
 		
 		try {
-			MD5Generator m = new MD5Generator();
+			CryptoGenerator m = new CryptoGenerator();
 			if(args.length == 1) 
 				System.out.println(m.generateFileValue(args[0]));
 		}

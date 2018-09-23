@@ -47,7 +47,7 @@ public class BasicAuthentication {
 	
 	public boolean auth(String username,String password, String dbUsername, String dbPassword, String salt) throws Exception {
 		
-		MD5Generator generator = new MD5Generator();
+		CryptoGenerator generator = new CryptoGenerator();
 		if(username != dbUsername) return false;
 		
 		if(generator.generateValue(password + salt) != dbPassword) {
