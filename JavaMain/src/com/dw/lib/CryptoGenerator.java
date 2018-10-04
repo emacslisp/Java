@@ -72,7 +72,7 @@ public class CryptoGenerator {
 			byte[] messageDigest = algorithm.digest();
 			return toHexString(messageDigest);
 		} catch (Exception e) {
-			throw new Exception("Generate MD5 of file show exceptions: ", e);
+			throw new Exception("Generate " + algorithmType.toString() + " of file show exceptions: ", e);
 		}
 	}
 	
