@@ -13,8 +13,7 @@ public class DictCLI {
 	    return Jsoup.parse(html).text();
 	}
 	
-	public static void printByClass(Document doc, String className) {
-		Elements e = doc.getElementsByClass(className);
+	public static void printElementText(Element e) {
 		if(e == null) return;
 		String output = e.toString();
 		if(output.equals("")) return;
@@ -22,15 +21,20 @@ public class DictCLI {
 		System.out.println(html2text(output));
 	}
 	
+	public static void printElements(Elements elements) {
+		for(Element e : elements) {
+			printElementText(e);
+		}
+	}
+	
+	public static void printByClass(Document doc, String className) {
+		Elements e = doc.getElementsByClass(className);
+		printElements(e);
+	}
+	
 	public static void printByTag(Document doc, String tagName) {
 		Elements e = doc.getElementsByTag(tagName);
-		if(e == null) return;
-		String output = e.toString();
-		if(output.equals("")) return;
-		
-		for(Element x: e) {
-			System.out.println(html2text(x.toString()));
-		}
+		printElements(e);
 	}
 	
 	public static void printUsage() {
@@ -39,7 +43,6 @@ public class DictCLI {
 	}
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		try {
 			
 			if(args.length <= 0) {
@@ -78,11 +81,18 @@ public class DictCLI {
 				if(e2e) {
 					Document docE2E = Jsoup.connect(String.format("http://www.dict.org/bin/Dict?Form=Dict2&Database=*&Query=%s", args[i])).get();
 					printByTag(docE2E,"pre");
+					
+					// TODO: try to find a good way to parse oxford dictionaries 
+					/*Document docOxford = Jsoup.connect(String.format("https://en.oxforddictionaries.com/definition/%s", args[i])).get();
+					Elements ElementsUl = docOxford.getElementsByClass("semb");
+					for (Element elementLi : ElementsUl) {
+						Elements provinceEl = elementLi.getElementsByTag("li");
+						printElements(provinceEl);
+					}*/
 				}
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

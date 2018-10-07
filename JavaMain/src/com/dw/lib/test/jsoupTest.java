@@ -7,13 +7,17 @@ import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 public class jsoupTest {
 	
+	public static String html2text(String html) {
+	    return Jsoup.parse(html).text();
+	}
+	
 	public static void printByClass(Document doc, String className) {
 		Elements e = doc.getElementsByClass(className);
 		if(e == null) return;
 		String output = e.toString();
 		if(output.equals("")) return;
 		
-		System.out.println(jtidyTest.html2text(output));
+		System.out.println(html2text(output));
 	}
 	
 	public static void printByTag(Document doc, String tagName) {
@@ -23,7 +27,7 @@ public class jsoupTest {
 		if(output.equals("")) return;
 		
 		for(Element x: e) {
-			System.out.println(jtidyTest.html2text(x.toString()));
+			System.out.println(html2text(x.toString()));
 		}
 	}
 	
