@@ -1,4 +1,4 @@
-package com.dw.lib.test;
+package com.dw.lib.cli;
 
 import com.dw.lib.CryptoGenerator;
 import com.dw.lib.NetUtils;

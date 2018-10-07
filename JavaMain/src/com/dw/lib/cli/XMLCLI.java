@@ -1,4 +1,4 @@
-package com.dw.lib.test;
+package com.dw.lib.cli;
 
 import java.io.IOException;
 
