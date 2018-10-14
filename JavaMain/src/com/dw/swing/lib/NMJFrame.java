@@ -13,6 +13,7 @@ public class NMJFrame extends JFrame {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500,500);
+		super.setVisible(true);
 	}
 
 	public NMJFrame(String title, int height, int width) {
@@ -20,6 +21,7 @@ public class NMJFrame extends JFrame {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(height, width);
+		super.setVisible(true);
 	}
 	
 	public void setVisible(boolean isVisible)
