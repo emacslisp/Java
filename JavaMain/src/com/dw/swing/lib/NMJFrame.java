@@ -13,7 +13,7 @@ public class NMJFrame extends JFrame {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500,500);
-		super.setVisible(true);
+		//super.setVisible(true);
 	}
 
 	public NMJFrame(String title, int height, int width) {
@@ -21,12 +21,18 @@ public class NMJFrame extends JFrame {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(height, width);
-		super.setVisible(true);
+		//super.setVisible(true);
 	}
 	
+	/**
+	 * call visible true at the end of panel
+	 * */
 	public void setVisible(boolean isVisible)
 	{
 		super.setVisible(isVisible);
 	}
 	
+	public void addPanel(JPanel panel) {
+		this.getContentPane().add(panel);
+	}
 }
