@@ -4,8 +4,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
-public class NMTree {
-
+public class NMTree extends JTree {
+	
+	
+	
 }
