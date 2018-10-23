@@ -19,6 +19,7 @@ public class NMButton extends JButton implements ActionListener{
 	
     public void actionPerformed(ActionEvent e) {
     	System.out.println("button");
+    	MessageBox.show("this is infoMessage", "this is title");
     }
 }
 
