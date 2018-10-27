@@ -8,7 +8,7 @@ public class PropertiesHelper {
 	private Properties _prop;
 
 	public PropertiesHelper() {
-		_prop = new Properties();;
+		_prop = new Properties();
 	}
 
 	public void readProperties(String fileName) {
