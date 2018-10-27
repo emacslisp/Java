@@ -28,6 +28,7 @@
       
       <!-- List of XML mapping files -->
       <mapping resource = "mapping/Employee.hbm.xml"/>
+      <mapping class="com.dw.hibernate.EmployeeAnnotation"/>
       
    </session-factory>
 </hibernate-configuration>
