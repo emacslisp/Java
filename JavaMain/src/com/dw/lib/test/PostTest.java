@@ -5,6 +5,7 @@ import java.net.*;
 
 import com.dw.lib.JsonOp;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class PostTest {
 
@@ -73,8 +74,7 @@ public class PostTest {
 //             connection.setRequestProperty("X-Auth-Token","xx");  //特定http服务器需要的信息，根据服务器所需要求添加
 			connection.connect();
 
-			// 添加 请求内容
-
+			JsonParser parser = null;
 			JsonObject data = new JsonObject();
 			data.addProperty("title", "foo");
 			data.addProperty("body", "bar");
