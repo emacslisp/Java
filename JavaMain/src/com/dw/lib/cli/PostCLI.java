@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.dw.lib.FileUtils;
+import com.dw.lib.HttpPostHelper;
 import com.dw.lib.JsonOp;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -40,72 +41,17 @@ public class PostCLI {
 			return;
 		}
 		
-		String outputFile = "output.txt";
+		String outputFilePath = "output.txt";
 		if(args.length >= 2) {
-			outputFile = args[1]; 
+			outputFilePath = args[1]; 
 		}
 		
 		try {
-			FileUtils utils = new FileUtils();
-			String config = utils.fileToString(args[0]);
-		
-			JsonParser parser = new JsonParser();
-			JsonObject data = parser.parse(config).getAsJsonObject();
-			
-			HttpURLConnection connection = null;
-			String urlStr = data.get("url").getAsString();
-			String method = data.get("method").getAsString();
-			JsonObject headers = data.get("headers").getAsJsonObject();
-			JsonObject body = data.get("body").getAsJsonObject();
-			
-			URL url = new URL(urlStr);
-			connection = (HttpURLConnection) url.openConnection();
-
-			// set http connection attribute
-
-			connection.setDoOutput(true);
-			connection.setDoInput(true);
-			connection.setRequestMethod(method.toUpperCase()); // GET、POST、DELETE、INPUT
-			connection.setUseCaches(false);
-			connection.setInstanceFollowRedirects(true);
-			
-			Set<Entry<String, JsonElement>> entrySet = headers.entrySet();
-			
-			for(Entry<String,JsonElement> entry : entrySet){
-				connection.setRequestProperty(entry.getKey(), entry.getValue().getAsString()); // set require format to json
-			}
-			connection.connect();
-			
-			OutputStream out = connection.getOutputStream();
-			out.write(body.toString().getBytes());
-			out.flush();
-			out.close();
-			
-			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String lines;
-			StringBuffer sb = new StringBuffer("");
-			while ((lines = reader.readLine()) != null) {
-				lines = new String(lines.getBytes(), "utf-8");
-				sb.append(lines);
-			}
-			
-			JsonOp jsonOp = new JsonOp();
-			String outStr = jsonOp.JsonFormater(sb.toString());
-			System.out.println(outStr);
-			utils.stringToFile(outStr, outputFile);
-			
-			reader.close();
-			connection.disconnect();
-
-		} catch (MalformedURLException e) {
+			HttpPostHelper helper = new HttpPostHelper();
+			helper.Post(args[0], outputFilePath);
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
+		} 
 	}
 
 }

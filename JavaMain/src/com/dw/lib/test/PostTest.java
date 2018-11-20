@@ -3,6 +3,7 @@ package com.dw.lib.test;
 import java.io.*;
 import java.net.*;
 
+import com.dw.lib.HttpPostHelper;
 import com.dw.lib.JsonOp;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -11,9 +12,11 @@ public class PostTest {
 
 	public static void main(String[] args) {
 		
-		getTest();
-		postTest();
+		//getTest();
+		//postTest();
+		HttpPostHelper helper = new HttpPostHelper();
 		
+		helper.Post("/Users/di.wu/test/billing-periods.json", null);
 	}
 	
 	public static void getTest() {
