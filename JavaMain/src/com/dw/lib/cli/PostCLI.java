@@ -23,6 +23,20 @@ public class PostCLI {
 		if(args.length == 0) {
 			System.out.println("post <config file> <output file>");
 			System.out.println("post <config file> #output default to output.txt ");
+			System.out.println("example config:");
+			System.out.println("{");
+			System.out.println("    \"url\":\"https://jsonplaceholder.typicode.com/posts\",");
+			System.out.println("    \"method\": \"post\",");
+			System.out.println("    \"headers\": {");
+			System.out.println("        \"Content-type\": \"application/json; charset=UTF-8\"");
+			System.out.println("    },");
+			System.out.println("    \"body\": {");
+			System.out.println("        \"title\": \"foo\",");
+			System.out.println("        \"body\": \"bar\",");
+			System.out.println("        \"userId\": 2");
+			System.out.println("    }");
+			System.out.println("}");
+
 			return;
 		}
 		
