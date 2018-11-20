@@ -30,6 +30,7 @@ public class PostCLI {
 			System.out.println("    \"method\": \"post\",");
 			System.out.println("    \"headers\": {");
 			System.out.println("        \"Content-type\": \"application/json; charset=UTF-8\"");
+			System.out.println("        \"Authorization\": \"Basic xxxxxxxxx\"");
 			System.out.println("    },");
 			System.out.println("    \"body\": {");
 			System.out.println("        \"title\": \"foo\",");
