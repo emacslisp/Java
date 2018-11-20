@@ -2,6 +2,7 @@ package com.dw.lib;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -42,9 +43,9 @@ public class HttpPostHelper {
 			// set http connection attribute
 			
 			connection.setRequestMethod(method.toUpperCase());
+			connection.setDoOutput(true);
 			
 			if (!method.toUpperCase().equals("GET")) {
-				connection.setDoOutput(true);
 				connection.setDoInput(true);
 				 // GET、POST、DELETE、INPUT
 				connection.setUseCaches(false);
@@ -66,7 +67,16 @@ public class HttpPostHelper {
 				out.close();
 			}
 			
-			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			InputStream inputStream;
+
+            int status = connection.getResponseCode();
+
+            if (status != HttpURLConnection.HTTP_OK)
+                inputStream = connection.getErrorStream();
+            else
+                inputStream = connection.getInputStream();
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 			String lines;
 			StringBuffer sb = new StringBuffer("");
 			while ((lines = reader.readLine()) != null) {
