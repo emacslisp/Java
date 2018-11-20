@@ -16,7 +16,7 @@ public class PostTest {
 		//postTest();
 		HttpPostHelper helper = new HttpPostHelper();
 		
-		helper.Post("/Users/di.wu/test/billing-periods.json", null);
+		helper.Post("/Users/di.wu/test/tails.json", null);
 	}
 	
 	public static void getTest() {

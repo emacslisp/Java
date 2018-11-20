@@ -96,7 +96,15 @@ public class NetUtils {
 		    OutputStream outputStream = null;
 		    outputStream = new FileOutputStream(file);
 		    System.out.println("Download file name: " + path);
-		    InputStream inputStream = connectUrl.getInputStream();
+		    InputStream inputStream = null;
+		    
+		    int responeStatus = connectUrl.getResponseCode();
+
+            if (responeStatus != HttpURLConnection.HTTP_OK)
+                inputStream = connectUrl.getErrorStream();
+            else
+                inputStream = connectUrl.getInputStream();
+		    
 		    int read = 0;
 			byte[] bytes = new byte[len];
 			double off = 0;

@@ -17,8 +17,19 @@ import com.dw.lib.JsonOp;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 public class HttpPostHelper {
+	
+	public boolean isJSONValid(String jsonString) {
+	    try {
+	    	JsonParser parser = new JsonParser();
+	    	parser.parse(jsonString);
+	    } catch (JsonSyntaxException ex) {
+	       return false;
+	    }
+	    return true;
+	}
 	
 	public void Post(String configPath, String outputFilePath) {
 		try {
@@ -84,10 +95,17 @@ public class HttpPostHelper {
 				sb.append(lines);
 			}
 			
-			JsonOp jsonOp = new JsonOp();
-			String outStr = jsonOp.JsonFormater(sb.toString());
-			System.out.println(outStr);
-			utils.stringToFile(outStr, outputFilePath);
+			if(isJSONValid(sb.toString())) {
+				JsonOp jsonOp = new JsonOp();
+				String outStr = jsonOp.JsonFormater(sb.toString());
+				System.out.println(outStr);
+				utils.stringToFile(outStr, outputFilePath);
+			}
+			else {
+				String outStr = sb.toString();
+				System.out.println(outStr);
+				utils.stringToFile(outStr, outputFilePath);
+			}
 			
 			reader.close();
 			connection.disconnect();
