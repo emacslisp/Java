@@ -13,11 +13,14 @@ public class CryptoGenerator {
 		MD5,
 		SHA_1,
 		SHA_256,
+		SHA_512
 	}
 	
 	public final static String md5 = "MD5";
 	public final static String sha_1 = "SHA-1";
 	public final static String SHA_256 = "SHA-256";
+	public final static String SHA_512 = "SHA-512";
+	
 	String algorithmType = "";
 	
 	public CryptoGenerator() {
@@ -31,6 +34,8 @@ public class CryptoGenerator {
 			algorithmType = sha_1;
 		} else if(cryptoType== CryptoType.SHA_256) {
 			algorithmType = SHA_256;
+		} else if(cryptoType== CryptoType.SHA_512) {
+			algorithmType = SHA_512;
 		}
 	}
 
@@ -94,7 +99,7 @@ public class CryptoGenerator {
 	}
 	
 	public static void main(String[] args) {
-		CryptoGenerator m = new CryptoGenerator(CryptoGenerator.CryptoType.MD5);
+		CryptoGenerator m = new CryptoGenerator(CryptoGenerator.CryptoType.SHA_512);
 		try {
 			System.out.println(m.generateFileValue("/Users/ewu/test/1.json"));
 			System.out.println(m.generateValue("1234"));
