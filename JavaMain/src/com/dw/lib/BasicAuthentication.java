@@ -56,5 +56,14 @@ public class BasicAuthentication {
 		
 		return true;
 	}
+	
+	// TODO: put all character together 
+	public String randomPasswordGenerator() {
+		String result = "";
+		
+		
+		
+		return result;
+	}
 
 }

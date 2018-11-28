@@ -21,6 +21,23 @@ import com.google.gson.JsonSyntaxException;
 
 public class HttpPostHelper {
 	
+	String[][] speicalCharactorMapping = {
+			{"@","%40"},
+			{"{","%7B"},
+			{"}","%7D"},
+			{" ","%20"},
+			{"<","%3C"},
+			{">","%3E"},
+			{"#","%23"},
+			{"|","%7C"},
+			{"\\","%5C"},
+			{"^", "%5E"},
+			{"~", "%7E"},
+			{"[", "%5B"},
+			{"]", "%5D"},
+			{"`", "%60"}
+		};
+	
 	public boolean isJSONValid(String jsonString) {
 	    try {
 	    	JsonParser parser = new JsonParser();
@@ -31,24 +48,31 @@ public class HttpPostHelper {
 	    return true;
 	}
 	
-	public void Post(String configPath, String outputFilePath) {
+	public String replaceSpeicalCharactor(String url) {
+		for(int index = 0;index < speicalCharactorMapping.length; index++) {
+			url = url.replace(speicalCharactorMapping[index][0], speicalCharactorMapping[index][1]);
+		}
+		return url;
+	}
+	
+	public void Post(String configPath, String bodyFilePath, String outputFilePath) {
 		try {
 			if(outputFilePath == null) {
 				outputFilePath = "output.txt";
 			}
 			FileUtils utils = new FileUtils();
 			String config = utils.fileToString(configPath);
-		
+						
 			JsonParser parser = new JsonParser();
 			JsonObject data = parser.parse(config).getAsJsonObject();
 			
 			HttpURLConnection connection = null;
 			String urlStr = data.get("url").getAsString();
 			String method = data.get("method").getAsString();
-			JsonObject headers = data.get("headers").getAsJsonObject();
-			JsonObject body = data.get("body").getAsJsonObject();
 			
-			URL url = new URL(urlStr);
+			JsonObject headers = data.get("headers").getAsJsonObject();
+
+			URL url = new URL(replaceSpeicalCharactor(urlStr));
 			connection = (HttpURLConnection) url.openConnection();
 
 			// set http connection attribute
@@ -56,11 +80,16 @@ public class HttpPostHelper {
 			connection.setRequestMethod(method.toUpperCase());
 			connection.setDoOutput(true);
 			
+			connection.setRequestProperty("Content-type", "application/json");
+			connection.setConnectTimeout(3000);
+			connection.setReadTimeout(3000);
+			connection.setUseCaches(false);
+			connection.setInstanceFollowRedirects(true);
+			
 			if (!method.toUpperCase().equals("GET")) {
 				connection.setDoInput(true);
 				 // GET、POST、DELETE、INPUT
-				connection.setUseCaches(false);
-				connection.setInstanceFollowRedirects(true);
+			
 			}
 			
 			Set<Entry<String, JsonElement>> entrySet = headers.entrySet();
@@ -69,11 +98,23 @@ public class HttpPostHelper {
 				connection.setRequestProperty(entry.getKey(), entry.getValue().getAsString()); // set require format to json
 			}
 			
+			
 			connection.connect();
 			
 			if (!method.toUpperCase().equals("GET")) {
+				if (bodyFilePath == null) throw new Exception("Body is missed");
+				String bodyStr = utils.fileToString(bodyFilePath);
+				String bodyType = data.get("bodyType").getAsString();
+				String bodyOutput = "";
+				if (bodyType.equals("json")) {
+					JsonObject body = parser.parse(bodyStr).getAsJsonObject();
+					bodyOutput = body.toString();
+				} else {
+					bodyOutput = bodyStr;
+				}
+				
 				OutputStream out = connection.getOutputStream();
-				out.write(body.toString().getBytes());
+				out.write(bodyOutput.getBytes());
 				out.flush();
 				out.close();
 			}
@@ -115,6 +156,8 @@ public class HttpPostHelper {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

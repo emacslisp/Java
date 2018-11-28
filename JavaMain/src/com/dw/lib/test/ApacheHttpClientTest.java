@@ -15,7 +15,10 @@ public class ApacheHttpClientTest {
 
 	public static void main(String[] args) {
 		HttpClient client = HttpClientBuilder.create().build();
-		HttpGet request = new HttpGet("https://jsonplaceholder.typicode.com/todos/1");
+		HttpGet request = new HttpGet("http://localhost:3060/v1/api/users?select='customer'&populate=%7Buser:true%7D");
+		
+		request.setHeader("Content-Type", "application/json");
+		request.setHeader("Authorization", "api-key 8988339e-616b-412e-98c2-b93eb004d4e0");
 		
 		HttpResponse response;
 		try {
