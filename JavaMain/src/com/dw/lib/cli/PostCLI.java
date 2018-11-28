@@ -39,8 +39,8 @@ public class PostCLI {
 		}
 		
 		String outputFilePath = "output.txt";
-		if(args.length >= 2) {
-			outputFilePath = args[1]; 
+		if(args.length >= 3) {
+			outputFilePath = args[2]; 
 		}
 		
 		try {
