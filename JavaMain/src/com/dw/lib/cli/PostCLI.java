@@ -34,6 +34,7 @@ public class PostCLI {
 			System.out.println("        \"Authorization\": \"Basic xxxxxxxxx\"");
 			System.out.println("    }");
 			System.out.println("}");
+			System.out.println("<body file> is json file or xml file");
 
 			return;
 		}
