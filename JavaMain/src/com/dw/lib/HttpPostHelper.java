@@ -80,7 +80,6 @@ public class HttpPostHelper {
 			connection.setRequestMethod(method.toUpperCase());
 			connection.setDoOutput(true);
 			
-			connection.setRequestProperty("Content-type", "application/json");
 			connection.setConnectTimeout(3000);
 			connection.setReadTimeout(3000);
 			connection.setUseCaches(false);

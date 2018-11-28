@@ -28,6 +28,7 @@ public class PostCLI {
 			System.out.println("{");
 			System.out.println("    \"url\":\"https://jsonplaceholder.typicode.com/posts\",");
 			System.out.println("    \"method\": \"post\",");
+			System.out.println("    \"bodyType\": \"json\",");
 			System.out.println("    \"headers\": {");
 			System.out.println("        \"Content-type\": \"application/json; charset=UTF-8\",");
 			System.out.println("        \"Authorization\": \"Basic xxxxxxxxx\"");
