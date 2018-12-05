@@ -47,6 +47,7 @@ public class DictCLI {
 			
 			if(args.length <= 0) {
 				printUsage();
+				return;
 			}
 			
 			boolean e2e = false;

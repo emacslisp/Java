@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileUtils {
 	
@@ -28,6 +30,21 @@ public class FileUtils {
         String s = readFile(filePath,Charset.defaultCharset());
 
        	return s;
+	}
+	
+	public List<String> fileToList(String filePath) throws IOException {
+		List<String> result = new ArrayList<String>();
+		
+		try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
+
+			result = stream
+					.collect(Collectors.toList());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	// save string to File, thow exception
@@ -96,5 +113,19 @@ public class FileUtils {
 	public boolean isDirectory(String filePath) {
 		File file = new File(filePath);
 		return file.isDirectory();
+	}
+	
+	public static void main(String[] args) {
+
+		FileUtils utils = new FileUtils();
+		try {
+			List<String> result = utils.fileToList("/Users/ewu/dev/java/JavaMain/src/com/dw/lib/FileUtils.java");
+			for(String s : result) {
+				System.out.println(s);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
