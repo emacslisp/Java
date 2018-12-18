@@ -22,19 +22,23 @@ public class PostCLI {
 
 	public static void main(String[] args) {
 		if(args.length == 0) {
-			System.out.println("post <config file> <body file> <output file>");
-			System.out.println("post <config file> <body file> #output default to output.txt ");
-			System.out.println("example config:");
-			System.out.println("{");
-			System.out.println("    \"url\":\"https://jsonplaceholder.typicode.com/posts\",");
-			System.out.println("    \"method\": \"post\",");
-			System.out.println("    \"bodyType\": \"json\",");
-			System.out.println("    \"headers\": {");
-			System.out.println("        \"Content-type\": \"application/json; charset=UTF-8\",");
-			System.out.println("        \"Authorization\": \"Basic xxxxxxxxx\"");
-			System.out.println("    }");
-			System.out.println("}");
-			System.out.println("<body file> is json file or xml file");
+			String[] helpInfo = {"post <config file> <body file> <output file>",
+					"post <config file> <body file> #output default to output.txt ",
+					"example config:",
+					"{",
+					"    \"url\":\"https://jsonplaceholder.typicode.com/posts\",",
+					"    \"method\": \"post\",",
+					"    \"bodyType\": \"json\",",
+					"    \"headers\": {",
+					"        \"Content-type\": \"application/json; charset=UTF-8\",",
+					"        \"Authorization\": \"Basic xxxxxxxxx\"",
+					"    }",
+					"}",
+					"<body file> is json file or xml file"};
+			
+			for(String s : helpInfo) {
+				System.out.println(s);
+			}
 
 			return;
 		}
