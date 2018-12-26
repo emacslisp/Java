@@ -115,6 +115,11 @@ public class FileUtils {
 		return file.isDirectory();
 	}
 	
+	public String normalizePath(String path) {
+		path = path.replaceFirst("^~", System.getProperty("user.home"));
+		return Paths.get(path).toAbsolutePath().normalize().toString();
+	}
+	
 	public static void main(String[] args) {
 
 		FileUtils utils = new FileUtils();

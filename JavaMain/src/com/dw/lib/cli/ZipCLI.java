@@ -3,6 +3,7 @@ package com.dw.lib.cli;
 import java.io.File;
 import java.io.IOException;
 
+import com.dw.lib.FileUtils;
 import com.dw.lib.ZipUtils;
 
 public class ZipCLI {
@@ -22,9 +23,11 @@ public class ZipCLI {
 		try {
 			if(args.length != 2) {
 				usage();
+				return;
 			}
 			ZipUtils appZip = new ZipUtils();
-			appZip.zipIt(new File(args[0]), new File(args[1]));
+			FileUtils fileUtils = new FileUtils();
+			appZip.zipIt(new File(fileUtils.normalizePath(args[0])), new File(args[1]));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
