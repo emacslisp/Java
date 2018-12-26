@@ -47,7 +47,26 @@ public class FileUtils {
 		return result;
 	}
 	
-	// save string to File, thow exception
+	/**
+	 * append string to file
+	 * @param content
+	 * @param filePath
+	 * @throws IOException
+	 */
+	public void appendStringToFile(String content, String filePath) throws IOException {
+		StringBuffer sb = new StringBuffer();
+		String s = readFile(filePath,Charset.defaultCharset());
+		sb.append(s);
+		sb.append(content);
+		stringToFile(sb.toString(), filePath);
+	}
+	
+	/**
+	 * write string to file
+	 * @param content
+	 * @param filePath
+	 * @throws IOException
+	 */
 	public void stringToFile(String content, String filePath) throws IOException {
 		BufferedWriter writer = null;
 		writer = new BufferedWriter( new FileWriter( filePath));

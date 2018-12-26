@@ -65,7 +65,7 @@ public class HttpPostHelper {
 						
 			JsonParser parser = new JsonParser();
 			JsonObject data = parser.parse(config).getAsJsonObject();
-			
+			TimeSpan timeSpan = new TimeSpan();
 			HttpURLConnection connection = null;
 			String urlStr = data.get("url").getAsString();
 			String method = data.get("method").getAsString();
@@ -140,16 +140,26 @@ public class HttpPostHelper {
 				sb.append(lines);
 			}
 			
+			long ms = timeSpan.span();
+			
+			StringBuffer statusBuffer = new StringBuffer("");
+			statusBuffer.append("Status: " + status);
+			statusBuffer.append(System.lineSeparator());
+			statusBuffer.append("Time: " + ms + "ms");
+			System.out.println(statusBuffer.toString());
+			
 			if(isJSONValid(sb.toString())) {
 				JsonOp jsonOp = new JsonOp();
 				String outStr = jsonOp.JsonFormater(sb.toString());
 				System.out.println(outStr);
-				utils.stringToFile(outStr, outputFilePath);
+				statusBuffer.append(outStr);
+				utils.stringToFile(statusBuffer.toString(), outputFilePath);
 			}
 			else {
 				String outStr = sb.toString();
 				System.out.println(outStr);
-				utils.stringToFile(outStr, outputFilePath);
+				statusBuffer.append(outStr);
+				utils.stringToFile(statusBuffer.toString(), outputFilePath);
 			}
 			
 			reader.close();
