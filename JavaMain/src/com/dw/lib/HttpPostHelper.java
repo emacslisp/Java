@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Base64;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -22,7 +23,6 @@ import com.google.gson.JsonSyntaxException;
 public class HttpPostHelper {
 	
 	String[][] speicalCharactorMapping = {
-			{"@","%40"},
 			{"{","%7B"},
 			{"}","%7D"},
 			{" ","%20"},
@@ -84,6 +84,11 @@ public class HttpPostHelper {
 			connection.setReadTimeout(600000);
 			connection.setUseCaches(false);
 			connection.setInstanceFollowRedirects(true);
+			
+			if(url.getUserInfo() != null) {
+				String basicAuth = "Basic " + BasicAuthentication.base64Generator(url.getUserInfo());
+				connection.setRequestProperty("Authorization", basicAuth);
+			}
 			
 			if (!method.toUpperCase().equals("GET")) {
 				connection.setDoInput(true);
