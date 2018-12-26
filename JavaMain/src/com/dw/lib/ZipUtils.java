@@ -6,107 +6,161 @@ import java.util.List;
 import java.util.zip.*;
 
 public class ZipUtils {
-	
-	 private final List<File> fileList;
 
-     private List<String> paths;
+	private final List<File> fileList;
 
-     public ZipUtils() {
-         fileList = new ArrayList<>();
-         paths = new ArrayList<>();
-     }
-	
+	private List<String> paths;
+
+	public ZipUtils() {
+		fileList = new ArrayList<>();
+		paths = new ArrayList<>();
+	}
+
+	/**
+	 * unzip folder
+	 * 
+	 * @param zipFile      input zip file
+	 * @param outputFolder file output folder
+	 */
+	public void unzipIt(String zipFile, String outputFolder) {
+		byte[] buffer = new byte[1024];
+
+		try {
+
+			// create output directory is not exists
+			File folder = new File(outputFolder);
+			if (!folder.exists()) {
+				folder.mkdir();
+			}
+
+			// get the zip file content
+			ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile));
+			// get the zipped file list entry
+			ZipEntry ze = zis.getNextEntry();
+
+			while (ze != null) {
+
+				String fileName = ze.getName();
+				File newFile = new File(outputFolder + File.separator + fileName);
+
+				System.out.println("file unzip : " + newFile.getAbsoluteFile());
+
+				// create all non exists folders
+				// else you will hit FileNotFoundException for compressed folder
+				new File(newFile.getParent()).mkdirs();
+
+				FileOutputStream fos = new FileOutputStream(newFile);
+
+				int len;
+				while ((len = zis.read(buffer)) > 0) {
+					fos.write(buffer, 0, len);
+				}
+
+				fos.close();
+				ze = zis.getNextEntry();
+			}
+
+			zis.closeEntry();
+			zis.close();
+
+			System.out.println("Done");
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	public void zipIt(File sourceFile, File zipFile, boolean isDot) {
-		if(zipFile.exists()) {
+		if (zipFile.exists()) {
 			zipFile.delete();
 		}
-		
-        if (sourceFile.isDirectory()) {
-            byte[] buffer = new byte[1024];
-            FileOutputStream fos = null;
-            ZipOutputStream zos = null;
 
-            try {
+		if (sourceFile.isDirectory()) {
+			byte[] buffer = new byte[1024];
+			FileOutputStream fos = null;
+			ZipOutputStream zos = null;
 
-                // This ensures that the zipped files are placed
-                // into a folder, within the zip file
-                // which is the same as the one been zipped
-                String sourcePath = isDot? sourceFile.getAbsolutePath() : sourceFile.getParentFile().getPath();
-                generateFileList(sourceFile);
+			try {
 
-                fos = new FileOutputStream(zipFile);
-                zos = new ZipOutputStream(fos);
-                
-    			boolean isWindows = EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN;
-    			String pathSplitter = "/";
-    			
-    			if (isWindows) {
-    				pathSplitter = "\\";
-    			}
+				// This ensures that the zipped files are placed
+				// into a folder, within the zip file
+				// which is the same as the one been zipped
+				String sourcePath = isDot ? sourceFile.getAbsolutePath() : sourceFile.getParentFile().getPath();
+				generateFileList(sourceFile);
 
-                System.out.println("Output to Zip : " + zipFile);
-                FileInputStream in = null;
+				fos = new FileOutputStream(zipFile);
+				zos = new ZipOutputStream(fos);
 
-                for (File file : this.fileList) {
-                    String path = file.getParent().trim();
-                    path = path.substring(sourcePath.length());
+				boolean isWindows = EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN;
+				String pathSplitter = "/";
 
-                    if (path.startsWith(File.separator)) {
-                        path = path.substring(1);
-                    }
+				if (isWindows) {
+					pathSplitter = "\\";
+				}
 
-                    if (path.length() > 0) {
-                        if (!paths.contains(path)) {
-                            paths.add(path);
-                            ZipEntry ze = new ZipEntry(path + pathSplitter);
-                            zos.putNextEntry(ze);
-                            zos.closeEntry();
-                        }
-                        path += pathSplitter;
-                    }
+				System.out.println("Output to Zip : " + zipFile);
+				FileInputStream in = null;
 
-                    String entryName = path + file.getName();
-                    System.out.println("File Added : " + entryName);
-                    ZipEntry ze = new ZipEntry(entryName);
+				for (File file : this.fileList) {
+					String path = file.getParent().trim();
+					path = path.substring(sourcePath.length());
 
-                    zos.putNextEntry(ze);
-                    try {
-                        in = new FileInputStream(file);
-                        int len;
-                        while ((len = in.read(buffer)) > 0) {
-                            zos.write(buffer, 0, len);
-                        }
-                    } finally {
-                        in.close();
-                    }
-                }
+					if (path.startsWith(File.separator)) {
+						path = path.substring(1);
+					}
 
-                zos.closeEntry();
-                System.out.println("Folder successfully compressed");
+					if (path.length() > 0) {
+						if (!paths.contains(path)) {
+							paths.add(path);
+							ZipEntry ze = new ZipEntry(path + pathSplitter);
+							zos.putNextEntry(ze);
+							zos.closeEntry();
+						}
+						path += pathSplitter;
+					}
 
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } finally {
-                try {
-                    zos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+					String entryName = path + file.getName();
+					System.out.println("File Added : " + entryName);
+					ZipEntry ze = new ZipEntry(entryName);
 
-    protected void generateFileList(File node) {
+					zos.putNextEntry(ze);
+					try {
+						in = new FileInputStream(file);
+						int len;
+						while ((len = in.read(buffer)) > 0) {
+							zos.write(buffer, 0, len);
+						}
+					} finally {
+						in.close();
+					}
+				}
 
-        if (node.isFile()) {
-            fileList.add(node);
-        }
+				zos.closeEntry();
+				System.out.println("Folder successfully compressed");
 
-        if (node.isDirectory()) {
-            File[] subNote = node.listFiles();
-            for (File filename : subNote) {
-                generateFileList(filename);
-            }
-        }
-    }
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} finally {
+				try {
+					zos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	protected void generateFileList(File node) {
+
+		if (node.isFile()) {
+			fileList.add(node);
+		}
+
+		if (node.isDirectory()) {
+			File[] subNote = node.listFiles();
+			for (File filename : subNote) {
+				generateFileList(filename);
+			}
+		}
+	}
 }
