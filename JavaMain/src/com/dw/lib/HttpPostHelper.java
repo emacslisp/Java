@@ -80,8 +80,8 @@ public class HttpPostHelper {
 			connection.setRequestMethod(method.toUpperCase());
 			connection.setDoOutput(true);
 			
-			connection.setConnectTimeout(3000);
-			connection.setReadTimeout(3000);
+			connection.setConnectTimeout(600000);
+			connection.setReadTimeout(600000);
 			connection.setUseCaches(false);
 			connection.setInstanceFollowRedirects(true);
 			

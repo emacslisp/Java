@@ -16,7 +16,7 @@ public class PostTest {
 		//postTest();
 		HttpPostHelper helper = new HttpPostHelper();
 		
-		helper.Post("/Users/di.wu/dev/vocus/post/v1api-users-populate.json", null, null);
+		helper.Post("/Users/di.wu/dev/vocus/post/lolig.json", null, null);
 	}
 	
 	public static void getTest() {
