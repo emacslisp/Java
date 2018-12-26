@@ -16,7 +16,11 @@ public class ZipUtils {
          paths = new ArrayList<>();
      }
 	
-	public void zipIt(File sourceFile, File zipFile) {
+	public void zipIt(File sourceFile, File zipFile, boolean isDot) {
+		if(zipFile.exists()) {
+			zipFile.delete();
+		}
+		
         if (sourceFile.isDirectory()) {
             byte[] buffer = new byte[1024];
             FileOutputStream fos = null;
@@ -27,7 +31,7 @@ public class ZipUtils {
                 // This ensures that the zipped files are placed
                 // into a folder, within the zip file
                 // which is the same as the one been zipped
-                String sourcePath = sourceFile.getParentFile().getPath();
+                String sourcePath = isDot? sourceFile.getAbsolutePath() : sourceFile.getParentFile().getPath();
                 generateFileList(sourceFile);
 
                 fos = new FileOutputStream(zipFile);

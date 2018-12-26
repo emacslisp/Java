@@ -13,8 +13,8 @@ public class ZipTest {
 		
 		FileUtils fileUtils = new FileUtils();
 		
-		System.out.println(fileUtils.normalizePath("~/test"));
+		System.out.println(fileUtils.normalizePath("."));
 		
-		appZip.zipIt(new File(fileUtils.normalizePath("~/test")), new File("output.zip"));
+		appZip.zipIt(new File(fileUtils.normalizePath(".")), new File("output.zip"), true);
 	}
 }
