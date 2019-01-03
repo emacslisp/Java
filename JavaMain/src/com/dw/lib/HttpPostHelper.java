@@ -146,6 +146,7 @@ public class HttpPostHelper {
 			statusBuffer.append("Status: " + status);
 			statusBuffer.append(System.lineSeparator());
 			statusBuffer.append("Time: " + ms + "ms");
+			statusBuffer.append(System.lineSeparator());
 			System.out.println(statusBuffer.toString());
 			
 			if(isJSONValid(sb.toString())) {
