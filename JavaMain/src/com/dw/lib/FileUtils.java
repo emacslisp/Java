@@ -1,5 +1,6 @@
 package com.dw.lib;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -39,11 +41,14 @@ public class FileUtils {
 	public List<String> fileToList(String filePath) throws IOException {
 		List<String> result = new ArrayList<String>();
 		
-		try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
-
-			result = stream
-					.collect(Collectors.toList());
-
+		try {
+			FileInputStream fstream = new FileInputStream(filePath);
+			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+		    String line;
+		    while ((line = br.readLine()) != null) {
+		       // process the line.
+		    	result.add(line);
+		    }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
