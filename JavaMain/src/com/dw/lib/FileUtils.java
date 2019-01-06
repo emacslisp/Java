@@ -143,10 +143,25 @@ public class FileUtils {
 		return Paths.get(path).toAbsolutePath().normalize().toString();
 	}
 	
+	public static String getPathSplitter() {
+		boolean isWindows = EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN;
+		String pathSplitter = "/";
+
+		if (isWindows) {
+			pathSplitter = "\\";
+		}
+		return pathSplitter;
+	}
+	
 	public void copyFileUsingStream(File source, File dest) throws IOException {
 	    InputStream is = null;
 	    OutputStream os = null;
 	    try {
+	    	if(dest.isDirectory()) {
+	    		String targetFileName = source.getName();
+	    		String path = dest.getAbsolutePath().concat(FileUtils.getPathSplitter()).concat(targetFileName);
+	    		dest = new File(path);
+	    	}
 	        is = new FileInputStream(source);
 	        os = new FileOutputStream(dest);
 	        byte[] buffer = new byte[1024];
@@ -154,7 +169,10 @@ public class FileUtils {
 	        while ((length = is.read(buffer)) > 0) {
 	            os.write(buffer, 0, length);
 	        }
-	    } finally {
+	    } catch(IOException e) {
+	    	e.printStackTrace();
+	    }
+	    finally {
 	        is.close();
 	        os.close();
 	    }

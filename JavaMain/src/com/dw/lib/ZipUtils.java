@@ -91,12 +91,7 @@ public class ZipUtils {
 				fos = new FileOutputStream(zipFile);
 				zos = new ZipOutputStream(fos);
 
-				boolean isWindows = EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN;
-				String pathSplitter = "/";
-
-				if (isWindows) {
-					pathSplitter = "\\";
-				}
+				String pathSplitter = FileUtils.getPathSplitter();
 
 				System.out.println("Output to Zip : " + zipFile);
 				FileInputStream in = null;

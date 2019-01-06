@@ -21,14 +21,14 @@ public class CopyFileCLI {
 			help();
 			return;
 		}
-
-		String filePath = args[0];
-		String targetFilePath = args[1];
-
+		
 		FileUtils fileUtils = new FileUtils();
 
+		String filePath = fileUtils.normalizePath(args[0]);
+		String targetFilePath = fileUtils.normalizePath(args[1]);
+
 		if (!fileUtils.isExisted(filePath)) {
-			System.out.println("copy file is not existed");
+			System.out.println("copy file " + args[0] +" is not existed");
 			return;
 		}
 		
