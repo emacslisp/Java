@@ -32,6 +32,11 @@ public class CopyFileCLI {
 			return;
 		}
 		
+		if(filePath.equals(targetFilePath)) {
+			System.out.println(args[0] +" " + args[1] + " are same files");
+			return;
+		}
+		
 		try {
 			fileUtils.copyFileUsingStream(new File(filePath), new File(targetFilePath));
 		} catch (IOException e) {
