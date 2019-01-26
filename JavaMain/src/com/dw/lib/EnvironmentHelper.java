@@ -15,6 +15,11 @@ public class EnvironmentHelper {
 		return System.getenv(envName);
 	}
 	
+	public static String getHomeDir() {
+		String result = System.getProperty("user.home");
+		return result;
+	}
+	
 	public static OSType getOSType() {
 		String OS = System.getProperty("os.name").toLowerCase();
 		if(OS.indexOf("win") >= 0) {
