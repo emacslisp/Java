@@ -3,6 +3,7 @@ package com.dw.lib.test;
 import java.io.File;
 import java.io.IOException;
 
+import com.dw.lib.EnvironmentHelper;
 import com.dw.lib.FileUtils;
 
 public class CopyFileTest {
@@ -11,11 +12,11 @@ public class CopyFileTest {
 		// TODO Auto-generated method stub
 		
 		FileUtils fileUtils = new FileUtils();
-		String filePath = "/Users/ewu/test/1.json";
-		String targetFilePath = ".";
+		String filePath = EnvironmentHelper.getHomeDir() + "/test/copyFileTest";
+		String targetFilePath = EnvironmentHelper.getHomeDir() + "/test/copyFileTest2";
 		
 		try {
-			fileUtils.copyFileUsingStream(new File(filePath), new File(fileUtils.normalizePath(targetFilePath)));
+			fileUtils.copyFolderUsingStream(new File(filePath), new File(fileUtils.normalizePath(targetFilePath)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

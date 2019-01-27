@@ -38,7 +38,12 @@ public class CopyFileCLI {
 		}
 		
 		try {
-			fileUtils.copyFileUsingStream(new File(filePath), new File(targetFilePath));
+			File sourceFilePath = new File(filePath);
+			if(sourceFilePath.isDirectory()) {
+				fileUtils.copyFolderUsingStream(sourceFilePath, new File(targetFilePath));
+			} else if(sourceFilePath.isFile()) {
+				fileUtils.copyFileUsingStream(sourceFilePath, new File(targetFilePath));
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

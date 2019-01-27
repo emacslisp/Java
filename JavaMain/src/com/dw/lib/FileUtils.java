@@ -87,21 +87,44 @@ public class FileUtils {
 	//get Max Size of Files under a folder
 	// @todo: finish max File size
 	public long maxFilesize(String rootDirectory) {
-		List<Path> paths = listFiles(rootDirectory);
+		List<Path> paths = listFiles(rootDirectory, false);
 		
 		return 0;
 	}
 	
-	//get list of Path
-	public static List<Path> listFiles(String rootDirectory)
+	/**
+	 * 
+	 * @param rootDirectory
+	 * @return
+	 */
+	public static List<Path> listFiles(String rootDirectory, boolean isIncludingEmptyFolder)
 	{
 	    List<Path> files = new ArrayList<Path>();
-	    listFiles(rootDirectory, files);
+	    listFiles(rootDirectory, files, isIncludingEmptyFolder);
 
 	    return files;
 	}
 	
-	private static void listFiles(String path, List<Path> collectedFiles)
+	/**
+	 * get related path from absoluted path
+	 * @param base
+	 * @param file
+	 * @return
+	 */
+	public static String relative(final File base, final File file) {
+		final int rootLength = base.getAbsolutePath().length();
+		final String absFileName = file.getAbsolutePath();
+		final String relFileName = absFileName.substring(rootLength + 1);
+		return relFileName;
+	}
+
+	
+	/**
+	 * get full list of Files
+	 * @param path
+	 * @param collectedFiles
+	 */
+	private static void listFiles(String path, List<Path> collectedFiles, boolean isIncludingEmptyFolder)
 	{
 	    File root = new File(path);
 	    File[] files = root.listFiles();
@@ -110,12 +133,18 @@ public class FileUtils {
 	    {
 	        return;
 	    }
+	    
+	    if(files.length == 0 && isIncludingEmptyFolder) {
+	    	// add empty folder here
+	    	collectedFiles.add(root.toPath());
+	    	return;
+	    }
 
 	    for (File file : files)
 	    {
 	        if (file.isDirectory())
 	        {
-	            listFiles(file.getAbsolutePath(), collectedFiles);
+	            listFiles(file.getAbsolutePath(), collectedFiles, isIncludingEmptyFolder);
 	        } else
 	        {
 	            collectedFiles.add(file.toPath());
@@ -180,6 +209,36 @@ public class FileUtils {
 	    finally {
 	        is.close();
 	        os.close();
+	    }
+	}
+	
+	public void copyFolderUsingStream(File source, File dest) throws IOException {
+		if(dest.isFile()) {
+			System.out.println(dest.getAbsolutePath() + " is a file, Target can not be a file");
+			return;
+		}
+		
+	    try {
+	    	List<Path> fileList = listFiles(source.getAbsolutePath(), true);
+	    	
+	    	for(Path p : fileList) {
+	    		File sourceFile = p.toFile();
+	    		if(sourceFile.isDirectory()) {
+	    			// mkdirs for empty folder
+	    			sourceFile.mkdirs();
+	    			continue;
+	    		}
+	    		
+	    		String relatedPath = relative(source, p.toFile());
+	    		File targetFile = new File(dest, relatedPath);
+	    		if(!targetFile.getParentFile().exists()) {
+	    			targetFile.getParentFile().mkdirs();
+	    		}
+	    		
+	    		copyFileUsingStream(p.toFile(), targetFile);
+	    	}
+	    } catch(IOException e) {
+	    	e.printStackTrace();
 	    }
 	}
 	
