@@ -63,12 +63,14 @@ public class BallCLI {
 				System.out.print(total % 20 + " ");
 			}
 		}
+		
+		System.out.println();
 	}
 
 	public static void main(String[] args) {
 		try {
 			if (args.length != 1) {
-				System.out.println("ball to view a text file");
+				System.out.println("ball to generate 8 number");
 				System.out.println("ball <how many you want to generate>");
 				return;
 			}
