@@ -21,14 +21,21 @@ import java.util.stream.Stream;
 
 public class FileUtils {
 	
-    public String readFile(String path, Charset encoding) throws IOException 
+	/**
+	 * 
+	 * @param path
+	 * @param encoding
+	 * @return
+	 * @throws IOException
+	 */
+    private String readFile(String path, Charset encoding) throws IOException 
     {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
     }
     
-    /*
-     * read file into string, large file should be careful
+    /**
+     * read file into one whole string, large file should be careful
      * @param path of files
      * @return File string
      */
@@ -38,6 +45,12 @@ public class FileUtils {
        	return s;
 	}
 	
+	/**
+	 * file content to list of String
+	 * @param filePath
+	 * @return
+	 * @throws IOException
+	 */
 	public List<String> fileToList(String filePath) throws IOException {
 		List<String> result = new ArrayList<String>();
 		
@@ -187,6 +200,12 @@ public class FileUtils {
 		return pathSplitter;
 	}
 	
+	/**
+	 * copy File Using Stream buffer
+	 * @param source
+	 * @param dest
+	 * @throws IOException
+	 */
 	public void copyFileUsingStream(File source, File dest) throws IOException {
 	    InputStream is = null;
 	    OutputStream os = null;
@@ -212,6 +231,12 @@ public class FileUtils {
 	    }
 	}
 	
+	/**
+	 * get a list of file from source folder and copy same struction to dest folder
+	 * @param source
+	 * @param dest
+	 * @throws IOException
+	 */
 	public void copyFolderUsingStream(File source, File dest) throws IOException {
 		if(dest.isFile()) {
 			System.out.println(dest.getAbsolutePath() + " is a file, Target can not be a file");
