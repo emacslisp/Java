@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class BallCLI {
 
-	public static int BallRandom() {
+	public static int BallRandom(int baseNum) {
 		String uuid = UUID.randomUUID().toString();
 		uuid = uuid.replace("-", "");
 
@@ -25,7 +25,7 @@ public class BallCLI {
 			int base = 1;
 			for (int j = 0; j < counter; j++) {
 				base *= 16;
-				base %= 35;
+				base %= baseNum;
 			}
 			counter++;
 
@@ -38,29 +38,21 @@ public class BallCLI {
 		HashSet<Integer> hash = new HashSet<>();
 
 		for (int k = 0; k < 8; k++) {
-
-			int total = BallRandom();
-
 			if (k < 7) {
+				int total = BallRandom(35);
 				int result = total % 35;
-				if (result == 0) {
-					k--;
-					continue;
-				}
+
 				if (!hash.contains(result)) {
-					System.out.print(result + " ");
+					System.out.print((result == 0? 35: result) + " ");
 					hash.add(result);
 				} else {
 					k--;
 					continue;
 				}
 			} else {
+				int total = BallRandom(20);
 				int result = total % 20;
-				if (result == 0) {
-					k--;
-					continue;
-				}
-				System.out.print(total % 20 + " ");
+				System.out.print(result == 0? 20: result);
 			}
 		}
 		
