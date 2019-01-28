@@ -3,7 +3,7 @@ package com.dw.lib.cli;
 import java.util.HashSet;
 import java.util.UUID;
 
-public class BallCli {
+public class BallCLI {
 
 	public static int BallRandom() {
 		String uuid = UUID.randomUUID().toString();
