@@ -10,8 +10,8 @@ public class Log4jTest {
         //System.out.println("Test config");
     	String homePath = System.getProperty("user.home");
     	System.out.println(homePath);
-    	
-    	DOMConfigurator.configure(homePath + "/dev/Java/JavaMain/src/com/dw/log4j_1_12/log4j_toFile.xml");
+    	DOMConfigurator.configure(Log4jTest.class.getResource("log4j_toFile.xml"));
+    	// DOMConfigurator.configure(homePath + "/dev/Java/JavaMain/src/com/dw/log4j_1_12/log4j_toFile.xml");
 		logger.debug("Sample debug message");
 		logger.info("Sample info message");
 		logger.warn("Sample warn message");
