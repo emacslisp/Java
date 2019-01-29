@@ -1,4 +1,4 @@
-package com.dw.get;
+package com.dw.getdict;
 
 import java.net.URL;
 

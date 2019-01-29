@@ -1,4 +1,4 @@
-package com.dw.get;
+package com.dw.getdict;
 
 public interface IDownloader {
 
