@@ -11,7 +11,7 @@ public class Log4jTest {
     	String homePath = System.getProperty("user.home");
     	System.out.println(homePath);
     	
-    	DOMConfigurator.configure(homePath + "/dev/Java/JavaMain/src/com/dw/log4j_1_12/log4j.xml");
+    	DOMConfigurator.configure(homePath + "/dev/Java/JavaMain/src/com/dw/log4j_1_12/log4j_toFile.xml");
 		logger.debug("Sample debug message");
 		logger.info("Sample info message");
 		logger.warn("Sample warn message");

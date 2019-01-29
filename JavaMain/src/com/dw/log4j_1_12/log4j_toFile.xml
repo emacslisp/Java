@@ -11,10 +11,10 @@
 	</appender>
 
 	<appender name="file" class="org.apache.log4j.RollingFileAppender">
-	    <param name="append" value="false" />
+	    <param name="append" value="true" />
 	    <param name="maxFileSize" value="10MB" />
 	    <param name="maxBackupIndex" value="10" />
-	    <param name="file" value="/Users/ewu/log/log4j_1_12.log" />
+	    <param name="file" value="${user.home}/log/log4j_1_12.log" />
 	    <layout class="org.apache.log4j.PatternLayout">
 		<param name="ConversionPattern"
 			value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
