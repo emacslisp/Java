@@ -7,8 +7,8 @@ package com.dw.algorithmlib;
  *
  */
 public class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
     ListNode(int d) {
         val = d;
