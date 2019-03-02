@@ -10,11 +10,12 @@ public class MathHelper {
     
     // @todo: add two large number using String
     public String add(String num1, String num2) {
-    	String result = "";
+    	int maxLength = num1.length() > num2.length()? num1.length() : num2.length();
+    	int minLenght = num1.length() > num2.length()? num2.length() : num1.length();
     	
+    	char[] result = new char[maxLength];
     	
-    	
-    	return result;
+    	return new String(result);
     }
     
     // @todo: multiply two large number using String
