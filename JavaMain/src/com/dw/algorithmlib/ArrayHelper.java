@@ -2,13 +2,18 @@ package com.dw.algorithmlib;
 
 public class ArrayHelper {
 	
+	/**
+	 * Revert Array
+	 * @param inputArray
+	 * @return
+	 */
 	public static <E> E[] revertArray(E[] inputArray) {
 		
 		int i = 0;
 		
 		while(i<inputArray.length) {
 			int end = inputArray.length - i - 1;
-			if(end>i) {
+			if(end<i) {
 				break;
 			}
 			
