@@ -2,6 +2,27 @@ package com.dw.algorithmlib;
 
 public class ReverseLinkedList {
 	static ListNode head;
+	/**
+	 * 
+	 * @param head
+	 * @return
+	 */
+	public ListNode revertListRecursion(ListNode head) {
+		if(head == null) return null;
+        if(head.next == null) return head;
+        ListNode current = head;
+        ListNode next = head.next;
+        head.next = null;
+        
+        return recursionMain(current, next);
+	}
+	
+	private ListNode recursionMain(ListNode head, ListNode next) {
+		if(next == null) return head;
+		ListNode target = next.next;
+		next.next = head;
+		return recursionMain(next, target);
+	}
     
     /**
      * 
@@ -60,5 +81,14 @@ public class ReverseLinkedList {
         }
         
         return prev;
+    }
+    
+    public void printListNode(ListNode head) {
+    	ListNode pointer = head;
+    	
+    	while(pointer != null) {
+    		System.out.print(pointer.val + "\t");
+    		pointer = pointer.next;
+    	}
     }
 }
