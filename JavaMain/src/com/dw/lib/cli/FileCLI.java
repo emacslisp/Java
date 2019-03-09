@@ -11,7 +11,7 @@ public class FileCLI {
 		// TODO Auto-generated method stub
 
 		if(args.length != 1) {
-			System.out.println("jFile <arg1>");
+			System.out.println("jfile <arg1>");
 			return;
 		}
 		
