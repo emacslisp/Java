@@ -14,12 +14,39 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileOwnerAttributeView;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileUtils {
+	
+	public String fileAttributes(String path) throws IOException {
+		StringBuilder result = new StringBuilder();
+		Path p = Paths.get(path);
+
+		FileOwnerAttributeView ownerAttributeView = Files.getFileAttributeView(p, FileOwnerAttributeView.class);
+		UserPrincipal owner = ownerAttributeView.getOwner();
+
+		result.append("File Owner: " + owner.getName());
+		result.append(System.getProperty("line.separator"));
+
+		BasicFileAttributes view = Files.getFileAttributeView(p, BasicFileAttributeView.class).readAttributes();
+		result.append("Created Date: " + view.creationTime());
+		result.append(System.getProperty("line.separator"));
+
+		result.append("Modified Date: " + view.lastModifiedTime());
+		result.append(System.getProperty("line.separator"));
+
+		result.append("Access Date: " + view.lastAccessTime());
+		result.append(System.getProperty("line.separator"));
+
+		return result.toString();
+	}
 	
 	/**
 	 * 
