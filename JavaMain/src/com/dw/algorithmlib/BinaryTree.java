@@ -26,6 +26,23 @@ public class BinaryTree {
                 return (rDepth + 1); 
         } 
     }
+	
+	/**
+	 * Calculate Number of Tree Element
+	 * @return Number of Tree Element
+	 */
+	int size() 
+    { 
+        return size(root); 
+    } 
+  
+    int size(TreeNode node) 
+    { 
+        if (node == null) 
+            return 0; 
+        else
+            return(size(node.left) + 1 + size(node.right)); 
+    } 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -39,6 +56,9 @@ public class BinaryTree {
    
         System.out.println("Height of tree is : " +  
                                       tree.treeHigh(tree.root));
+        
+        System.out.println("The size of binary tree is : "
+                + tree.size()); 
 	}
 
 }
