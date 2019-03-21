@@ -1,5 +1,7 @@
 package com.dw.algorithmlib;
 
+import java.util.Arrays;
+
 public class ArrayHelper {
 	
 	/**
@@ -25,6 +27,17 @@ public class ArrayHelper {
 		}
 		
 		return inputArray;
+	}
+	
+	/**
+	 * 
+	 * @param inputArray
+	 * @param isRevert
+	 * @return
+	 */
+	public static <T extends Comparable<T>> T[] sortArray(T[] inputArray) {
+		 Arrays.sort(inputArray);
+		 return inputArray;
 	}
 
 	/**
