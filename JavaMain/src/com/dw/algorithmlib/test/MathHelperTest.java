@@ -9,7 +9,7 @@ public class MathHelperTest {
 		MathHelper mathHelper = new MathHelper();
 		System.out.println(mathHelper.add("123456789", "123456789"));
 		
-		System.out.println(mathHelper.add("123456789", "999999999"));
+		System.out.println(mathHelper.add("123456789", "123456999999999"));
 	}
 
 }
