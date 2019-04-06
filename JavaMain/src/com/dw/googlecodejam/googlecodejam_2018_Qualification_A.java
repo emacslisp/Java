@@ -8,7 +8,7 @@ public class googlecodejam_2018_Qualification_A {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		FileInputStream instream = null;
+		/*FileInputStream instream = null;
 		PrintStream outstream = null;
 
 		try {
@@ -18,7 +18,7 @@ public class googlecodejam_2018_Qualification_A {
 			System.setOut(outstream);
 		} catch (Exception e) {
 			System.err.println("Error Occurred");
-		}
+		}*/
 
 		Scanner in = new Scanner(System.in);
 		String strT = in.nextLine();

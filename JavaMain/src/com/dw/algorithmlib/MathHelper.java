@@ -29,6 +29,17 @@ public class MathHelper {
     	return c - '0';
     }
     
+    public boolean isPrime(int n) {
+    	boolean result = true;
+    	for(int i=2;i<=Math.sqrt(n);i++) {
+    		if(n%i == 0) {
+    			result = false;
+    			break;
+    		}
+    	}
+    	return result;
+    }
+    
     // @todo: add two large number using String
     // num1 = 12345678
     // num2 = 34567890
@@ -92,6 +103,13 @@ public class MathHelper {
     
     // @todo: multiply two large number using String
     public String Multiple(String num1, String num2) {
+    	String result = "";
+    	
+    	return result;
+    }
+    
+    // @todo: multiply two large number using String
+    public String divide(String num1, String num2) {
     	String result = "";
     	
     	return result;
