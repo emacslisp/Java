@@ -16,7 +16,7 @@ public class MathHelperTest {
 		  int[] L= {9767,9769,9781,9787,9791,9803,9811,9817,9829,9833,9839,9851,9857,9859,9871,9883,9887,9901,9907,9923,9929,9931,9941,9949,9967,9973};
 		  String input = "SUBDERMATOGLYPHICFJKNQVWXZSUBDERMATOGLYPHICFJKNQVWXZSUBDERMATOGLYPHICFJKNQVWXZSUBDERMATOGLYPHICFJKNQVWXZ";
 		  for(int i=0;i<input.length() - 1;i++) {
-		    System.out.printf("%d ", L[input.charAt(i) - 'A'] * L[input.charAt(i) - 'A']);
+		    System.out.printf("%d ", L[input.charAt(i) - 'A'] * L[input.charAt(i+1) - 'A']);
 		  }
 
 	}
