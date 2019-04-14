@@ -1,5 +1,7 @@
 package com.dw.algorithmlib;
 
+import java.math.BigInteger;
+
 public class MathHelper {
 	
 	// find gcd algorithm
@@ -117,7 +119,18 @@ public class MathHelper {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		BigInteger bi1, bi2, bi3;  
+		
+		 bi1 = new BigInteger("1200000000000000000000000000000000000000000");
+	     bi2 = new BigInteger("50");
 
+	      // perform add operation on bi1 using bi2
+	      bi3 = bi1.gcd(bi2);
+		  
+	      String str = "Result of addition is " +bi3;;
+
+	      // print bi3 value
+	      System.out.println( str );
 	}
 
 }
