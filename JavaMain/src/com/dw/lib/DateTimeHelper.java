@@ -7,10 +7,10 @@ import java.util.GregorianCalendar;
 
 public class DateTimeHelper {
 	
-	public long ConvertDateToUnixTime(int year, int month, int day, int hour, int minutes, int seconds) {
+	public Date ConvertDateToUnixTime(int year, int month, int day, int hour, int minutes, int seconds) {
 		GregorianCalendar calendar = new GregorianCalendar(year, month - 1, day, hour, minutes, seconds);
 		Date date = calendar.getTime();
-		return date.getTime();
+		return date;
 	}
 
 	public static void main(String[] args) {

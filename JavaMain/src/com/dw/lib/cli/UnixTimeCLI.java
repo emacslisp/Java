@@ -1,6 +1,7 @@
 package com.dw.lib.cli;
 
 import java.io.File;
+import java.util.Date;
 
 import com.dw.lib.DateTimeHelper;
 import com.dw.lib.FileUtils;
@@ -26,8 +27,10 @@ public class UnixTimeCLI {
 			}
 			
 			DateTimeHelper dateTimeHelper = new DateTimeHelper();
-			long unixTime = dateTimeHelper.ConvertDateToUnixTime(array[0], array[1], array[2], array[3], array[4], array[5]);
-			System.out.println(unixTime);
+			Date dateTime = dateTimeHelper.ConvertDateToUnixTime(array[0], array[1], array[2], array[3], array[4], array[5]);
+			System.out.println(dateTime.toString());
+			System.out.println(dateTime.toInstant().toString());
+			System.out.println(dateTime.getTime());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
