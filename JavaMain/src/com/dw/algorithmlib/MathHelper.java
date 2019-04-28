@@ -116,6 +116,34 @@ public class MathHelper {
     	
     	return result;
     }
+	
+    /**
+     * Transfer number
+     * @param N
+     * @return
+     */
+	public String NumToMin2(int N) {
+		if (N == 0)
+			return "0";
+		
+		StringBuilder result = new StringBuilder();
+
+		int temp;
+		
+		while (N != 0) {
+	
+			temp = N % (-2);
+			N = (N - Math.abs(temp))/(-2);
+	
+			if (temp == 1) {
+				result.append('1');
+			} else
+				result.append(temp == 0 ? '0' : '1');
+	
+		}
+	
+		return result.reverse().toString();
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
