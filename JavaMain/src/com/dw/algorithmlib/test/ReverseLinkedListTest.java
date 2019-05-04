@@ -20,10 +20,28 @@ public class ReverseLinkedListTest {
 		
 		reverseLinkedList.printListNode(result);
 	}
+	
+	public static void SortLinkedListAlgorithm() {
+		LinkedListAlgorithm reverseLinkedList = new LinkedListAlgorithm();
+		Integer[] intArray = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+		
+		ListNode head = new ListNode(intArray[0]);
+		ListNode pointer = head;
+		for(int i = 1; i< intArray.length; i++) {
+			pointer.next = new ListNode(intArray[i]);
+			pointer = pointer.next;
+		}
+		
+		ListNode result = reverseLinkedList.mergeSort(head);
+		
+		reverseLinkedList.printListNode(result);
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ReverseLinkedListRecursion();
+		
+		// ReverseLinkedListRecursion();
+		SortLinkedListAlgorithm();
 	}
 
 }
