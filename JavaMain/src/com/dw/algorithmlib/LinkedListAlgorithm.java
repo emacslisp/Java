@@ -1,6 +1,6 @@
 package com.dw.algorithmlib;
 
-public class ReverseLinkedList {
+public class LinkedListAlgorithm {
 	static ListNode head;
 	/**
 	 * 
@@ -90,5 +90,53 @@ public class ReverseLinkedList {
     		System.out.print(pointer.val + "\t");
     		pointer = pointer.next;
     	}
+    }
+    
+    // start functions for
+    public ListNode mergeSort(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode middle = middleElement(head);
+        ListNode nextofMiddle = middle.next;
+        middle.next = null;
+
+        ListNode left = mergeSort(head);
+        ListNode right = mergeSort(nextofMiddle);
+
+        ListNode sortdList = merge(left, right);
+
+        return sortdList;
+    }
+
+    private ListNode merge(ListNode left, ListNode right) {
+        if(left == null) {
+            return right;
+        }
+
+        if(right == null) {
+            return left;
+        }
+        ListNode temp = null;
+        if(left.val < right.val) {
+            temp = left;
+            temp.next = merge(left.next, right);
+        } else {
+            temp = right;
+            temp.next = merge(left, right.next);
+        }
+
+        return temp;
+    }
+
+    private ListNode middleElement(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 }

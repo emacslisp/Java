@@ -1,12 +1,12 @@
 package com.dw.algorithmlib.test;
 
 import com.dw.algorithmlib.ListNode;
-import com.dw.algorithmlib.ReverseLinkedList;
+import com.dw.algorithmlib.LinkedListAlgorithm;
 
 public class ReverseLinkedListTest {
 	
 	public static void ReverseLinkedListRecursion() {
-		ReverseLinkedList reverseLinkedList = new ReverseLinkedList();
+		LinkedListAlgorithm reverseLinkedList = new LinkedListAlgorithm();
 		Integer[] intArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		
 		ListNode head = new ListNode(intArray[0]);
