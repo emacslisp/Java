@@ -8,12 +8,37 @@ import com.dw.lib.FileUtils;
 
 public class UnixTimeCLI {
 
+	public static void printHelpMessage() {
+		System.out.println("unixtime <year> <month> <day> <hour> <minute> <second>");
+		System.out.println("unixtime -r <unix time in millisecond>");
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		if(args.length == 0) {
+			printHelpMessage();
+			return;
+		}
+		
+
+		if (args.length == 1) {
+			try {
+				long unixTime = Long.parseLong(args[0]);
+				DateTimeHelper dateTimeHelper = new DateTimeHelper();
+				Date dateTime = dateTimeHelper.ConvertUnixTimeToDate(unixTime);
+				System.out.println(dateTime.toString());
+				System.out.println(dateTime.toInstant().toString());
+				System.out.println(dateTime.getTime());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return;
+		}
+		
 		if(args.length > 6 || args.length < 3) {
 			System.out.println("unixtime <year> <month> <day> <hour> <minute> <second>");
 			return;
 		}
+		
 		
 		try {
 			int[] array = new int[6];
