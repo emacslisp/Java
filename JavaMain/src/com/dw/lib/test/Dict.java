@@ -3,6 +3,8 @@ package com.dw.lib.test;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,8 +29,9 @@ public class Dict {
 				continue;
 			
 			output = Jsoup.parse(output).text();
-			if (!output.equals(""))
-				ss.appendLine(output);
+			if (!output.equals("")) {
+				ss.appendLine(StringService.StringToUTF8(output));
+			}
 		}
 		return ss.toString();
 	}
@@ -43,8 +46,8 @@ public class Dict {
 			for (String s : className) {
 				Elements elements = doc.getElementsByClass(s);
 				String output = elementsToString(elements);
-				if(!output.equals("")) {
-					ss.appendLine(output);
+				if(!output.trim().equals("")) {
+					ss.append(output);
 				}
 			}
 			
@@ -63,7 +66,7 @@ public class Dict {
 			doc = Jsoup.connect(String.format("http://www.dict.org/bin/Dict?Form=Dict2&Database=*&Query=%s", word))
 					.get();
 
-			Elements e = doc.getElementsByTag("prev");
+			Elements e = doc.getElementsByTag("pre");
 			return elementsToString(e);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -73,7 +76,9 @@ public class Dict {
 	}
 
 	public static void main(String[] args) {
-
+		Logger logger = Logger.getLogger(Dict.class);
+		DOMConfigurator.configure(Dict.class.getResource("log4j_toFile.xml"));
+		long sleepTime = 1000;
 		try {
 			MysqlHelper mysql = new MysqlHelper("jdbc:mysql://localhost:3306/dict?useSSL=true", "root", "123456");
 			FileUtils file = new FileUtils();
@@ -82,11 +87,18 @@ public class Dict {
 			Dict dict = new Dict();
 			for (String word : words) {
 				if (regex.isAllLetterAndNumber(word)) {
-					System.out.println(word);
+					logger.debug(word);
 					String dictCN = dict.getDictCN(word);
+					dictCN = dictCN.replace("'", "\'");
 					String dictOrg = dict.getDictOrg(word);
-					mysql.executeQuery("insert into dict(word, dict_cn, dict_org) values ( '" + word + "','" + dictCN + "','" + dictOrg + "')");
+					dictOrg = dictOrg.replace("'", "\'");
+					
+					String sqlStatement = "insert into dictionary(word, dict_cn, dict_org) values ( '" + word + "','" + StringService.StringToUTF8(dictCN) + "','" + StringService.StringToUTF8(dictOrg) + "')";
+					logger.debug(sqlStatement);
+					
+					mysql.executeUpdate(sqlStatement);
 				}
+				Thread.sleep(sleepTime);
 			}
 			/*
 			 * String test = "9th"; RegexService regex = new RegexService();

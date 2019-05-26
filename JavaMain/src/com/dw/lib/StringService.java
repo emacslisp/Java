@@ -1,5 +1,7 @@
 package com.dw.lib;
 
+import java.io.UnsupportedEncodingException;
+
 public class StringService {
 	StringBuilder sb = new StringBuilder();
 	public StringService() {
@@ -19,5 +21,19 @@ public class StringService {
 	
 	public String toString() {
 		return sb.toString();
+	}
+	
+	public static String StringToUTF8(String s) {
+		byte ptext[] = s.getBytes();
+		String value;
+		try {
+			value = new String(ptext, "UTF-8");
+			return value;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "";
 	}
 }
