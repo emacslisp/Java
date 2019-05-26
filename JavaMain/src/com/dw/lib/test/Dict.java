@@ -74,29 +74,40 @@ public class Dict {
 		}
 		return "";
 	}
+	
+	public static String filterString(String s) {
+		return s.replace("\\", "").replace("'","\\'");
+	}
 
 	public static void main(String[] args) {
 		Logger logger = Logger.getLogger(Dict.class);
 		DOMConfigurator.configure(Dict.class.getResource("log4j_toFile.xml"));
 		long sleepTime = 1000;
 		try {
-			MysqlHelper mysql = new MysqlHelper("jdbc:mysql://localhost:3306/dict?useSSL=true", "root", "123456");
+			MysqlHelper mysql = new MysqlHelper("jdbc:mysql://localhost:3306/dict?useSSL=true&useUnicode=yes&characterEncoding=UTF-8", "root", "123456");
 			FileUtils file = new FileUtils();
 			List<String> words = file.fileToList("/Users/ewu/test/dict.txt");
 			RegexService regex = new RegexService();
 			Dict dict = new Dict();
 			for (String word : words) {
 				if (regex.isAllLetterAndNumber(word)) {
+					try {
 					logger.debug(word);
 					String dictCN = dict.getDictCN(word);
-					dictCN = dictCN.replace("'", "\'");
 					String dictOrg = dict.getDictOrg(word);
-					dictOrg = dictOrg.replace("'", "\'");
+					dictCN = filterString(dictCN);
+					dictOrg = filterString(dictOrg);
 					
-					String sqlStatement = "insert into dictionary(word, dict_cn, dict_org) values ( '" + word + "','" + StringService.StringToUTF8(dictCN) + "','" + StringService.StringToUTF8(dictOrg) + "')";
+					String sqlStatement = "insert into dictionary(word, dict_cn, dict_org) values ( '" + word + "','" + dictCN + "','" + dictOrg + "')";
 					logger.debug(sqlStatement);
 					
 					mysql.executeUpdate(sqlStatement);
+					}
+					catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						logger.error(e.toString());
+					}
 				}
 				Thread.sleep(sleepTime);
 			}
@@ -107,6 +118,7 @@ public class Dict {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 }
