@@ -2,6 +2,9 @@ package com.dw.yacc;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+
+import com.dw.lib.FileUtils;
 
 public class OpenFile {
 	public File temp;
@@ -21,6 +24,8 @@ public class OpenFile {
 	
 	public void OpenTempFile() {
 		try {
+
+			
 			temp = File.createTempFile("temp",".txt");
 			
 			//cleaning when program exit
@@ -34,5 +39,19 @@ public class OpenFile {
 	
 	public void closeTempFile() {
 		temp.deleteOnExit();
+	}
+	
+	public List<String> OpenInputFile(String filePath) {
+		try {
+			
+			FileUtils utils = new FileUtils();
+			return utils.fileToList(filePath);
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }
