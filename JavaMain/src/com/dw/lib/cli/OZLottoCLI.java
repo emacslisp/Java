@@ -14,6 +14,7 @@ HashSet<Integer> hash = new HashSet<>();
 			int result = RandomService.UUIDRandom(35);
 
 			if (!hash.contains(result)) {
+				counter++;
 				System.out.print((result == 0? 45: result) + " ");
 				hash.add(result);
 			} 
@@ -26,6 +27,7 @@ HashSet<Integer> hash = new HashSet<>();
 			int result = RandomService.UUIDRandom(35);
 
 			if (!hash.contains(result)) {
+				counter++;
 				System.out.print((result == 0? 45: result) + " ");
 				hash.add(result);
 			}
