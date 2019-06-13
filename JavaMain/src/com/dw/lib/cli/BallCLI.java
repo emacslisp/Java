@@ -1,5 +1,6 @@
 package com.dw.lib.cli;
 
+import java.util.*;
 import java.util.HashSet;
 import java.util.UUID;
 
@@ -7,27 +8,28 @@ import com.dw.lib.RandomService;
 
 public class BallCLI {
 
-	public static void generate() {
+	public static List<Integer> generate() {
 		HashSet<Integer> hash = new HashSet<>();
-
+		List<Integer> numbers = new ArrayList<Integer>();
 		for (int k = 0; k < 8; k++) {
 			if (k < 7) {
 				int result = RandomService.UUIDRandom(35);
 
 				if (!hash.contains(result)) {
-					System.out.print((result == 0? 35: result) + " ");
+					numbers.add((result == 0? 35: result));
 					hash.add(result);
 				} else {
 					k--;
 					continue;
 				}
 			} else {
+				Collections.sort(numbers);
 				int result = RandomService.UUIDRandom(20);
-				System.out.print(result == 0? 20: result);
+				numbers.add(result == 0? 20: result);
 			}
 		}
 		
-		System.out.println();
+		return numbers;
 	}
 
 	public static void main(String[] args) {
@@ -39,10 +41,16 @@ public class BallCLI {
 			}
 
 			int num = Integer.parseInt(args[0]);
-
+			List<Integer> result = null;
 			for (int i = 0; i < num; i++) {
-				generate();
+				result = generate();
+				for (Integer x: result) {
+					System.out.printf("%d ", x);
+				}
+				System.out.println();
 			}
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

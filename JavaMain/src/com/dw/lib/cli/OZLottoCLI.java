@@ -1,37 +1,53 @@
 package com.dw.lib.cli;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 import com.dw.lib.RandomService;
 
 public class OZLottoCLI {
-	public static void generate() {
-HashSet<Integer> hash = new HashSet<>();
+	
+	public static int T = 45;
+	public static List<Integer> generate() {
+		HashSet<Integer> hash = new HashSet<>();
+		List<Integer> numbers = new ArrayList<Integer>();
+		List<Integer> numbers2 = new ArrayList<Integer>();
 		
 		int counter = 1;
 		
 		while(counter <= 7) {
-			int result = RandomService.UUIDRandom(35);
+			int result = RandomService.UUIDRandom(T);
 
 			if (!hash.contains(result)) {
 				counter++;
-				System.out.print((result == 0? 45: result) + " ");
+				numbers.add(result == 0? T: result);
 				hash.add(result);
 			} 
 		}
 		
-		counter = 1;
-		System.out.print("  ");
+		Collections.sort(numbers);
 		
+		counter = 1;
+				
 		while(counter <= 2) {
-			int result = RandomService.UUIDRandom(35);
+			int result = RandomService.UUIDRandom(T);
 
 			if (!hash.contains(result)) {
 				counter++;
-				System.out.print((result == 0? 45: result) + " ");
+				numbers2.add(result == 0? T: result);
 				hash.add(result);
 			}
 		}
+		
+		Collections.sort(numbers2);
+		
+		for(Integer x: numbers2) {
+			numbers.add(x);
+		}
+		
+		return numbers;
 	}
 
 	public static void main(String[] args) {
@@ -44,9 +60,20 @@ HashSet<Integer> hash = new HashSet<>();
 			}
 
 			int num = Integer.parseInt(args[0]);
-
+			List<Integer> result = null;
 			for (int i = 0; i < num; i++) {
-				generate();
+				result = generate();
+				int counter = 1;
+				for(Integer x: result) {
+					if(counter <= 7)
+						System.out.print(x + " ");
+					else {
+						if(counter == 8) System.out.print("  ");
+						System.out.print(x + " ");
+					}
+					counter++;
+				}
+				System.out.println();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
