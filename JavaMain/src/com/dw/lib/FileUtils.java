@@ -1,5 +1,7 @@
 package com.dw.lib;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -94,6 +96,28 @@ public class FileUtils {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * save stream bytes into file
+	 * @param inputStream
+	 * @param outputFilePath
+	 */
+	public void streamToFile(InputStream inputStream, String outputFilePath) throws IOException {
+		BufferedOutputStream outStream = null;
+		BufferedInputStream ins = null;
+		try {
+			outStream = new BufferedOutputStream(new FileOutputStream(outputFilePath));
+			ins = new BufferedInputStream(inputStream);
+			byte[] data = new byte[2048];
+			int length = -1;
+			while ((length = ins.read(data)) != -1) {
+				outStream.write(data, 0, length);
+			}
+			outStream.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
