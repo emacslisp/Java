@@ -25,14 +25,16 @@ public class EmailService {
 			System.out.println("Email To: " + parser.getTo());
 
 			List<DataSource> attachments = parser.parse().getAttachmentList();
-			String folder = file.getAbsolutePath();
+			String folder = file.getParent();
 			for (DataSource ds : attachments) {
 				String fileName = folder + File.separator + ds.getName();
 				fileUtils.streamToFile(ds.getInputStream(), fileName);
 				System.out.println("attachment:" + fileName);
 			}
 
-			fileUtils.stringToFile(parser.parse().getHtmlContent(), folder + File.separator + file.getName() + ".html");
+			String htmlOutputFile = folder + File.separator + file.getName() + ".html";
+			fileUtils.stringToFile(parser.parse().getHtmlContent(), htmlOutputFile);
+			System.out.println("Mail Body: " + htmlOutputFile);
 		} catch (MessagingException e) {
 			e.printStackTrace(); // To change body of catch statement use File | Settings | File Templates.
 		} catch (IOException e) {
