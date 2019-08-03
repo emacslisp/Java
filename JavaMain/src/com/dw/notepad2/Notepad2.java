@@ -152,7 +152,7 @@ public class Notepad2 extends JPanel {
 
 		@Override
 		public void paint(Graphics g)
-		{Thread.dumpStack();
+		{
 			super.paint(g);
 		}
 	}
@@ -161,7 +161,7 @@ public class Notepad2 extends JPanel {
 	 * Create a status bar
 	 */
 	protected Component createStatusbar()
-	{Thread.dumpStack();
+	{
 		// need to do something reasonable here
 		status = new StatusBar();
 		return status;
@@ -194,19 +194,19 @@ public class Notepad2 extends JPanel {
 	 * Hook through which every toolbar item is created.
 	 */
 	protected Component createTool(String key)
-	{Thread.dumpStack();
+	{
 		return createToolbarButton(key);
 	}
 	
 
 	protected JButton createToolbarButton(String key)
-	{Thread.dumpStack();
+	{
 		URL url = getResource(key + imageSuffix);
 		JButton b = new JButton(new ImageIcon(url)) {
 
 			@Override
 			public float getAlignmentY()
-			{Thread.dumpStack();
+			{
 				return 0.5f;
 			}
 		};
