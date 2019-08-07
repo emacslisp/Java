@@ -19,6 +19,10 @@ public class StringService {
 		return sb;
 	}
 	
+	public boolean startsWith(String s, String start) {
+		return s.startsWith(start);
+	}
+	
 	public String toString() {
 		return sb.toString();
 	}
