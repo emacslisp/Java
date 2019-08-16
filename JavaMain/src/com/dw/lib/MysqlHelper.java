@@ -78,6 +78,29 @@ public class MysqlHelper {
 			}
 	    }
 	}
+	
+	public String printTableToHtml(String sql) throws Exception {
+		ResultSet result = this.executeQuery(sql);
+		List<String> columnName = this.columnName(result);
+		StringService ss = new StringService();
+		ss.appendLine("<table>");
+		ss.appendLine("<tr>");
+		for(String label: columnName) {
+			ss.appendLine("<th>" + label + "</th>");
+		}
+		ss.appendLine("</tr>");
+		
+		while (result.next()) {
+			ss.appendLine("<tr>");
+			for(String label: columnName) {
+				System.out.println("<td>" + result.getString(label) + "</td>");
+			}
+			ss.appendLine("</tr>");
+	    }
+		ss.appendLine("</table>");
+		System.out.println(ss.toString());
+		return ss.toString();
+	}
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
