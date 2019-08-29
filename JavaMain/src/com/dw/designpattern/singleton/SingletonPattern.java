@@ -9,8 +9,8 @@ public class SingletonPattern {
 		      //SingleObject object = new SingleObject();
 
 		      //Get the only object available
-		      SingleObject object = SingleObject.getInstance();
-		      SingleObject object1 = SingleObject.getInstance();
+		      Singleton object = Singleton.getInstance();
+		      Singleton object1 = Singleton.getInstance();
 		      //show the message
 		      object.showMessage();
 		      
