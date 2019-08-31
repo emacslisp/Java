@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="third-party"/>
 	<classpathentry kind="src" path="resource"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="lib" path="third-party/spring-aop-5.1.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="third-party/spring-aspects-5.1.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="third-party/spring-beans-5.1.9.RELEASE.jar"/>
@@ -25,5 +26,6 @@
 	<classpathentry kind="lib" path="third-party/spring-webflux-5.1.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="third-party/spring-webmvc-5.1.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="third-party/spring-websocket-5.1.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="third-party/junit-4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
