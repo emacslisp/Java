@@ -8,6 +8,7 @@
 !output/*.jar
 !JavaMain/third-party/*.jar
 !JavaMain/**
+!SpringFrameworkDebug/third-party/*.jar
 *.war
 *.ear
 
