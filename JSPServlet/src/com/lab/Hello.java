@@ -1,6 +1,8 @@
 package com.lab;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +28,19 @@ public class Hello extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		PrintWriter out = response.getWriter();
+		
+		out.println("<html>");
+		out.println("  <head>");
+		out.println("    <title>jsp title</title>");
+		out.println("  </head>");
+		out.println("");
+		out.println("  <body>");
+		out.println("  <p>this is a page</p>");
+		out.println("  </body>");
+		out.println("</html> ");
+
+		out.flush();
 	}
 
 	/**
