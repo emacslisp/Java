@@ -4,6 +4,7 @@ import java.nio.file.Files;
 
 import com.dw.lib.FileUtils;
 import com.dw.lib.JSONService;
+import com.dw.lib.MysqlHelper;
 import com.google.gson.JsonObject;
 
 public class DBCLI {
@@ -32,16 +33,24 @@ public class DBCLI {
 		 */
 		FileUtils fileUtils = new FileUtils();
 		try {
-			
 			JSONService jsonService = new JSONService();
+			JsonObject config;
 			if (fileUtils.isExisted(args[0])) {
-				JsonObject config = jsonService.fileToJson(args[0]);
+				config = jsonService.fileToJson(args[0]);
 			}
 			else {
 				System.out.println("Database Config file is not existed or failed to parse");
 				return;
 			}
-			
+			String host = config.get("host").getAsString();
+			String username = config.get("username").getAsString();
+			String password = config.get("password").getAsString();
+			String port = config.get("port").getAsString();
+			String dbName = config.get("dbName").getAsString();
+			//jdbc:mysql://localhost:3306/testdb?useSSL=true
+			MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName+"?userSSL=true", username, password);
+			String sql = args[1];
+			mysqlHelper.printTable(sql);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
