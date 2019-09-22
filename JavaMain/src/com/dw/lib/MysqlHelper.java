@@ -87,7 +87,14 @@ public class MysqlHelper {
 	}
 	
 	public String printTableToHtml(String sql) throws Exception {
-		ResultSet result = this.executeQuery(sql);
+		Statement stmt = conn.createStatement();
+		boolean success = stmt.execute(sql);
+		if (!success) {
+			System.out.println("no result set but successfully!!! " + sql);
+			return "";
+		}
+		
+		ResultSet result = stmt.getResultSet();
 		List<String> columnName = this.columnName(result);
 		StringService ss = new StringService();
 		ss.appendLine("<table>");
