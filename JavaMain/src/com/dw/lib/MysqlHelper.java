@@ -70,7 +70,14 @@ public class MysqlHelper {
 	}
 	
 	public void printTable(String sql) throws Exception {
-		ResultSet result = this.executeQuery(sql);
+		Statement stmt = conn.createStatement();
+		boolean success = stmt.execute(sql);
+		if (!success) {
+			System.out.println("no result set but successfully!!! " + sql);
+			return;
+		}
+		System.out.println("Result of " + sql);
+		ResultSet result = stmt.getResultSet();
 		List<String> columnName = this.columnName(result);
 		while (result.next()) {
 			for(String label: columnName) {

@@ -14,7 +14,7 @@ public class DBCLI {
 			System.out.println("{");
 			System.out.println("   \"type\": \"mysql\",");
 			System.out.println("   \"host\": \"localhost\",");
-			System.out.println("   \"port\": 1234,");
+			System.out.println("   \"port\": 3306,");
 			System.out.println("   \"username\": \"root\",");
 			System.out.println("   \"password\": \"12345678\",");
 			System.out.println("   \"dbName\": \"databaseName\"");
@@ -46,11 +46,16 @@ public class DBCLI {
 			String username = config.get("username").getAsString();
 			String password = config.get("password").getAsString();
 			String port = config.get("port").getAsString();
+			if (port == null) {
+				port = "3306";
+			}
 			String dbName = config.get("dbName").getAsString();
 			//jdbc:mysql://localhost:3306/testdb?useSSL=true
-			MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName+"?userSSL=true", username, password);
+			MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName, username, password);
 			String sql = args[1];
-			mysqlHelper.printTable(sql);
+			String[] sqls = sql.split(";");
+			for(String s : sqls)
+				mysqlHelper.printTable(s);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
