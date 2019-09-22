@@ -50,8 +50,9 @@ public class DBCLI {
 				port = "3306";
 			}
 			String dbName = config.get("dbName").getAsString();
-			//jdbc:mysql://localhost:3306/testdb?useSSL=true
-			MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName, username, password);
+
+			//?verifyServerCertificate=false&useSSL=true to disable warning message
+			MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName + "?verifyServerCertificate=false&useSSL=true", username, password);
 			String sql = args[1];
 			String[] sqls = sql.split(";");
 			for(String s : sqls)
