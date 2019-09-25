@@ -23,12 +23,9 @@ public class Hello extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
+    
+    private void printOutHtmlPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	PrintWriter out = response.getWriter();
 		
 		out.println("<html>");
 		out.println("  <head>");
@@ -36,11 +33,26 @@ public class Hello extends HttpServlet {
 		out.println("  </head>");
 		out.println("");
 		out.println("  <body>");
-		out.println("  <p>this is a page</p>");
+		out.println("  <p>this is a page from sub function</p>");
 		out.println("  </body>");
 		out.println("</html> ");
 
 		out.flush();
+    }
+    
+    private void getUrlParameters(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	String user = request.getParameter("user");
+    	PrintWriter out = response.getWriter();
+    	out.print(user);
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// this.printOutHtmlPage(request, response);
+		
+		this.getUrlParameters(request, response);
 	}
 
 	/**
