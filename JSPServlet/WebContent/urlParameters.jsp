@@ -9,10 +9,14 @@
 <body>
 <%
 	String name = request.getParameter("username");
-	out.print(name);
+	//out.print(name);
 %>
-<%@ include file="Partial/Date.jsp" %>
-
 <jsp:include page="Partial/Date.jsp" />
+
+<% if(name == null) {%>
+<%@ include file="Partial/idNotFound.html" %>
+<%} else { %>
+<jsp:include page="Partial/idFound.jsp" />
+<%} %>
 </body>
 </html>
