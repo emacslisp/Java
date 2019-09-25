@@ -9,6 +9,40 @@ import com.dw.lib.MysqlHelper;
 import com.google.gson.JsonObject;
 
 public class DBCLI {
+	
+	public static void mysqlHandler(String host, 
+			String dbName, String username,
+			String password,String port, String[] args) throws Exception {
+		
+		if (port == null) {
+			port = "3306";
+		}
+
+		//?verifyServerCertificate=false&useSSL=true to disable warning message
+		MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName + "?verifyServerCertificate=false&useSSL=true", username, password);
+		
+		if(args.length == 1) {
+			// show all tables
+			System.out.println("Show All Tables");
+			List<String> tableNames = mysqlHelper.getAllTables();
+			for(String s: tableNames) {
+				System.out.println(s);
+			}
+			return;
+		}
+		
+		String sql = args[1];
+		String[] sqls = sql.split(";");
+		for(String s : sqls)
+			mysqlHelper.printTable(s);
+	}
+	
+	public static void postgresqlHandler(String host, 
+			String dbName, String username,
+			String password,String port, String[] args) throws Exception {
+		
+	}
+	
 	public static void main(String[] args) {
 		if (args.length == 0) {
 			System.out.println("db <config-json> <sql-file>");
@@ -20,6 +54,7 @@ public class DBCLI {
 			System.out.println("   \"password\": \"12345678\",");
 			System.out.println("   \"dbName\": \"databaseName\"");
 			System.out.println("}");
+			System.out.println("type is 'mysq', 'postgresql', 'mongodb', 'oracle'");
 			System.out.println("sql file is statement split with ';'");
 			System.out.println("for example:");
 			System.out.println("select * from db;");
@@ -44,32 +79,21 @@ public class DBCLI {
 				return;
 			}
 			
+			String dbType = config.get("type").getAsString();
 			String host = config.get("host").getAsString();
 			String username = config.get("username").getAsString();
 			String password = config.get("password").getAsString();
 			String port = config.get("port").getAsString();
-			if (port == null) {
-				port = "3306";
-			}
 			String dbName = config.get("dbName").getAsString();
-
-			//?verifyServerCertificate=false&useSSL=true to disable warning message
-			MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName + "?verifyServerCertificate=false&useSSL=true", username, password);
 			
-			if(args.length == 1) {
-				// show all tables
-				System.out.println("Show All Tables");
-				List<String> tableNames = mysqlHelper.getAllTables();
-				for(String s: tableNames) {
-					System.out.println(s);
-				}
-				return;
+			if(dbType.equals("mysql")) {
+				mysqlHandler(host, dbName, username, password, port, args);
+			} else if (dbType.equals("mongodb")) {
+				
 			}
-			
-			String sql = args[1];
-			String[] sqls = sql.split(";");
-			for(String s : sqls)
-				mysqlHelper.printTable(s);
+			else if (dbType.equals("postgresql")) {
+				
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
