@@ -11,5 +11,8 @@
 	String name = request.getParameter("username");
 	out.print(name);
 %>
+<%@ include file="Partial/Date.jsp" %>
+
+<jsp:include page="Partial/Date.jsp" />
 </body>
 </html>
