@@ -36,6 +36,20 @@ public class MysqlHelper {
 		//stmt.close();
 		return result;
 	}
+	
+	//Get all Table of a database
+	public List<String> getAllTables() throws Exception {
+		List<String> result = new ArrayList<String>();
+		
+		DatabaseMetaData metaData = conn.getMetaData();
+		String[] types = { "TABLE" };
+		// Retrieving the columns in the database
+		ResultSet tables = metaData.getTables(null, null, "%", types);
+		while (tables.next()) {
+			result.add(tables.getString("TABLE_NAME"));
+		}
+		return result;
+	}
 
 	// run select
 	// one of way to simulate hibernate is to mapping field into Class
@@ -83,6 +97,7 @@ public class MysqlHelper {
 			for(String label: columnName) {
 				System.out.println(label + ":" + result.getString(label));
 			}
+			System.out.println();
 	    }
 	}
 	

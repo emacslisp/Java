@@ -1,6 +1,7 @@
 package com.dw.lib.cli;
 
 import java.nio.file.Files;
+import java.util.List;
 
 import com.dw.lib.FileUtils;
 import com.dw.lib.JSONService;
@@ -9,7 +10,7 @@ import com.google.gson.JsonObject;
 
 public class DBCLI {
 	public static void main(String[] args) {
-		if (args.length != 2) {
+		if (args.length == 0) {
 			System.out.println("db <config-json> <sql-file>");
 			System.out.println("{");
 			System.out.println("   \"type\": \"mysql\",");
@@ -42,6 +43,7 @@ public class DBCLI {
 				System.out.println("Database Config file is not existed or failed to parse");
 				return;
 			}
+			
 			String host = config.get("host").getAsString();
 			String username = config.get("username").getAsString();
 			String password = config.get("password").getAsString();
@@ -53,6 +55,17 @@ public class DBCLI {
 
 			//?verifyServerCertificate=false&useSSL=true to disable warning message
 			MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName + "?verifyServerCertificate=false&useSSL=true", username, password);
+			
+			if(args.length == 1) {
+				// show all tables
+				System.out.println("Show All Tables");
+				List<String> tableNames = mysqlHelper.getAllTables();
+				for(String s: tableNames) {
+					System.out.println(s);
+				}
+				return;
+			}
+			
 			String sql = args[1];
 			String[] sqls = sql.split(";");
 			for(String s : sqls)
