@@ -9,10 +9,11 @@ public class AddOp implements IOp {
 		this.machine = machine;
 	}
 	
-	public String eval(List<SExp> SExps) {
+	public String eval(List<SExp> SExps) throws Exception {
 		float result = 0;
 		
 		for (SExp e: SExps) {
+			if(e.type == SType.String) throw new Exception("can not add string type");
 			String sValue = machine.eval(e);
 			result += Float.parseFloat(sValue);
 		}

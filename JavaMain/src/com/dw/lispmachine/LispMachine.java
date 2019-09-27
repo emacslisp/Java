@@ -10,7 +10,7 @@ public class LispMachine {
 		m.put(addop.op, addop);
 	}
 	
-	public String eval(SExp exp) {
+	public String eval(SExp exp) throws Exception {
 		if(exp.type != SType.SExp)
 			return exp.Value;
 		else {
@@ -44,7 +44,13 @@ public class LispMachine {
 		mainExp.variable.add(mainExp2);
 		
 		LispMachine machine = new LispMachine();
-		System.out.println(machine.eval(mainExp));
+		
+		try {
+			System.out.println(machine.eval(mainExp));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
