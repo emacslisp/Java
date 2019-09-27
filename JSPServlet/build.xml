@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="Ant-Test" default="war" basedir=".">
+	<path id="compile.classpath">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="/Users/di.wu/tool/java/apache-tomcat-8.5.45/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="build/classes"/>
+		<mkdir dir="WebContent/WEB-INF/lib" />
+		<mkdir dir="dist" />
+	</target>
+
+	<target name="compile" depends="init" >
+		<javac destdir="build/classes" debug="true" srcdir="src">
+			<classpath refid="compile.classpath"/>
+		</javac>
+	</target>
+
+	<!-- Creates Javadoc -->
+	<target name="docs" depends="compile">
+		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+			<!-- Define which files / directory should get included, we include all -->
+			<fileset dir="${src.dir}">
+				<include name="**" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="war" depends="compile">
+		<war destfile="dist/JSPServlet.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent"/>
+			<lib dir="WebContent/WEB-INF/lib"/>
+			<classes dir="build/classes"/>
+		</war>
+	</target>
+
+	<target name="scp">
+		<scp file="dist/JSPServlet.war" todir="user:password@somehost:/home/chuck"/>
+	</target>
+
+</project>
