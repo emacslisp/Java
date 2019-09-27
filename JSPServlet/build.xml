@@ -15,7 +15,7 @@
 		<mkdir dir="dist" />
 	</target>
 
-	<target name="compile" depends="init" >
+	<target name="compile" depends="init, clean" >
 		<javac destdir="build/classes" debug="true" srcdir="src">
 			<classpath refid="compile.classpath"/>
 		</javac>
@@ -29,6 +29,15 @@
 				<include name="**" />
 			</fileset>
 		</javadoc>
+	</target>
+	
+	<target name="clean">
+		<delete>
+			<fileset dir="dist/" includes="**/*.war"/>
+		</delete>
+		<delete>
+			<fileset dir="build/" includes="**/*.class"/>
+		</delete>
 	</target>
 
 	<target name="war" depends="compile">
