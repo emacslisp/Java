@@ -21,8 +21,20 @@ public class TokenLex {
 				continue;
 				
 			case '(':
+				tokens.add(new Token(TokenType.LeftBrack, "("));
 				break;
-
+			case ')':
+				tokens.add(new Token(TokenType.RightBrack, ")"));
+				break;
+				
+			case '1': case '2': case '3': case '4': case '5':
+				// try to parse Number token here
+				break;
+			
+			case 'a':
+				// try to parse string here
+				break;
+				
 			}
 		}
 
