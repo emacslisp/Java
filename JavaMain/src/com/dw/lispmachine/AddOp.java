@@ -13,7 +13,7 @@ public class AddOp implements IOp {
 		float result = 0;
 		
 		for (SExp e: SExps) {
-			if(e.type == SType.String) throw new Exception("can not add string type");
+			if(e.getType() == SType.String) throw new Exception("can not add string type");
 			String sValue = machine.eval(e);
 			result += Float.parseFloat(sValue);
 		}

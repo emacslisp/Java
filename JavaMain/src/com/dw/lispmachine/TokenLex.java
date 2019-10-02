@@ -16,12 +16,17 @@ public class TokenLex {
 			for(Token t : tokens) {
 				System.out.println(t.getType() + " " + t.getValue());
 			}
-			
+
+			/*
 			Token[] tokensArray = (Token[]) tokens.toArray();
 			
 			for(int i=0;i<tokensArray.length; i++) {
+				Token t = tokensArray[i];
 				
-			}
+				if (t.getType() == TokenType.LeftBrack) {
+					buildExp(tokensArray, i + 1);
+				}
+			}*/
 			
 			/*
 			//tokens.toArray();
@@ -48,6 +53,26 @@ public class TokenLex {
 			}*/
 		}
 		System.out.println();
+	}
+	
+	private static SExp buildExp(Token[] tokens, int index) {
+		SExp result = new SExp(tokens[index].getValue());
+		int i = 0;
+		for(i=index+1;i<tokens.length;i++) {
+			Token t = tokens[i];
+			
+			if (t.getType() == TokenType.LeftBrack) {
+				result.add(buildExp(tokens, index + 1));
+			}
+			
+			if (t.getType() == TokenType.RightBrack) {
+				break;
+			}
+			
+			
+		}
+		
+		return result;
 	}
 	
 	private static boolean tokenStop(char c) {
