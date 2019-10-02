@@ -9,8 +9,7 @@ public class LispCLI {
 	public static void main(String[] args) {
 		try {
 			if (args.length != 1){
-				System.out.println("lisp ");
-				System.out.println("jcat <text file>");
+				System.out.println("lisp <lisp-file>");
 				return;
 			}
 			

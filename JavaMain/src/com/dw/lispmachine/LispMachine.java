@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class LispMachine {
 	HashMap<String, IOp> m = new HashMap<String, IOp>();
 	public LispMachine() {
+		// TODO: add those into list
 		AddOp addop = new AddOp(this);
 		m.put(addop.op, addop);
 		
