@@ -8,10 +8,11 @@ public class TokenLex {
 	private int index = 0;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String input = "(+ 1.2 2 3 (+ 4.5 5))";
+		String input = "(print (+ 1.2 2 3 (+ 4.5 5) (- 1 1 2)))";
 		TokenLex lexer = new TokenLex();
 		if (checkValidSExp(input)) {
 			List<Token> tokens = tokenString(input);
+			
 			for(Token t : tokens) {
 				System.out.println(t.getType() + " " + t.getValue());
 			}
@@ -36,11 +37,14 @@ public class TokenLex {
 			LispMachine machine = new LispMachine();
 			
 			try {
-				System.out.println(machine.eval(main));
+				machine.eval(main);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		else {
+			System.out.println("Syntax error () didn't matched");
 		}
 		System.out.println();
 	}

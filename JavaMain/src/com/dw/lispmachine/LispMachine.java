@@ -8,6 +8,12 @@ public class LispMachine {
 	public LispMachine() {
 		AddOp addop = new AddOp(this);
 		m.put(addop.op, addop);
+		
+		SubOp subop = new SubOp(this);
+		m.put(subop.op, subop);
+		
+		PrintOp printOp = new PrintOp(this);
+		m.put(printOp.op, printOp);
 	}
 	
 	public String eval(SExp exp) throws Exception {
