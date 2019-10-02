@@ -5,71 +5,74 @@ import java.util.List;
 
 public class TokenLex {
 
+	private int index = 0;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String input = "(add 1.2 2 3 (+ 4.5 5))";
+		String input = "(+ 1.2 2 3 (+ 4.5 5))";
+		TokenLex lexer = new TokenLex();
 		if (checkValidSExp(input)) {
 			List<Token> tokens = tokenString(input);
-			int level = 0;
-			int start = 0;
-			SExp mainExp = null;
 			for(Token t : tokens) {
 				System.out.println(t.getType() + " " + t.getValue());
 			}
 
-			/*
-			Token[] tokensArray = (Token[]) tokens.toArray();
 			
-			for(int i=0;i<tokensArray.length; i++) {
-				Token t = tokensArray[i];
+			Token[] tokensArray = new Token[tokens.size()];
+			int counter = 0;
+			for(Token t: tokens) {
+				tokensArray[counter] = t;
+				counter++;
+			}
+			SExp main = null;
+			for(int index=0;index<tokensArray.length; index++) {
+				Token t = tokensArray[index];
 				
 				if (t.getType() == TokenType.LeftBrack) {
-					buildExp(tokensArray, i + 1);
+					main = lexer.buildExp(tokensArray);
+					break;
 				}
-			}*/
+			}
 			
-			/*
-			//tokens.toArray();
-			for(Token t : tokens) {
-				if (start == 1) {
-					mainExp = new SExp(t.getValue(), new ArrayList<SExp>());
-					counterLeft = -1;
-					continue;
-				}
-				
-				if (t.getType() == TokenType.LeftBrack) {
-					start = 1;
-					level++;
-				}
-				
-				if (t.getType() == TokenType.RightBrack) {
-					level--;
-				}
-				
-				if (counterLeft == -1) {
-					if (t.getType() == TokenType.Number) 
-						mainExp.variable.add(new SExp(SType.Float, t.getValue()));
-				}
-			}*/
+			LispMachine machine = new LispMachine();
+			
+			try {
+				System.out.println(machine.eval(main));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		System.out.println();
 	}
 	
-	private static SExp buildExp(Token[] tokens, int index) {
-		SExp result = new SExp(tokens[index].getValue());
+	private SExp buildExp(Token[] tokens) {
+		SExp result = new SExp(tokens[++index].getValue());
 		int i = 0;
-		for(i=index+1;i<tokens.length;i++) {
-			Token t = tokens[i];
+		++index;
+		for(;index<tokens.length;index++) {
+			Token t = tokens[index];
 			
 			if (t.getType() == TokenType.LeftBrack) {
-				result.add(buildExp(tokens, index + 1));
+				result.add(buildExp(tokens));
 			}
 			
 			if (t.getType() == TokenType.RightBrack) {
 				break;
 			}
 			
+			switch(t.getType()) {
+			case Number:
+				result.add(new SExp(SType.Float, t.getValue()));
+				break;
 			
+			case String:
+			case Add:
+			case Sub:
+				result.add(new SExp(SType.String, t.getValue()));
+				break;
+			default:
+				break;
+			}
 		}
 		
 		return result;
@@ -96,7 +99,7 @@ public class TokenLex {
 				int start = i;
 				int stop = parseStringToken(input, start);
 				tokens.add(new Token(TokenType.String, input.substring(start, stop)));
-				i = stop;
+				i = stop - 1;
 			}
 			
 			switch (input.charAt(i)) {
@@ -126,7 +129,7 @@ public class TokenLex {
 				int start = i;
 				int stop = parseNumberToken(input, start);
 				tokens.add(new Token(TokenType.Number, input.substring(start, stop)));
-				i = stop;
+				i = stop - 1;
 				break;
 			}
 		}
@@ -146,8 +149,7 @@ public class TokenLex {
 			if (c - '0' <= 9 && c - '0' >= 0) {
 				continue;
 			}
-			
-			if(c == '.' && dotCounter == 0) {
+			else if(c == '.' && dotCounter == 0) {
 				continue;
 			}
 			else {
