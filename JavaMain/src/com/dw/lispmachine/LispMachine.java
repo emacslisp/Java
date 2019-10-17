@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LispMachine {
-	HashMap<String, IOp> m = new HashMap<String, IOp>();
+	private HashMap<String, IOp> m = new HashMap<String, IOp>();
+	private HashMap<String, String> memory = new HashMap<String, String>();
+	
+	public HashMap<String, String> getMemory() {
+		return memory;
+	}
+
 	public LispMachine() {
 		// TODO: add those into list
 		AddOp addop = new AddOp(this);
