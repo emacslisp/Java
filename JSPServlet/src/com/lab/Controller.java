@@ -51,7 +51,20 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String user = request.getParameter("user");
+		PrintWriter out = response.getWriter();
+		
+		out.println("<html>");
+		out.println("  <head>");
+		out.println("    <title>jsp title</title>");
+		out.println("  </head>");
+		out.println("");
+		out.println("  <body>");
+		out.println("  <p> post username: " + user + "</p>");
+		out.println("  </body>");
+		out.println("</html> ");
+
+		out.flush();
 	}
 
 }
