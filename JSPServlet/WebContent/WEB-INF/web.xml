@@ -42,6 +42,15 @@ License.  You may obtain a copy of the License at
         <servlet-name>Hello</servlet-name>
         <url-pattern>/Test</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>com.lab.Controller</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/Controller</url-pattern>
+    </servlet-mapping>
 
 </web-app>
 
