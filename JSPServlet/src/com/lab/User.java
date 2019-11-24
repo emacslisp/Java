@@ -4,6 +4,9 @@ public class User {
 	private String email;
 	private String password;
 	
+	public User(String string, String string2) {
+		// TODO Auto-generated constructor stub
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -16,4 +19,9 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+    public static void main(String[] args) {
+        System.out.println("Java Bean in Console");
+    }
+
 }
