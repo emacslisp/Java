@@ -54,7 +54,7 @@ public class Diagnostics {
 	}
 	
 	public static String getVMInfo(StringManager requestedSm)
-	{Thread.dumpStack();
+	{
 		StringBuilder sb = new StringBuilder();
 
 		synchronized (timeformat) {
