@@ -21,7 +21,7 @@ public class LongestWordinDictionary_720 {
                     StringBuilder temp=new StringBuilder();
                     temp.append(hash[i].val);
                     temp.append(hash[i].dfs(temp));
-                    if(temp.length() > max.length())
+                    if(temp.length() > max.length()) // this is very important, it will choose first letter always
                         max=temp;
                 }
             }
