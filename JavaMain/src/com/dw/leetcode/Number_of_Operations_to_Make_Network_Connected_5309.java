@@ -1,39 +1,62 @@
 package com.dw.leetcode;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 public class Number_of_Operations_to_Make_Network_Connected_5309 {
 	public int makeConnected(int n, int[][] connections) {
         int result = 0;
         
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for(int i=0;i<n;i++) {
-        	map.put(i, 0);
+        HashMap<Integer, List<Integer>> graph = new HashMap<>();
+        for (int[] connection : connections) {
+            connect(graph, connection[0], connection[1]);
+            connect(graph, connection[1], connection[0]);
         }
         
-        for(int x=0;x<connections.length;x++) {
-        		map.put(connections[x][0], 1);
-        		map.put(connections[x][1], 1);
+        int components = 0;
+        int remainCables = 0;
+        boolean[] visited = new boolean[n];
+        for (int v = 0; v < n; v++) {
+            if (!visited[v]) {
+                remainCables += bfs(v, graph, visited);
+                components++;
+            }
         }
         
-        int edge = connections.length;
-        int noConnection = 0;
-        for(int i=0;i<n;i++) {
-        	if(map.get(i) != 1) {
-        		noConnection++;
-        	}
-        }
-        
-        if(noConnection == 0) return result;
-        
-        int lefEdge = edge - (n - noConnection - 1);
-        
-        if (lefEdge >= noConnection) {
-        	return noConnection;
-        }
-        
-        return -1;
+        int needCables = components - 1; // Need cable to connect components
+        return remainCables >= needCables ? needCables : -1;
     }
+	
+	int bfs(int src, Map<Integer, List<Integer>> graph, boolean[] visited) {
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(src);
+        visited[src] = true;
+        int numVertices = 1;
+        HashSet<String> edges = new HashSet<>();
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            if (graph.get(u) != null) {
+                for (int v : graph.get(u)) {
+                    edges.add(Math.min(u, v) + "_" + Math.max(u, v));
+                    if (!visited[v]) {
+                        visited[v] = true;
+                        numVertices++;
+                        q.offer(v);
+                    }
+                }
+            }
+        }
+        return edges.size() - (numVertices - 1); // Return the remain number of cables
+    }
+	
+	 private void connect(Map<Integer, List<Integer>> graph, Integer v1, Integer v2) {
+	        if (graph.get(v1) == null) graph.put(v1, new LinkedList<>());
+	        graph.get(v1).add(v2);
+	    }
 	
 	
 	public static void main(String[] args) {
