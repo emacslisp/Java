@@ -1,12 +1,7 @@
-package com.dw.lib;
+package com.dw.leetcode;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;  
-import java.util.Date; 
-import java.util.GregorianCalendar;
+public class NumberOfDaysBetweenTwoDates_1360 {
 
-public class DateTimeHelper {
-	
 	int DAY = 1;
 	int leapMonth[] = {
 			0,
@@ -59,7 +54,7 @@ public class DateTimeHelper {
        return leap;
 	}
 	
-	private boolean min(int[] date1Num, int[] date2Num) {
+	boolean min(int[] date1Num, int[] date2Num) {
 		boolean result = false;
 		
 		for(int i=0;i<date1Num.length;i++) {
@@ -125,41 +120,14 @@ public class DateTimeHelper {
         return total;
     }
 	
-	
-	public Date ConvertDateToUnixTime(int year, int month, int day, int hour, int minutes, int seconds) {
-		GregorianCalendar calendar = new GregorianCalendar(year, month - 1, day, hour, minutes, seconds);
-		Date date = calendar.getTime();
-		return date;
-	}
-	
-	public Date ConvertUnixTimeToDate(long unixTime) {
-		Date date = new Date(unixTime);
-		return date;
-	}
-
 	public static void main(String[] args) {
-		String sDate1="31/12/1998";  
-	    Date date1;
-	    DateTimeHelper dateTimeHelper = new DateTimeHelper();
-		try {
-			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
-			System.out.println(sDate1+"\t"+date1); 
-			System.out.println(date1.getTime());
-			
-			// test UnixTime
-			long unixTime = 1554382800000l;
-			Date dateUnixTime = dateTimeHelper.ConvertUnixTimeToDate(unixTime);
-			System.out.println(dateUnixTime.toString());
-			System.out.println(dateUnixTime.toInstant().toString());
-			
-			int result = dateTimeHelper.daysBetweenDates("2020-01-15", "2019-12-31");
-			
-			System.out.println(result);
-			
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// TODO Auto-generated method stub
+		// "2019-06-29", date2 = "2019-06-30"
+		NumberOfDaysBetweenTwoDates_1360 s = new NumberOfDaysBetweenTwoDates_1360();
+		
+		int result = s.daysBetweenDates("2020-01-15", "2019-12-31");
+		
+		System.out.println(result);
 	}
 
 }
