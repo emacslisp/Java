@@ -3,6 +3,9 @@ package com.dw.leetcode;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dw.algorithmlib.BinaryTree;
+import com.dw.algorithmlib.TreeNode;
+
 public class LinkedListInBinaryTree_5348 {
     public boolean isSubPath(ListNode head, TreeNode root) {
         
@@ -51,36 +54,17 @@ public class LinkedListInBinaryTree_5348 {
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		TreeNode root = new TreeNode(1);
+		Integer[] a = {1,4,4,null,2,2,null,1,null,6,8,null,null,null,null,1,3};
 		
-		TreeNode l1 = new TreeNode(4);
-		TreeNode r1 = new TreeNode(4);
+		BinaryTree tree = new BinaryTree();
 		
-		root.left = l1;
-		root.right = r1;
+		TreeNode root = tree.arrayToTree(a);
 		
-		TreeNode l2 = new TreeNode(2);
-		TreeNode r2 = new TreeNode(2);
-		l1.right = r2;
-		r1.left = l2;
-		
-		TreeNode l3 = new TreeNode(1);
-		TreeNode l3_1 = new TreeNode(6);
-		TreeNode r3_1 = new TreeNode(8);
-		
-		r2.left = l3;
-		l2.left = l3_1;
-		l2.right = r3_1;
-		
-		TreeNode l4 = new TreeNode(1);
-		TreeNode r4 = new TreeNode(3);
-		r3_1.left = l4;
-		r3_1.right = r4;
-		
-		ListNode head = new ListNode(4);
-		head.next = new ListNode(2);
-		head.next.next = new ListNode(8);
-		// head.next.next.next.next = new ListNode(8);
+		ListNode head = new ListNode(1);
+		head.next = new ListNode(4);
+		head.next.next = new ListNode(2);
+		head.next.next.next = new ListNode(6);
+		head.next.next.next.next = new ListNode(8);
 		
 		LinkedListInBinaryTree_5348 s= new LinkedListInBinaryTree_5348();
 		System.out.println(s.isSubPath(head, root));

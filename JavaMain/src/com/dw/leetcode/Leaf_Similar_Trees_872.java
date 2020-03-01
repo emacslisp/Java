@@ -3,6 +3,8 @@ package com.dw.leetcode;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dw.algorithmlib.TreeNode;
+
 public class Leaf_Similar_Trees_872 {
 	
 	public boolean leafSimilar(TreeNode root1, TreeNode root2) {

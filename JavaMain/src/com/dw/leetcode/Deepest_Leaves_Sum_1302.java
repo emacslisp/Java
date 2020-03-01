@@ -38,7 +38,7 @@ public class Deepest_Leaves_Sum_1302 {
    
             /* use the larger one */
            if(high == deepest) {
-        	   sum+= node.data;
+        	   sum+= node.val;
            }
            
            if (lDepth > rDepth) 
