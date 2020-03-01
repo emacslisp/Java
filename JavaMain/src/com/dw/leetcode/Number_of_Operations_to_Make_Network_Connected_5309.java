@@ -53,10 +53,10 @@ public class Number_of_Operations_to_Make_Network_Connected_5309 {
         return edges.size() - (numVertices - 1); // Return the remain number of cables
     }
 	
-	 private void connect(Map<Integer, List<Integer>> graph, Integer v1, Integer v2) {
+	private void connect(Map<Integer, List<Integer>> graph, Integer v1, Integer v2) {
 	        if (graph.get(v1) == null) graph.put(v1, new LinkedList<>());
 	        graph.get(v1).add(v2);
-	    }
+	}
 	
 	
 	public static void main(String[] args) {
