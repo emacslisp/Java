@@ -83,7 +83,7 @@ public class BinaryTree {
             return; 
   
         inOrder(node.left); 
-        System.out.print(node.data + " "); 
+        System.out.print(node.val + " "); 
   
         inOrder(node.right); 
     } 
@@ -108,7 +108,7 @@ public class BinaryTree {
     	deleteTreeRef(nodeRef.right);
     	
     	
-   	 System.out.println("Deleting node:" + nodeRef.data);
+   	 System.out.println("Deleting node:" + nodeRef.val);
    	 deleteTree(nodeRef); 
          
         nodeRef=null; 
