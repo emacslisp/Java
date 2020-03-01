@@ -1,5 +1,9 @@
 package com.dw.algorithmlib;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTree {
 	
 	TreeNode root;
@@ -9,7 +13,7 @@ public class BinaryTree {
 	 * @param node
 	 * @return Tree high
 	 */
-	int treeHigh(TreeNode node)  
+	public int treeHigh(TreeNode node)  
     { 
         if (node == null) 
             return 0; 
@@ -109,6 +113,56 @@ public class BinaryTree {
          
         nodeRef=null; 
     } 
+    
+    // ===============================
+    int leftNode(int i) {
+    	return 2*i+1;
+    }
+    
+    int rightNode(int i) {
+    	return 2*i+2;
+    }
+    
+    public TreeNode arrayToTree(Integer[] a) {
+    	// Integer[] a = {6,7,8,2,7,1,3,9,null,1,4,null,null,null,5};
+    	Queue<Integer> q = new LinkedList<>();
+    	
+    	q.add(0);
+    	TreeNode head = new TreeNode(a[0].intValue());
+    	HashMap<Integer, TreeNode> map = new HashMap<>();
+    	map.put(0, head);
+    	
+    	while(q.size() > 0) {
+    		Integer index = q.poll();
+    		
+    		if(a[index] == null) {
+    			continue;
+    		}
+    		
+    		if(map.get(index) == null) {
+    			map.put(index, new TreeNode(a[index].intValue()));
+    		}
+    		
+    		TreeNode node = map.get(index);
+    		int left = leftNode(index.intValue());
+    		int right = rightNode(index.intValue());
+    		
+    		if(left < a.length && a[left] != null) {
+    			map.put(left, new TreeNode(a[left]));
+    			node.left = map.get(left);
+    			q.add(left);
+    		}
+    		
+    		if (right < a.length && a[right] != null) {
+	    		map.put(right, new TreeNode(a[right]));
+	    		node.right = map.get(right);
+	    		q.add(right);
+    		}
+    	}
+    	
+    	return head;
+    }
+    // ============================
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
