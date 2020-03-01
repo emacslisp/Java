@@ -63,7 +63,8 @@ public class LinkedListInBinaryTree_5348 {
 		
 		TreeNode root = tree.arrayToTree(a);
 		
-		int[] b = {1, 4, 2, 6, 8};
+		//int[] b = {1, 4, 2, 6, 8};
+		int[] b = {1, 4, 2, 6};
 		ListNode head = linkedList.arrayToLinkedList(b);
 		
 		LinkedListInBinaryTree_5348 s= new LinkedListInBinaryTree_5348();
