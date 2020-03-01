@@ -9,7 +9,7 @@ public class LayoutTest {
 		// TODO Auto-generated method stub
 		NMJFrame mainFrame = new NMJFrame("this is testing ",500,300);
 		NMPanel panel = new NMPanel();
-		NMButton button = new NMButton("text button");
+		DButton button = new DButton("text button");
 		panel.add(button);
 		mainFrame.addPanel(panel);
 		
