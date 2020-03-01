@@ -6,9 +6,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class NMJFrame extends JFrame {
+public class DFrame extends JFrame {
 	
-	public NMJFrame(String title) {
+	public DFrame(String title) {
 		super();
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -16,7 +16,7 @@ public class NMJFrame extends JFrame {
 		//super.setVisible(true);
 	}
 
-	public NMJFrame(String title, int height, int width) {
+	public DFrame(String title, int height, int width) {
 		super();
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

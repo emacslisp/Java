@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
-public class NMTree extends JTree {
+public class DTree extends JTree {
 	
 	
 	

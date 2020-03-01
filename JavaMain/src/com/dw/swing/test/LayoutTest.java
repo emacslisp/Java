@@ -7,8 +7,8 @@ public class LayoutTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		NMJFrame mainFrame = new NMJFrame("this is testing ",500,300);
-		NMPanel panel = new NMPanel();
+		DFrame mainFrame = new DFrame("this is testing ",500,300);
+		DPanel panel = new DPanel();
 		DButton button = new DButton("text button");
 		panel.add(button);
 		mainFrame.addPanel(panel);

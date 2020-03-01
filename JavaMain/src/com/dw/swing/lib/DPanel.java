@@ -2,8 +2,8 @@ package com.dw.swing.lib;
 
 import javax.swing.JPanel;
 
-public class NMPanel extends JPanel {
-	public NMPanel() {
+public class DPanel extends JPanel {
+	public DPanel() {
 		super();
 	}
 }
