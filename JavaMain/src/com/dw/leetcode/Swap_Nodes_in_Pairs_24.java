@@ -1,5 +1,5 @@
 package com.dw.leetcode;
-
+import com.dw.algorithmlib.ListNode;
 /*
 https://leetcode.com/problems/swap-nodes-in-pairs/
 

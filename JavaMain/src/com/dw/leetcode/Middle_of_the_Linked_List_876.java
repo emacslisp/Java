@@ -1,4 +1,5 @@
 package com.dw.leetcode;
+import com.dw.algorithmlib.ListNode;
 
 public class Middle_of_the_Linked_List_876 {
 	

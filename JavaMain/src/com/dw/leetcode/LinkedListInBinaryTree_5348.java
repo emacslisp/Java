@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dw.algorithmlib.BinaryTree;
+import com.dw.algorithmlib.LinkedListAlgorithm;
+import com.dw.algorithmlib.ListNode;
 import com.dw.algorithmlib.TreeNode;
 
 public class LinkedListInBinaryTree_5348 {
@@ -57,14 +59,12 @@ public class LinkedListInBinaryTree_5348 {
 		Integer[] a = {1,4,4,null,2,2,null,1,null,6,8,null,null,null,null,1,3};
 		
 		BinaryTree tree = new BinaryTree();
+		LinkedListAlgorithm linkedList = new LinkedListAlgorithm();
 		
 		TreeNode root = tree.arrayToTree(a);
 		
-		ListNode head = new ListNode(1);
-		head.next = new ListNode(4);
-		head.next.next = new ListNode(2);
-		head.next.next.next = new ListNode(6);
-		head.next.next.next.next = new ListNode(8);
+		int[] b = {1, 4, 2, 6, 8};
+		ListNode head = linkedList.arrayToLinkedList(b);
 		
 		LinkedListInBinaryTree_5348 s= new LinkedListInBinaryTree_5348();
 		System.out.println(s.isSubPath(head, root));

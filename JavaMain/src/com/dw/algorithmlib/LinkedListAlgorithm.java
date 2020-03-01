@@ -139,4 +139,16 @@ public class LinkedListAlgorithm {
         }
         return slow;
     }
+    
+    public ListNode arrayToLinkedList(int[] a) {
+    	
+    	ListNode head = new ListNode(a[0]);
+    	ListNode p = head;
+    	for(int i=1;i<a.length;i++) {
+    		p.next = new ListNode(a[i]);
+    		p = p.next;
+    	}
+    	
+    	return head;
+    }
 }
