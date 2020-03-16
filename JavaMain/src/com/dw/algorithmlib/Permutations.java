@@ -40,6 +40,7 @@ public class Permutations {
         temp = charArray[i] ;
         charArray[i] = charArray[j];
         charArray[j] = temp;
+        
         return String.valueOf(charArray);
     }
     
@@ -49,5 +50,9 @@ public class Permutations {
         int n = str.length();
         Permutations permutation = new Permutations();
         permutation.permute(str, 0, n-1);
+        
+        for(String s: permutation.aList) {
+        	System.out.println(s);
+        }
     }
 }
