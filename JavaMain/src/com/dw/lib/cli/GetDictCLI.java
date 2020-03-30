@@ -17,6 +17,19 @@ import com.dw.lib.MysqlHelper;
 import com.dw.lib.RegexService;
 import com.dw.lib.StringService;
 
+
+/*
+ * drop table dictionary;
+CREATE TABLE IF NOT EXISTS dictionary (
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  word VARCHAR(80),
+  dict_cn TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci ,
+  dict_org TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci ,
+  CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+  INDEX(word)
+) engine=InnoDB;
+ */
+
 public class GetDictCLI {
 	String[] className = { "phonetic", "dict-basic-ul", "layout detail", "layout dual", "layout en",
 			"layout sort", "layout anno", "layout auth", "layout nfo", "layout nwd" };
@@ -86,10 +99,19 @@ public class GetDictCLI {
 		DOMConfigurator.configure(GetDictCLI.class.getResource("log4j_toFile.xml"));
 		long sleepTime = 15 * 1000;
 		try {
-			MysqlHelper mysql = new MysqlHelper("jdbc:mysql://localhost:3306/dict?useSSL=true&useUnicode=yes&characterEncoding=UTF-8", "root", "123456");
+			String username = System.getenv("Dict_UserName");
+			String password = System.getenv("Dict_Password");
+			String dictPath = System.getenv("Dict_PATH");
+			
+			if(username == null || password == null) {
+				System.out.println("Please set env value Dict_UserName and Dict_Password");
+				return;
+			}
+			
+			MysqlHelper mysql = new MysqlHelper("jdbc:mysql://localhost:3306/dict?useSSL=true&useUnicode=yes&characterEncoding=UTF-8", username, password);
 			logger.debug("connect to localhost dict successfully");
 			FileUtils file = new FileUtils();
-			List<String> words = file.fileToList("/Users/ewu/test/dict.txt");
+			List<String> words = file.fileToList(dictPath);
 			logger.debug("load word list successfully");
 			RegexService regex = new RegexService();
 			GetDictCLI dict = new GetDictCLI();
