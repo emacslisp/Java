@@ -12,7 +12,7 @@ public class CommandLineUtil {
 	public static void main(String[] args)
 	{
 		// TODO Auto-generated method stub
-		System.out.println(runCommand("g++ -gdwarf-2 -g3 /Users/ewu/dev/byacc/create/vectorTest.cpp -o /Users/ewu/dev/byacc/create/vectorTest"));
+		System.out.println(runCommand("java -version"));
 		//System.out.println("test");
 	}
 	
