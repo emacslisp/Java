@@ -7,13 +7,15 @@ import java.util.List;
 public class MysqlHelper {
 
 	Connection conn;
-
+	Statement stmt;
 	public MysqlHelper() throws Exception {
 		conn = getConnection();
+		stmt = conn.createStatement();
 	}
 
 	public MysqlHelper(String url, String username, String password) throws Exception {
 		conn = getConnection(url, username, password);
+		stmt = conn.createStatement();
 	}
 
 	public Connection getConnection() throws Exception {
@@ -31,7 +33,6 @@ public class MysqlHelper {
 
 	// insert update delete and create
 	public int executeUpdate(String sql) throws Exception {
-		Statement stmt = conn.createStatement();
 		int result = stmt.executeUpdate(sql);
 		//stmt.close();
 		return result;
@@ -54,7 +55,7 @@ public class MysqlHelper {
 	// run select
 	// one of way to simulate hibernate is to mapping field into Class
 	public ResultSet executeQuery(String sql) throws Exception {
-		Statement stmt = conn.createStatement();
+		
 		ResultSet rs = stmt.executeQuery(sql);
 		//stmt.close();
 		return rs;
@@ -80,6 +81,7 @@ public class MysqlHelper {
 	}
 	
 	public void close() throws SQLException {
+		stmt.close();
 		conn.close();
 	}
 	

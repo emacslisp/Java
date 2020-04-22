@@ -1,6 +1,7 @@
 package com.dw.lib.test;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -82,9 +83,10 @@ public class Dict {
 	public static void main(String[] args) {
 		Logger logger = Logger.getLogger(Dict.class);
 		DOMConfigurator.configure(Dict.class.getResource("log4j_toFile.xml"));
-		long sleepTime = 1000;
+		long sleepTime = 15 * 1000;
 		try {
 			MysqlHelper mysql = new MysqlHelper("jdbc:mysql://localhost:3306/dict?useSSL=true&useUnicode=yes&characterEncoding=UTF-8", "root", "123456");
+			
 			FileUtils file = new FileUtils();
 			List<String> words = file.fileToList("/Users/ewu/test/dict.txt");
 			RegexService regex = new RegexService();
@@ -92,24 +94,40 @@ public class Dict {
 			for (String word : words) {
 				if (regex.isAllLetterAndNumber(word)) {
 					try {
-					logger.debug(word);
-					String dictCN = dict.getDictCN(word);
-					String dictOrg = dict.getDictOrg(word);
-					dictCN = filterString(dictCN);
-					dictOrg = filterString(dictOrg);
-					
-					String sqlStatement = "insert into dictionary(word, dict_cn, dict_org) values ( '" + word + "','" + dictCN + "','" + dictOrg + "')";
-					logger.debug(sqlStatement);
-					
-					mysql.executeUpdate(sqlStatement);
-					}
-					catch (Exception e) {
+						logger.debug(word);
+
+						String checkSql = "select * from dictionary where word='" + word + "'";
+
+						ResultSet result = mysql.executeQuery(checkSql);
+
+						int count = 0;
+
+						while (result.next()) {
+						    ++count;
+						}
+						
+						if(count >= 1) {
+							continue;
+						}
+
+						String dictCN = dict.getDictCN(word);
+						String dictOrg = dict.getDictOrg(word);
+						dictCN = filterString(dictCN);
+						dictOrg = filterString(dictOrg);
+
+						String sqlStatement = "insert into dictionary(word, dict_cn, dict_org) values ( '" + word
+								+ "','" + dictCN + "','" + dictOrg + "')";
+						logger.debug(sqlStatement);
+
+						mysql.executeUpdate(sqlStatement);
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						logger.error(e.toString());
 					}
+
+					Thread.sleep(sleepTime);
 				}
-				Thread.sleep(sleepTime);
 			}
 			/*
 			 * String test = "9th"; RegexService regex = new RegexService();
