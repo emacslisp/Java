@@ -3,7 +3,6 @@
   <groupId>JavaMain</groupId>
   <artifactId>JavaMain</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
   
   <!--@example: maven dependencies - junit, spring  -->
   <dependencies>
@@ -44,6 +43,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
+			<version>4.1.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
 			<version>4.1.6.RELEASE</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
