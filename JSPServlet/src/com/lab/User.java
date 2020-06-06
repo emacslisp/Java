@@ -12,6 +12,13 @@ public class User {
 		this.password = password;
 	}
 	
+	/*
+	 * this constructor is for servlet useBean only
+	 * since useBean would take default constructor with empty function
+	 */
+	public User() {
+		
+	}
 	
 	
 	public String getEmail() {
