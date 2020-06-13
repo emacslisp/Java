@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import com.lab.User;
+import com.lab.bll.UserBLL;
+
 /**
  * Servlet implementation class LoginController
  */
@@ -34,8 +38,26 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		request.setAttribute("username", username);
+		
+		User user = new User(username, password);
+		UserBLL userBLL = new UserBLL();
+		if (user.validate() && userBLL.validUserNamePassword(username, password)) {
+			request.getSession().setAttribute("session", user);
+			// request.getRequestDispatcher("/Dashboard.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/Dashboard.jsp");
+		} else {
+			if(user.getMessage() != "") {
+				request.setAttribute("validationMessage", user.getMessage());
+			} else {
+				request.setAttribute("validationMessage", "Username and password are not valid");
+			}
+			
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
 	}
 
 }

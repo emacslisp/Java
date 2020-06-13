@@ -8,6 +8,9 @@
 </head>
 <body>
 	<% session.invalidate(); %>
-	<jsp:forward page="login.jsp"/>
+	<!-- <jsp:forward page="login.jsp"/> -->
+	<% 
+		response.sendRedirect(request.getContextPath() + "/login.jsp");
+	%>
 </body>
 </html>

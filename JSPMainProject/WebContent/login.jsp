@@ -8,10 +8,10 @@
 </head>
 <body>
 
-<form action="/action_page.php">
+<form action="/JSPMainProject/LoginController" method="post">
 	<div>
 	    <label for="username">Username:</label>
-	    <input type="text" id="username" name="username">
+	    <input type="text" id="username" name="username" value=<%= request.getAttribute("username") == null ? "" : request.getAttribute("username") %>>
 	</div>
 	
 	<div>
@@ -23,5 +23,6 @@
 	<input type="submit" value="Sign in">
 </form> 
 
+<h2><%= request.getAttribute("validationMessage")== null ? "" : request.getAttribute("validationMessage") %></h2>
 </body>
 </html>

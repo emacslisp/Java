@@ -39,7 +39,7 @@ public class User {
 	}
 	
 	public boolean validate() {
-		
+		this.message = "";
 		if(this.email == null) {
 			this.message = "No Email Address Set";
 			return false;
