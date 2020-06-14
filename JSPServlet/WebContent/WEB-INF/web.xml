@@ -51,6 +51,11 @@ License.  You may obtain a copy of the License at
         <servlet-name>Controller</servlet-name>
         <url-pattern>/Controller</url-pattern>
     </servlet-mapping>
+    
+    <context-param>
+    	<param-name>AdminName</param-name>
+    	<param-value>Vicky</param-value>
+    </context-param>
 
 </web-app>
 

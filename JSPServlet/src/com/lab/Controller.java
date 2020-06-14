@@ -3,6 +3,7 @@ package com.lab;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +34,8 @@ public class Controller extends HttpServlet {
 		String user = request.getParameter("user");
 		PrintWriter out = response.getWriter();
 		
+		ServletContext context = getServletContext();
+		String adminName = context.getInitParameter("AdminName");
 		out.println("<html>");
 		out.println("  <head>");
 		out.println("    <title>jsp title</title>");
@@ -40,6 +43,7 @@ public class Controller extends HttpServlet {
 		out.println("");
 		out.println("  <body>");
 		out.println("  <p> username: " + user + "</p>");
+		out.println("  <p> adminName: " + adminName + "</p>");
 		out.println("  </body>");
 		out.println("</html> ");
 

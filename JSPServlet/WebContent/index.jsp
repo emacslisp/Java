@@ -54,5 +54,12 @@ out.println("<br/>");
 out.println("remote port is " + port);
 
 %>
+
+<%
+	ServletContext context = getServletContext();
+	String adminName = (String)context.getInitParameter("AdminName");
+	out.println("<br/>");
+	out.println("get config from ServletContext: AdminName " + adminName);
+%>
 </body>
 </html>
