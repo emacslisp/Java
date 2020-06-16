@@ -1,17 +1,9 @@
 
+<%@page import="com.lab.User" %>
 <%
-	String uid = (String)session.getAttribute("user");
-	if (uid == null)
+	User user = (User)request.getSession().getAttribute("session");
+	if (user == null)
 	{
-%>
-<jsp:forward page="index.jsp" />
-<%	
+		response.sendRedirect(request.getContextPath() + "/login.jsp");
 	}
-	else
-	{
-		out.println(" <h1>You have successfully created the Session of User : " +uid+"</h1>");
-%>
-<a href="logout.jsp">Logout</a>
-<%
-}
 %>
