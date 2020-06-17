@@ -6,7 +6,7 @@
 # Package Files #
 *.jar
 !output/*.jar
-!JSPMainProject/third-party/*.jar
+!JSPMainProject/WebContent/WEB-INF/lib/*.jar
 !JavaMain/third-party/*.jar
 !JavaMain/**
 !SpringFrameworkDebug/third-party/*.jar
