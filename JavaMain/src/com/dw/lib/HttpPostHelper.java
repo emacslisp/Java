@@ -131,6 +131,11 @@ public class HttpPostHelper {
                 inputStream = connection.getErrorStream();
             else
                 inputStream = connection.getInputStream();
+            
+            if (inputStream == null) {
+            	System.out.println("status: " + status);
+            	return;
+            }
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 			String lines;
