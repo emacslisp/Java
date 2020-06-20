@@ -16,7 +16,7 @@ public class PostTest {
 		//postTest();
 		HttpPostHelper helper = new HttpPostHelper();
 		
-		helper.Post("/Users/di.wu/dev/vocus/post/vtails/tails_CHO-BS3.config", null, null);
+		helper.Post("/Users/ewu/dev/vocus/post/tulip/tulip.conf", null, null);
 	}
 	
 	public static void getTest() {

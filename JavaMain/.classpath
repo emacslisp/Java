@@ -51,6 +51,7 @@
 	<classpathentry kind="lib" path="third-party/commons-email-1.5.jar"/>
 	<classpathentry kind="lib" path="third-party/javax.mail.jar"/>
 	<classpathentry kind="lib" path="third-party/java-unrar-1.7.0-3.jar"/>
+	<classpathentry kind="lib" path="third-party/dom4j-1.6.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="third-party/log4j-1.2.17.jar" sourcepath="/Users/ewu/dev/log4j/apache-log4j-1.2.17/dist/lib/log4j-1.2.17-sources.jar"/>
 	<classpathentry kind="lib" path="third-party/ftplet-api-1.1.1-SNAPSHOT.jar"/>

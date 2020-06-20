@@ -31,10 +31,11 @@ public class PostCLI {
 					"    \"bodyType\": \"json\",",
 					"    \"headers\": {",
 					"        \"Content-type\": \"application/json; charset=UTF-8\",",
-					"        \"Authorization\": \"Basic xxxxxxxxx\"",
+					"        \"Authorization\": \"Basic Base64('username:password')\"",
 					"    }",
 					"}",
-					"<body file> is json file or xml file"};
+					"<body file> is json file or xml file",
+					"Authorization is value from Base64 for 'username:password'"};
 			
 			for(String s : helpInfo) {
 				System.out.println(s);
