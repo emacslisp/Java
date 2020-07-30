@@ -2,9 +2,11 @@ package com.dw.lib;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.Writer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,6 +18,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -53,9 +57,28 @@ public class JavaXMLIndent {
 	    }
 	}
 	
+	public static void prettyFormatXerces(String input, String output) { 
+		try {
+			FileUtils f = new FileUtils();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    	factory.setNamespaceAware(true);
+	    	DocumentBuilder db = factory.newDocumentBuilder();
+			Document doc = db.parse( new InputSource( new StringReader( f.fileToString(input) ) ) ); 
+			OutputFormat format = new OutputFormat(doc);
+			format.setLineWidth(65);
+			format.setIndenting(true);
+			format.setIndent(2);
+			Writer outxml = new FileWriter(new File(output));
+			XMLSerializer serializer = new XMLSerializer(outxml, format);
+			serializer.serialize(doc);
+		} catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+	}
+	
 	public void FormatXML(String inputfile, String outputFile) throws IOException {
 		// FileUtils fileUtils = new FileUtils();
-		prettyFormat(inputfile ,outputFile);
+		prettyFormatXerces(inputfile ,outputFile);
 	}
 	
 	public static void main(String[] args) {
@@ -64,7 +87,7 @@ public class JavaXMLIndent {
 		JavaXMLIndent xmlIndent = new JavaXMLIndent();
 		//String formattedJson1="";
 		try {
-			xmlIndent.FormatXML("/Users/di.wu/test/1.xml", "/Users/di.wu/test/2.xml");
+			xmlIndent.FormatXML("/Users/ewu/test/2.xml", "/Users/ewu/test/output.xml");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

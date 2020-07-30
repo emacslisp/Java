@@ -27,6 +27,7 @@ public class FileCLI {
 	        System.out.println( "can execute:" + file.canExecute() );
 	        System.out.println( "can write:" + file.canWrite() );
 	        System.out.println( "is hidden:" + file.isHidden() );
+	        System.out.println( "file size: " + file.length());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

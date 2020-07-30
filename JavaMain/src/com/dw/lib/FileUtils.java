@@ -153,7 +153,27 @@ public class FileUtils {
 	public long maxFilesize(String rootDirectory) {
 		List<Path> paths = listFiles(rootDirectory, false);
 		
+		for(Path path : paths) {
+			
+		}
+		
 		return 0;
+	}
+	
+	public String fileSize(long size) {
+		long originalSize = size;
+		String[] unit = {"Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB"};
+		int counter = 0;
+		while(size > 0) {
+			if(size < 1024) {
+				return size + unit[counter];
+			}
+			
+			size = size/(long)1024;
+			counter++;
+		}
+		
+		return originalSize + "Bytes";
 	}
 	
 	/**
