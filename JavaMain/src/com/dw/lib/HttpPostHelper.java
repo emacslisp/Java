@@ -38,16 +38,6 @@ public class HttpPostHelper {
 			{"`", "%60"}
 		};
 	
-	public boolean isJSONValid(String jsonString) {
-	    try {
-	    	JsonParser parser = new JsonParser();
-	    	parser.parse(jsonString);
-	    } catch (JsonSyntaxException ex) {
-	       return false;
-	    }
-	    return true;
-	}
-	
 	public String replaceSpeicalCharactor(String url) {
 		for(int index = 0;index < speicalCharactorMapping.length; index++) {
 			url = url.replace(speicalCharactorMapping[index][0], speicalCharactorMapping[index][1]);
@@ -154,9 +144,15 @@ public class HttpPostHelper {
 			statusBuffer.append(System.lineSeparator());
 			System.out.println(statusBuffer.toString());
 			
-			if(isJSONValid(sb.toString())) {
+			if(JsonOp.isJSONValid(sb.toString())) {
 				JsonOp jsonOp = new JsonOp();
 				String outStr = jsonOp.JsonFormater(sb.toString());
+				System.out.println(outStr);
+				statusBuffer.append(outStr);
+				utils.stringToFile(statusBuffer.toString(), outputFilePath);
+			} else if(JavaXMLIndent.isXML(sb.toString())) {
+				JavaXMLIndent xmlIndent = new JavaXMLIndent();
+				String outStr = xmlIndent.prettyFormatXMLString(sb.toString());
 				System.out.println(outStr);
 				statusBuffer.append(outStr);
 				utils.stringToFile(statusBuffer.toString(), outputFilePath);

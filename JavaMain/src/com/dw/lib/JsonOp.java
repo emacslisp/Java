@@ -24,6 +24,16 @@ public class JsonOp {
 		fileUtils.stringToFile(JsonFormater(fileUtils.fileToString(inputfile)),outputFile);
 	}
 	
+	public static boolean isJSONValid(String jsonString) {
+	    try {
+	    	JsonParser parser = new JsonParser();
+	    	parser.parse(jsonString);
+	    } catch (JsonSyntaxException ex) {
+	       return false;
+	    }
+	    return true;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JsonOp jsonOp = new JsonOp();

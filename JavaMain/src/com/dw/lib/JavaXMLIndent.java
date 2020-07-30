@@ -57,6 +57,26 @@ public class JavaXMLIndent {
 	    }
 	}
 	
+	public String prettyFormatXMLString(String input) {
+		try {
+			FileUtils f = new FileUtils();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    	factory.setNamespaceAware(true);
+	    	DocumentBuilder db = factory.newDocumentBuilder();
+			Document doc = db.parse( new InputSource( new StringReader(input ) ) ); 
+			OutputFormat format = new OutputFormat(doc);
+			format.setLineWidth(65);
+			format.setIndenting(true);
+			format.setIndent(2);
+			Writer outxml = new StringWriter();
+			XMLSerializer serializer = new XMLSerializer(outxml, format);
+			serializer.serialize(doc);
+			return outxml.toString();
+		} catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+	}
+	
 	public static void prettyFormatXerces(String input, String output) { 
 		try {
 			FileUtils f = new FileUtils();
@@ -74,6 +94,19 @@ public class JavaXMLIndent {
 		} catch (Exception e) {
 	        throw new RuntimeException(e);
 	    }
+	}
+	
+	public static boolean isXML(String input) {
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    	factory.setNamespaceAware(true);
+	    	DocumentBuilder db = factory.newDocumentBuilder();
+			Document doc = db.parse( new InputSource( new StringReader( input ) ) );
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public void FormatXML(String inputfile, String outputFile) throws IOException {
