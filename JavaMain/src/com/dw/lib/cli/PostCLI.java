@@ -54,7 +54,7 @@ public class PostCLI {
 			if (args.length == 1) {
 				helper.Post(args[0], null, outputFilePath);
 			}
-			else if(args.length == 2) {
+			else if(args.length >= 2) {
 				helper.Post(args[0], args[1], outputFilePath);
 			}
 			
