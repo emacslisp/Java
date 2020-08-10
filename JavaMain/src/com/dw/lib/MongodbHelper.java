@@ -5,8 +5,14 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.*;
 import com.mongodb.client.model.*;
+
+import java.util.Arrays;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import com.mongodb.DB;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 
 public class MongodbHelper {
 	
@@ -16,13 +22,13 @@ public class MongodbHelper {
 		conn = null;
 	}
 
-	public MongodbHelper(String host, int port, String username, String password) throws Exception {
-		conn = getConnection(host, port, username, password);
+	public MongodbHelper(String host, String database, int port, String username, String password) throws Exception {
+		conn = getConnection(host, database, port, username, password);
 	}
 
-	public MongoClient getConnection(String host, int port, String username, String password) throws Exception {
+	public MongoClient getConnection(String host, String database, int port, String username, String password) throws Exception {
+		MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
 		conn = new MongoClient(host, port);
-	
 		return conn;
 	}
 	
@@ -39,6 +45,8 @@ public class MongodbHelper {
 		// obj.put("billingSystemId", 54146);
 		// String query = "db.getCollection('billingaccounts').find({'billingSystemId': '54146'})";
 		Bson input = Document.parse("{'billingSystemId': '54146'}");
+		
+		
 		
 		MongoCursor<Document> result = coll.find(input).iterator();
 		JsonOp jsonop = new JsonOp();

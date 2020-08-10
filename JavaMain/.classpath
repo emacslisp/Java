@@ -57,6 +57,9 @@
 	<classpathentry kind="lib" path="third-party/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="third-party/xml-apis.jar"/>
 	<classpathentry kind="lib" path="third-party/postgresql-42.2.14.jar"/>
+	<classpathentry kind="lib" path="third-party/bson-3.8.1.jar"/>
+	<classpathentry kind="lib" path="third-party/mongodb-driver-core-3.8.1.jar"/>
+	<classpathentry kind="lib" path="third-party/mongodb-driver-async-3.8.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="third-party/log4j-1.2.17.jar" sourcepath="/Users/ewu/dev/log4j/apache-log4j-1.2.17/dist/lib/log4j-1.2.17-sources.jar"/>
 	<classpathentry kind="lib" path="third-party/ftplet-api-1.1.1-SNAPSHOT.jar"/>
