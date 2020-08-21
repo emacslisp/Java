@@ -69,7 +69,7 @@ public abstract class ObjectUtils {
 	 * @see java.lang.Error
 	 */
 	public static boolean isCheckedException(Throwable ex)
-	{Thread.dumpStack();
+	{
 		return !(ex instanceof RuntimeException || ex instanceof Error);
 	}
 
@@ -82,7 +82,7 @@ public abstract class ObjectUtils {
 	 * @return whether the given exception is compatible
 	 */
 	public static boolean isCompatibleWithThrowsClause(Throwable ex, @Nullable Class<?>... declaredExceptions)
-	{Thread.dumpStack();
+	{
 		if (!isCheckedException(ex)) {
 			return true;
 		}
@@ -103,7 +103,7 @@ public abstract class ObjectUtils {
 	 * @param obj the object to check
 	 */
 	public static boolean isArray(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		return (obj != null && obj.getClass().isArray());
 	}
 
@@ -115,7 +115,7 @@ public abstract class ObjectUtils {
 	 * @see #isEmpty(Object)
 	 */
 	public static boolean isEmpty(@Nullable Object[] array)
-	{Thread.dumpStack();
+	{
 		return (array == null || array.length == 0);
 	}
 
@@ -146,7 +146,7 @@ public abstract class ObjectUtils {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static boolean isEmpty(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		if (obj == null) {
 			return true;
 		}
@@ -181,7 +181,7 @@ public abstract class ObjectUtils {
 	 */
 	@Nullable
 	public static Object unwrapOptional(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		if (obj instanceof Optional) {
 			Optional<?> optional = (Optional<?>) obj;
 			if (!optional.isPresent()) {
@@ -203,7 +203,7 @@ public abstract class ObjectUtils {
 	 * @return whether the element has been found in the given array
 	 */
 	public static boolean containsElement(@Nullable Object[] array, Object element)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return false;
 		}
@@ -226,7 +226,7 @@ public abstract class ObjectUtils {
 	 * @return whether the constant has been found in the given array
 	 */
 	public static boolean containsConstant(Enum<?>[] enumValues, String constant)
-	{Thread.dumpStack();
+	{
 		return containsConstant(enumValues, constant, false);
 	}
 
@@ -242,7 +242,7 @@ public abstract class ObjectUtils {
 	 * @return whether the constant has been found in the given array
 	 */
 	public static boolean containsConstant(Enum<?>[] enumValues, String constant, boolean caseSensitive)
-	{Thread.dumpStack();
+	{
 		for (Enum<?> candidate : enumValues) {
 			if (caseSensitive ? candidate.toString().equals(constant)
 					: candidate.toString().equalsIgnoreCase(constant)) {
@@ -265,7 +265,7 @@ public abstract class ObjectUtils {
 	 *                                  a guard to avoid this exception.
 	 */
 	public static <E extends Enum<?>> E caseInsensitiveValueOf(E[] enumValues, String constant)
-	{Thread.dumpStack();
+	{
 		for (E candidate : enumValues) {
 			if (candidate.toString().equalsIgnoreCase(constant)) {
 				return candidate;
@@ -284,7 +284,7 @@ public abstract class ObjectUtils {
 	 * @return the new array (of the same component type; never {@code null})
 	 */
 	public static <A, O extends A> A[] addObjectToArray(@Nullable A[] array, @Nullable O obj)
-	{Thread.dumpStack();
+	{
 		Class<?> compType = Object.class;
 		if (array != null) {
 			compType = array.getClass().getComponentType();
@@ -312,7 +312,7 @@ public abstract class ObjectUtils {
 	 * @throws IllegalArgumentException if the parameter is not an array
 	 */
 	public static Object[] toObjectArray(@Nullable Object source)
-	{Thread.dumpStack();
+	{
 		if (source instanceof Object[]) {
 			return (Object[]) source;
 		}
@@ -352,7 +352,7 @@ public abstract class ObjectUtils {
 	 * @see java.util.Arrays#equals
 	 */
 	public static boolean nullSafeEquals(@Nullable Object o1, @Nullable Object o2)
-	{Thread.dumpStack();
+	{
 		if (o1 == o2) {
 			return true;
 		}
@@ -379,7 +379,7 @@ public abstract class ObjectUtils {
 	 * @see java.util.Arrays#equals
 	 */
 	private static boolean arrayEquals(Object o1, Object o2)
-	{Thread.dumpStack();
+	{
 		if (o1 instanceof Object[] && o2 instanceof Object[]) {
 			return Arrays.equals((Object[]) o1, (Object[]) o2);
 		}
@@ -428,7 +428,7 @@ public abstract class ObjectUtils {
 	 * @see #nullSafeHashCode(short[])
 	 */
 	public static int nullSafeHashCode(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		if (obj == null) {
 			return 0;
 		}
@@ -469,7 +469,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable Object[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -485,7 +485,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable boolean[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -501,7 +501,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable byte[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -517,7 +517,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable char[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -533,7 +533,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable double[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -549,7 +549,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable float[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -565,7 +565,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable int[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -581,7 +581,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable long[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -597,7 +597,7 @@ public abstract class ObjectUtils {
 	 * {@code array} is {@code null}, this method returns 0.
 	 */
 	public static int nullSafeHashCode(@Nullable short[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return 0;
 		}
@@ -615,7 +615,7 @@ public abstract class ObjectUtils {
 	 */
 	@Deprecated
 	public static int hashCode(boolean bool)
-	{Thread.dumpStack();
+	{
 		return Boolean.hashCode(bool);
 	}
 
@@ -626,7 +626,7 @@ public abstract class ObjectUtils {
 	 */
 	@Deprecated
 	public static int hashCode(double dbl)
-	{Thread.dumpStack();
+	{
 		return Double.hashCode(dbl);
 	}
 
@@ -637,7 +637,7 @@ public abstract class ObjectUtils {
 	 */
 	@Deprecated
 	public static int hashCode(float flt)
-	{Thread.dumpStack();
+	{
 		return Float.hashCode(flt);
 	}
 
@@ -648,7 +648,7 @@ public abstract class ObjectUtils {
 	 */
 	@Deprecated
 	public static int hashCode(long lng)
-	{Thread.dumpStack();
+	{
 		return Long.hashCode(lng);
 	}
 
@@ -664,7 +664,7 @@ public abstract class ObjectUtils {
 	 *         the object was {@code null}
 	 */
 	public static String identityToString(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		if (obj == null) {
 			return EMPTY_STRING;
 		}
@@ -678,7 +678,7 @@ public abstract class ObjectUtils {
 	 * @return the object's identity code in hex notation
 	 */
 	public static String getIdentityHexString(Object obj)
-	{Thread.dumpStack();
+	{
 		return Integer.toHexString(System.identityHashCode(obj));
 	}
 
@@ -694,7 +694,7 @@ public abstract class ObjectUtils {
 	 * @see #nullSafeToString(Object)
 	 */
 	public static String getDisplayString(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		if (obj == null) {
 			return EMPTY_STRING;
 		}
@@ -710,7 +710,7 @@ public abstract class ObjectUtils {
 	 * @return the corresponding class name
 	 */
 	public static String nullSafeClassName(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		return (obj != null ? obj.getClass().getName() : NULL_STRING);
 	}
 
@@ -724,7 +724,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code obj}
 	 */
 	public static String nullSafeToString(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		if (obj == null) {
 			return NULL_STRING;
 		}
@@ -774,7 +774,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable Object[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}
@@ -801,7 +801,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable boolean[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}
@@ -828,7 +828,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable byte[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}
@@ -855,7 +855,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable char[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}
@@ -882,7 +882,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable double[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}
@@ -909,7 +909,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable float[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}
@@ -936,7 +936,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable int[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}
@@ -963,7 +963,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable long[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}
@@ -990,7 +990,7 @@ public abstract class ObjectUtils {
 	 * @return a String representation of {@code array}
 	 */
 	public static String nullSafeToString(@Nullable short[] array)
-	{Thread.dumpStack();
+	{
 		if (array == null) {
 			return NULL_STRING;
 		}

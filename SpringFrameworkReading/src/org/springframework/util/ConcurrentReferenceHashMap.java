@@ -203,17 +203,17 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	}
 
 	protected final float getLoadFactor()
-	{Thread.dumpStack();
+	{
 		return this.loadFactor;
 	}
 
 	protected final int getSegmentsSize()
-	{Thread.dumpStack();
+	{
 		return this.segments.length;
 	}
 
 	protected final Segment getSegment(int index)
-	{Thread.dumpStack();
+	{
 		return this.segments[index];
 	}
 
@@ -224,7 +224,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	 * @return a new reference manager
 	 */
 	protected ReferenceManager createReferenceManager()
-	{Thread.dumpStack();
+	{
 		return new ReferenceManager();
 	}
 
@@ -238,7 +238,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	 * @return the resulting hash code
 	 */
 	protected int getHash(@Nullable Object o)
-	{Thread.dumpStack();
+	{
 		int hash = (o != null ? o.hashCode() : 0);
 		hash += (hash << 15) ^ 0xffffcd7d;
 		hash ^= (hash >>> 10);
@@ -252,7 +252,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	@Override
 	@Nullable
 	public V get(@Nullable Object key)
-	{Thread.dumpStack();
+	{
 		Reference<K, V> ref = getReference(key, Restructure.WHEN_NECESSARY);
 		Entry<K, V> entry = (ref != null ? ref.get() : null);
 		return (entry != null ? entry.getValue() : null);
@@ -261,7 +261,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	@Override
 	@Nullable
 	public V getOrDefault(@Nullable Object key, @Nullable V defaultValue)
-	{Thread.dumpStack();
+	{
 		Reference<K, V> ref = getReference(key, Restructure.WHEN_NECESSARY);
 		Entry<K, V> entry = (ref != null ? ref.get() : null);
 		return (entry != null ? entry.getValue() : defaultValue);
@@ -269,7 +269,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 
 	@Override
 	public boolean containsKey(@Nullable Object key)
-	{Thread.dumpStack();
+	{
 		Reference<K, V> ref = getReference(key, Restructure.WHEN_NECESSARY);
 		Entry<K, V> entry = (ref != null ? ref.get() : null);
 		return (entry != null && ObjectUtils.nullSafeEquals(entry.getKey(), key));
@@ -285,7 +285,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	 */
 	@Nullable
 	protected final Reference<K, V> getReference(@Nullable Object key, Restructure restructure)
-	{Thread.dumpStack();
+	{
 		int hash = getHash(key);
 		return getSegmentForHash(hash).getReference(key, hash, restructure);
 	}
@@ -293,20 +293,20 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	@Override
 	@Nullable
 	public V put(@Nullable K key, @Nullable V value)
-	{Thread.dumpStack();
+	{
 		return put(key, value, true);
 	}
 
 	@Override
 	@Nullable
 	public V putIfAbsent(@Nullable K key, @Nullable V value)
-	{Thread.dumpStack();
+	{
 		return put(key, value, false);
 	}
 
 	@Nullable
 	private V put(@Nullable final K key, @Nullable final V value, final boolean overwriteExisting)
-	{Thread.dumpStack();
+	{
 		return doTask(key, new Task<V>(TaskOption.RESTRUCTURE_BEFORE, TaskOption.RESIZE) {
 			@Override
 			@Nullable
@@ -330,7 +330,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	@Override
 	@Nullable
 	public V remove(Object key)
-	{Thread.dumpStack();
+	{
 		return doTask(key, new Task<V>(TaskOption.RESTRUCTURE_AFTER, TaskOption.SKIP_IF_EMPTY) {
 			@Override
 			@Nullable
@@ -349,7 +349,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 
 	@Override
 	public boolean remove(Object key, final Object value)
-	{Thread.dumpStack();
+	{
 		Boolean result = doTask(key, new Task<Boolean>(TaskOption.RESTRUCTURE_AFTER, TaskOption.SKIP_IF_EMPTY) {
 			@Override
 			protected Boolean execute(@Nullable Reference<K, V> ref, @Nullable Entry<K, V> entry)
@@ -368,7 +368,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 
 	@Override
 	public boolean replace(K key, final V oldValue, final V newValue)
-	{Thread.dumpStack();
+	{
 		Boolean result = doTask(key, new Task<Boolean>(TaskOption.RESTRUCTURE_BEFORE, TaskOption.SKIP_IF_EMPTY) {
 			@Override
 			protected Boolean execute(@Nullable Reference<K, V> ref, @Nullable Entry<K, V> entry)
@@ -386,7 +386,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	@Override
 	@Nullable
 	public V replace(K key, final V value)
-	{Thread.dumpStack();
+	{
 		return doTask(key, new Task<V>(TaskOption.RESTRUCTURE_BEFORE, TaskOption.SKIP_IF_EMPTY) {
 			@Override
 			@Nullable
@@ -404,7 +404,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 
 	@Override
 	public void clear()
-	{Thread.dumpStack();
+	{
 		for (Segment segment : this.segments) {
 			segment.clear();
 		}
@@ -418,7 +418,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	 * but updated less often.
 	 */
 	public void purgeUnreferencedEntries()
-	{Thread.dumpStack();
+	{
 		for (Segment segment : this.segments) {
 			segment.restructureIfNecessary(false);
 		}
@@ -426,7 +426,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 
 	@Override
 	public int size()
-	{Thread.dumpStack();
+	{
 		int size = 0;
 		for (Segment segment : this.segments) {
 			size += segment.getCount();
@@ -436,7 +436,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 
 	@Override
 	public boolean isEmpty()
-	{Thread.dumpStack();
+	{
 		for (Segment segment : this.segments) {
 			if (segment.getCount() > 0) {
 				return false;
@@ -447,7 +447,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 
 	@Override
 	public Set<Map.Entry<K, V>> entrySet()
-	{Thread.dumpStack();
+	{
 		Set<Map.Entry<K, V>> entrySet = this.entrySet;
 		if (entrySet == null) {
 			entrySet = new EntrySet();
@@ -458,13 +458,13 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 
 	@Nullable
 	private <T> T doTask(@Nullable Object key, Task<T> task)
-	{Thread.dumpStack();
+	{
 		int hash = getHash(key);
 		return getSegmentForHash(hash).doTask(hash, key, task);
 	}
 
 	private Segment getSegmentForHash(int hash)
-	{Thread.dumpStack();
+	{
 		return this.segments[(hash >>> (32 - this.shift)) & (this.segments.length - 1)];
 	}
 
@@ -477,7 +477,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
 	 * @return the calculated shift (use {@code 1 << shift} to obtain a value)
 	 */
 	protected static int calculateShift(int minimumValue, int maximumValue)
-	{Thread.dumpStack();
+	{
 		int shift = 0;
 		int value = 1;
 		while (value < minimumValue && value < maximumValue) {

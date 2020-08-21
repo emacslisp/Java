@@ -52,7 +52,7 @@ public abstract class CollectionUtils {
 	 * @return whether the given Collection is empty
 	 */
 	public static boolean isEmpty(@Nullable Collection<?> collection)
-	{Thread.dumpStack();
+	{
 		return (collection == null || collection.isEmpty());
 	}
 
@@ -64,7 +64,7 @@ public abstract class CollectionUtils {
 	 * @return whether the given Map is empty
 	 */
 	public static boolean isEmpty(@Nullable Map<?, ?> map)
-	{Thread.dumpStack();
+	{
 		return (map == null || map.isEmpty());
 	}
 
@@ -85,7 +85,7 @@ public abstract class CollectionUtils {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List arrayToList(@Nullable Object source)
-	{Thread.dumpStack();
+	{
 		return Arrays.asList(ObjectUtils.toObjectArray(source));
 	}
 
@@ -97,7 +97,7 @@ public abstract class CollectionUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> void mergeArrayIntoCollection(@Nullable Object array, Collection<E> collection)
-	{Thread.dumpStack();
+	{
 		Object[] arr = ObjectUtils.toObjectArray(array);
 		for (Object elem : arr) {
 			collection.add((E) elem);
@@ -116,7 +116,7 @@ public abstract class CollectionUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <K, V> void mergePropertiesIntoMap(@Nullable Properties props, Map<K, V> map)
-	{Thread.dumpStack();
+	{
 		if (props != null) {
 			for (Enumeration<?> en = props.propertyNames(); en.hasMoreElements();) {
 				String key = (String) en.nextElement();
@@ -138,7 +138,7 @@ public abstract class CollectionUtils {
 	 * @return {@code true} if found, {@code false} otherwise
 	 */
 	public static boolean contains(@Nullable Iterator<?> iterator, Object element)
-	{Thread.dumpStack();
+	{
 		if (iterator != null) {
 			while (iterator.hasNext()) {
 				Object candidate = iterator.next();
@@ -158,7 +158,7 @@ public abstract class CollectionUtils {
 	 * @return {@code true} if found, {@code false} otherwise
 	 */
 	public static boolean contains(@Nullable Enumeration<?> enumeration, Object element)
-	{Thread.dumpStack();
+	{
 		if (enumeration != null) {
 			while (enumeration.hasMoreElements()) {
 				Object candidate = enumeration.nextElement();
@@ -181,7 +181,7 @@ public abstract class CollectionUtils {
 	 * @return {@code true} if found, {@code false} otherwise
 	 */
 	public static boolean containsInstance(@Nullable Collection<?> collection, Object element)
-	{Thread.dumpStack();
+	{
 		if (collection != null) {
 			for (Object candidate : collection) {
 				if (candidate == element) {
@@ -201,7 +201,7 @@ public abstract class CollectionUtils {
 	 * @return whether any of the candidates has been found
 	 */
 	public static boolean containsAny(Collection<?> source, Collection<?> candidates)
-	{Thread.dumpStack();
+	{
 		if (isEmpty(source) || isEmpty(candidates)) {
 			return false;
 		}
@@ -226,7 +226,7 @@ public abstract class CollectionUtils {
 	@SuppressWarnings("unchecked")
 	@Nullable
 	public static <E> E findFirstMatch(Collection<?> source, Collection<E> candidates)
-	{Thread.dumpStack();
+	{
 		if (isEmpty(source) || isEmpty(candidates)) {
 			return null;
 		}
@@ -249,7 +249,7 @@ public abstract class CollectionUtils {
 	@SuppressWarnings("unchecked")
 	@Nullable
 	public static <T> T findValueOfType(Collection<?> collection, @Nullable Class<T> type)
-	{Thread.dumpStack();
+	{
 		if (isEmpty(collection)) {
 			return null;
 		}
@@ -278,7 +278,7 @@ public abstract class CollectionUtils {
 	 */
 	@Nullable
 	public static Object findValueOfType(Collection<?> collection, Class<?>[] types)
-	{Thread.dumpStack();
+	{
 		if (isEmpty(collection) || ObjectUtils.isEmpty(types)) {
 			return null;
 		}
@@ -299,7 +299,7 @@ public abstract class CollectionUtils {
 	 *         multiple references to the same instance, {@code false} otherwise
 	 */
 	public static boolean hasUniqueObject(Collection<?> collection)
-	{Thread.dumpStack();
+	{
 		if (isEmpty(collection)) {
 			return false;
 		}
@@ -325,7 +325,7 @@ public abstract class CollectionUtils {
 	 */
 	@Nullable
 	public static Class<?> findCommonElementType(Collection<?> collection)
-	{Thread.dumpStack();
+	{
 		if (isEmpty(collection)) {
 			return null;
 		}
@@ -355,7 +355,7 @@ public abstract class CollectionUtils {
 	 */
 	@Nullable
 	public static <T> T lastElement(@Nullable Set<T> set)
-	{Thread.dumpStack();
+	{
 		if (isEmpty(set)) {
 			return null;
 		}
@@ -381,7 +381,7 @@ public abstract class CollectionUtils {
 	 */
 	@Nullable
 	public static <T> T lastElement(@Nullable List<T> list)
-	{Thread.dumpStack();
+	{
 		if (isEmpty(list)) {
 			return null;
 		}
@@ -394,7 +394,7 @@ public abstract class CollectionUtils {
 	 * The array returned will be a different instance than the array given.
 	 */
 	public static <A, E extends A> A[] toArray(Enumeration<E> enumeration, A[] array)
-	{Thread.dumpStack();
+	{
 		ArrayList<A> elements = new ArrayList<>();
 		while (enumeration.hasMoreElements()) {
 			elements.add(enumeration.nextElement());
@@ -409,7 +409,7 @@ public abstract class CollectionUtils {
 	 * @return the adapted {@code Iterator}
 	 */
 	public static <E> Iterator<E> toIterator(@Nullable Enumeration<E> enumeration)
-	{Thread.dumpStack();
+	{
 		return (enumeration != null ? new EnumerationIterator<>(enumeration) : Collections.emptyIterator());
 	}
 
@@ -421,7 +421,7 @@ public abstract class CollectionUtils {
 	 * @since 3.1
 	 */
 	public static <K, V> MultiValueMap<K, V> toMultiValueMap(Map<K, List<V>> map)
-	{Thread.dumpStack();
+	{
 		return new MultiValueMapAdapter<>(map);
 	}
 
@@ -434,7 +434,7 @@ public abstract class CollectionUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <K, V> MultiValueMap<K, V> unmodifiableMultiValueMap(MultiValueMap<? extends K, ? extends V> map)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(map, "'map' must not be null");
 		Map<K, List<V>> result = new LinkedHashMap<>(map.size());
 		map.forEach((key, value) -> {

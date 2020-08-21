@@ -84,7 +84,7 @@ public abstract class StringUtils {
 	 * @see #hasText(String)
 	 */
 	public static boolean isEmpty(@Nullable Object str)
-	{Thread.dumpStack();
+	{
 		return (str == null || "".equals(str));
 	}
 
@@ -110,7 +110,7 @@ public abstract class StringUtils {
 	 * @see #hasText(CharSequence)
 	 */
 	public static boolean hasLength(@Nullable CharSequence str)
-	{Thread.dumpStack();
+	{
 		return (str != null && str.length() > 0);
 	}
 
@@ -126,7 +126,7 @@ public abstract class StringUtils {
 	 * @see #hasText(String)
 	 */
 	public static boolean hasLength(@Nullable String str)
-	{Thread.dumpStack();
+	{
 		return (str != null && !str.isEmpty());
 	}
 
@@ -154,7 +154,7 @@ public abstract class StringUtils {
 	 * @see Character#isWhitespace
 	 */
 	public static boolean hasText(@Nullable CharSequence str)
-	{Thread.dumpStack();
+	{
 		return (str != null && str.length() > 0 && containsText(str));
 	}
 
@@ -173,12 +173,12 @@ public abstract class StringUtils {
 	 * @see Character#isWhitespace
 	 */
 	public static boolean hasText(@Nullable String str)
-	{Thread.dumpStack();
+	{
 		return (str != null && !str.isEmpty() && containsText(str));
 	}
 
 	private static boolean containsText(CharSequence str)
-	{Thread.dumpStack();
+	{
 		int strLen = str.length();
 		for (int i = 0; i < strLen; i++) {
 			if (!Character.isWhitespace(str.charAt(i))) {
@@ -198,7 +198,7 @@ public abstract class StringUtils {
 	 * @see Character#isWhitespace
 	 */
 	public static boolean containsWhitespace(@Nullable CharSequence str)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str)) {
 			return false;
 		}
@@ -221,7 +221,7 @@ public abstract class StringUtils {
 	 * @see #containsWhitespace(CharSequence)
 	 */
 	public static boolean containsWhitespace(@Nullable String str)
-	{Thread.dumpStack();
+	{
 		return containsWhitespace((CharSequence) str);
 	}
 
@@ -233,7 +233,7 @@ public abstract class StringUtils {
 	 * @see java.lang.Character#isWhitespace
 	 */
 	public static String trimWhitespace(String str)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str)) {
 			return str;
 		}
@@ -261,7 +261,7 @@ public abstract class StringUtils {
 	 * @see java.lang.Character#isWhitespace
 	 */
 	public static String trimAllWhitespace(String str)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str)) {
 			return str;
 		}
@@ -285,7 +285,7 @@ public abstract class StringUtils {
 	 * @see java.lang.Character#isWhitespace
 	 */
 	public static String trimLeadingWhitespace(String str)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str)) {
 			return str;
 		}
@@ -305,7 +305,7 @@ public abstract class StringUtils {
 	 * @see java.lang.Character#isWhitespace
 	 */
 	public static String trimTrailingWhitespace(String str)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str)) {
 			return str;
 		}
@@ -326,7 +326,7 @@ public abstract class StringUtils {
 	 * @return the trimmed {@code String}
 	 */
 	public static String trimLeadingCharacter(String str, char leadingCharacter)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str)) {
 			return str;
 		}
@@ -347,7 +347,7 @@ public abstract class StringUtils {
 	 * @return the trimmed {@code String}
 	 */
 	public static String trimTrailingCharacter(String str, char trailingCharacter)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str)) {
 			return str;
 		}
@@ -368,7 +368,7 @@ public abstract class StringUtils {
 	 * @see java.lang.String#startsWith
 	 */
 	public static boolean startsWithIgnoreCase(@Nullable String str, @Nullable String prefix)
-	{Thread.dumpStack();
+	{
 		return (str != null && prefix != null && str.length() >= prefix.length()
 				&& str.regionMatches(true, 0, prefix, 0, prefix.length()));
 	}
@@ -382,7 +382,7 @@ public abstract class StringUtils {
 	 * @see java.lang.String#endsWith
 	 */
 	public static boolean endsWithIgnoreCase(@Nullable String str, @Nullable String suffix)
-	{Thread.dumpStack();
+	{
 		return (str != null && suffix != null && str.length() >= suffix.length()
 				&& str.regionMatches(true, str.length() - suffix.length(), suffix, 0, suffix.length()));
 	}
@@ -395,7 +395,7 @@ public abstract class StringUtils {
 	 * @param substring the substring to match at the given index
 	 */
 	public static boolean substringMatch(CharSequence str, int index, CharSequence substring)
-	{Thread.dumpStack();
+	{
 		if (index + substring.length() > str.length()) {
 			return false;
 		}
@@ -414,7 +414,7 @@ public abstract class StringUtils {
 	 * @param sub string to search for
 	 */
 	public static int countOccurrencesOf(String str, String sub)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str) || !hasLength(sub)) {
 			return 0;
 		}
@@ -438,7 +438,7 @@ public abstract class StringUtils {
 	 * @return a {@code String} with the replacements
 	 */
 	public static String replace(String inString, String oldPattern, @Nullable String newPattern)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(inString) || !hasLength(oldPattern) || newPattern == null) {
 			return inString;
 		}
@@ -476,7 +476,7 @@ public abstract class StringUtils {
 	 * @return the resulting {@code String}
 	 */
 	public static String delete(String inString, String pattern)
-	{Thread.dumpStack();
+	{
 		return replace(inString, pattern, "");
 	}
 
@@ -489,7 +489,7 @@ public abstract class StringUtils {
 	 * @return the resulting {@code String}
 	 */
 	public static String deleteAny(String inString, @Nullable String charsToDelete)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(inString) || !hasLength(charsToDelete)) {
 			return inString;
 		}
@@ -517,7 +517,7 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static String quote(@Nullable String str)
-	{Thread.dumpStack();
+	{
 		return (str != null ? "'" + str + "'" : null);
 	}
 
@@ -531,7 +531,7 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static Object quoteIfString(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		return (obj instanceof String ? quote((String) obj) : obj);
 	}
 
@@ -542,7 +542,7 @@ public abstract class StringUtils {
 	 * @param qualifiedName the qualified name
 	 */
 	public static String unqualify(String qualifiedName)
-	{Thread.dumpStack();
+	{
 		return unqualify(qualifiedName, '.');
 	}
 
@@ -554,7 +554,7 @@ public abstract class StringUtils {
 	 * @param separator     the separator
 	 */
 	public static String unqualify(String qualifiedName, char separator)
-	{Thread.dumpStack();
+	{
 		return qualifiedName.substring(qualifiedName.lastIndexOf(separator) + 1);
 	}
 
@@ -566,7 +566,7 @@ public abstract class StringUtils {
 	 * @return the capitalized {@code String}
 	 */
 	public static String capitalize(String str)
-	{Thread.dumpStack();
+	{
 		return changeFirstCharacterCase(str, true);
 	}
 
@@ -578,12 +578,12 @@ public abstract class StringUtils {
 	 * @return the uncapitalized {@code String}
 	 */
 	public static String uncapitalize(String str)
-	{Thread.dumpStack();
+	{
 		return changeFirstCharacterCase(str, false);
 	}
 
 	private static String changeFirstCharacterCase(String str, boolean capitalize)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(str)) {
 			return str;
 		}
@@ -613,7 +613,7 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static String getFilename(@Nullable String path)
-	{Thread.dumpStack();
+	{
 		if (path == null) {
 			return null;
 		}
@@ -631,7 +631,7 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static String getFilenameExtension(@Nullable String path)
-	{Thread.dumpStack();
+	{
 		if (path == null) {
 			return null;
 		}
@@ -657,7 +657,7 @@ public abstract class StringUtils {
 	 * @return the path with stripped filename extension
 	 */
 	public static String stripFilenameExtension(String path)
-	{Thread.dumpStack();
+	{
 		int extIndex = path.lastIndexOf(EXTENSION_SEPARATOR);
 		if (extIndex == -1) {
 			return path;
@@ -681,7 +681,7 @@ public abstract class StringUtils {
 	 * @return the full file path that results from applying the relative path
 	 */
 	public static String applyRelativePath(String path, String relativePath)
-	{Thread.dumpStack();
+	{
 		int separatorIndex = path.lastIndexOf(FOLDER_SEPARATOR);
 		if (separatorIndex != -1) {
 			String newPath = path.substring(0, separatorIndex);
@@ -705,7 +705,7 @@ public abstract class StringUtils {
 	 * @return the normalized path
 	 */
 	public static String cleanPath(String path)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(path)) {
 			return path;
 		}
@@ -777,7 +777,7 @@ public abstract class StringUtils {
 	 * @return whether the two paths are equivalent after normalization
 	 */
 	public static boolean pathEquals(String path1, String path2)
-	{Thread.dumpStack();
+	{
 		return cleanPath(path1).equals(cleanPath(path2));
 	}
 
@@ -801,7 +801,7 @@ public abstract class StringUtils {
 	 * @see java.net.URLDecoder#decode(String, String)
 	 */
 	public static String uriDecode(String source, Charset charset)
-	{Thread.dumpStack();
+	{
 		int length = source.length();
 		if (length == 0) {
 			return source;
@@ -851,7 +851,7 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static Locale parseLocale(String localeValue)
-	{Thread.dumpStack();
+	{
 		String[] tokens = tokenizeLocaleSource(localeValue);
 		if (tokens.length == 1) {
 			validateLocalePart(localeValue);
@@ -883,18 +883,18 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static Locale parseLocaleString(String localeString)
-	{Thread.dumpStack();
+	{
 		return parseLocaleTokens(localeString, tokenizeLocaleSource(localeString));
 	}
 
 	private static String[] tokenizeLocaleSource(String localeSource)
-	{Thread.dumpStack();
+	{
 		return tokenizeToStringArray(localeSource, "_ ", false, false);
 	}
 
 	@Nullable
 	private static Locale parseLocaleTokens(String localeString, String[] tokens)
-	{Thread.dumpStack();
+	{
 		String language = (tokens.length > 0 ? tokens[0] : "");
 		String country = (tokens.length > 1 ? tokens[1] : "");
 		validateLocalePart(language);
@@ -921,7 +921,7 @@ public abstract class StringUtils {
 	}
 
 	private static void validateLocalePart(String localePart)
-	{Thread.dumpStack();
+	{
 		for (int i = 0; i < localePart.length(); i++) {
 			char ch = localePart.charAt(i);
 			if (ch != ' ' && ch != '_' && ch != '-' && ch != '#' && !Character.isLetterOrDigit(ch)) {
@@ -940,7 +940,7 @@ public abstract class StringUtils {
 	 */
 	@Deprecated
 	public static String toLanguageTag(Locale locale)
-	{Thread.dumpStack();
+	{
 		return locale.getLanguage() + (hasText(locale.getCountry()) ? "-" + locale.getCountry() : "");
 	}
 
@@ -956,7 +956,7 @@ public abstract class StringUtils {
 	 *                                  specification
 	 */
 	public static TimeZone parseTimeZoneString(String timeZoneString)
-	{Thread.dumpStack();
+	{
 		TimeZone timeZone = TimeZone.getTimeZone(timeZoneString);
 		if ("GMT".equals(timeZone.getID()) && !timeZoneString.startsWith("GMT")) {
 			// We don't want that GMT fallback...
@@ -979,7 +979,7 @@ public abstract class StringUtils {
 	 * @return the resulting {@code String} array
 	 */
 	public static String[] toStringArray(@Nullable Collection<String> collection)
-	{Thread.dumpStack();
+	{
 		return (!CollectionUtils.isEmpty(collection) ? collection.toArray(EMPTY_STRING_ARRAY) : EMPTY_STRING_ARRAY);
 	}
 
@@ -993,7 +993,7 @@ public abstract class StringUtils {
 	 * @return the resulting {@code String} array
 	 */
 	public static String[] toStringArray(@Nullable Enumeration<String> enumeration)
-	{Thread.dumpStack();
+	{
 		return (enumeration != null ? toStringArray(Collections.list(enumeration)) : EMPTY_STRING_ARRAY);
 	}
 
@@ -1007,7 +1007,7 @@ public abstract class StringUtils {
 	 * @return the new array (never {@code null})
 	 */
 	public static String[] addStringToArray(@Nullable String[] array, String str)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(array)) {
 			return new String[] { str };
 		}
@@ -1030,7 +1030,7 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static String[] concatenateStringArrays(@Nullable String[] array1, @Nullable String[] array2)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(array1)) {
 			return array2;
 		}
@@ -1061,7 +1061,7 @@ public abstract class StringUtils {
 	@Deprecated
 	@Nullable
 	public static String[] mergeStringArrays(@Nullable String[] array1, @Nullable String[] array2)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(array1)) {
 			return array2;
 		}
@@ -1085,7 +1085,7 @@ public abstract class StringUtils {
 	 * @return the array in sorted form (never {@code null})
 	 */
 	public static String[] sortStringArray(String[] array)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(array)) {
 			return array;
 		}
@@ -1102,7 +1102,7 @@ public abstract class StringUtils {
 	 * @return the resulting array (of the same size) with trimmed elements
 	 */
 	public static String[] trimArrayElements(String[] array)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(array)) {
 			return array;
 		}
@@ -1125,7 +1125,7 @@ public abstract class StringUtils {
 	 * @return an array without duplicates, in natural sort order
 	 */
 	public static String[] removeDuplicateStrings(String[] array)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(array)) {
 			return array;
 		}
@@ -1148,7 +1148,7 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static String[] split(@Nullable String toSplit, @Nullable String delimiter)
-	{Thread.dumpStack();
+	{
 		if (!hasLength(toSplit) || !hasLength(delimiter)) {
 			return null;
 		}
@@ -1178,7 +1178,7 @@ public abstract class StringUtils {
 	 */
 	@Nullable
 	public static Properties splitArrayElementsIntoProperties(String[] array, String delimiter)
-	{Thread.dumpStack();
+	{
 		return splitArrayElementsIntoProperties(array, delimiter, null);
 	}
 
@@ -1204,7 +1204,7 @@ public abstract class StringUtils {
 	@Nullable
 	public static Properties splitArrayElementsIntoProperties(String[] array, String delimiter,
 			@Nullable String charsToDelete)
-	{Thread.dumpStack();
+	{
 
 		if (ObjectUtils.isEmpty(array)) {
 			return null;
@@ -1246,7 +1246,7 @@ public abstract class StringUtils {
 	 * @see #delimitedListToStringArray
 	 */
 	public static String[] tokenizeToStringArray(@Nullable String str, String delimiters)
-	{Thread.dumpStack();
+	{
 		return tokenizeToStringArray(str, delimiters, true, true);
 	}
 
@@ -1276,7 +1276,7 @@ public abstract class StringUtils {
 	 */
 	public static String[] tokenizeToStringArray(@Nullable String str, String delimiters, boolean trimTokens,
 			boolean ignoreEmptyTokens)
-	{Thread.dumpStack();
+	{
 
 		if (str == null) {
 			return EMPTY_STRING_ARRAY;
@@ -1312,7 +1312,7 @@ public abstract class StringUtils {
 	 * @see #tokenizeToStringArray
 	 */
 	public static String[] delimitedListToStringArray(@Nullable String str, @Nullable String delimiter)
-	{Thread.dumpStack();
+	{
 		return delimitedListToStringArray(str, delimiter, null);
 	}
 
@@ -1338,7 +1338,7 @@ public abstract class StringUtils {
 	 */
 	public static String[] delimitedListToStringArray(@Nullable String str, @Nullable String delimiter,
 			@Nullable String charsToDelete)
-	{Thread.dumpStack();
+	{
 
 		if (str == null) {
 			return EMPTY_STRING_ARRAY;
@@ -1375,7 +1375,7 @@ public abstract class StringUtils {
 	 * @return an array of strings, or the empty array in case of empty input
 	 */
 	public static String[] commaDelimitedListToStringArray(@Nullable String str)
-	{Thread.dumpStack();
+	{
 		return delimitedListToStringArray(str, ",");
 	}
 
@@ -1390,7 +1390,7 @@ public abstract class StringUtils {
 	 * @see #removeDuplicateStrings(String[])
 	 */
 	public static Set<String> commaDelimitedListToSet(@Nullable String str)
-	{Thread.dumpStack();
+	{
 		String[] tokens = commaDelimitedListToStringArray(str);
 		return new LinkedHashSet<>(Arrays.asList(tokens));
 	}
@@ -1409,7 +1409,7 @@ public abstract class StringUtils {
 	 */
 	public static String collectionToDelimitedString(@Nullable Collection<?> coll, String delim, String prefix,
 			String suffix)
-	{Thread.dumpStack();
+	{
 
 		if (CollectionUtils.isEmpty(coll)) {
 			return "";
@@ -1437,7 +1437,7 @@ public abstract class StringUtils {
 	 * @return the delimited {@code String}
 	 */
 	public static String collectionToDelimitedString(@Nullable Collection<?> coll, String delim)
-	{Thread.dumpStack();
+	{
 		return collectionToDelimitedString(coll, delim, "", "");
 	}
 
@@ -1451,7 +1451,7 @@ public abstract class StringUtils {
 	 * @return the delimited {@code String}
 	 */
 	public static String collectionToCommaDelimitedString(@Nullable Collection<?> coll)
-	{Thread.dumpStack();
+	{
 		return collectionToDelimitedString(coll, ",");
 	}
 
@@ -1465,7 +1465,7 @@ public abstract class StringUtils {
 	 * @return the delimited {@code String}
 	 */
 	public static String arrayToDelimitedString(@Nullable Object[] arr, String delim)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(arr)) {
 			return "";
 		}
@@ -1490,7 +1490,7 @@ public abstract class StringUtils {
 	 * @return the delimited {@code String}
 	 */
 	public static String arrayToCommaDelimitedString(@Nullable Object[] arr)
-	{Thread.dumpStack();
+	{
 		return arrayToDelimitedString(arr, ",");
 	}
 

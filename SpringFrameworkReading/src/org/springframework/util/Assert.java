@@ -65,7 +65,7 @@ public abstract class Assert {
 	 * @throws IllegalStateException if {@code expression} is {@code false}
 	 */
 	public static void state(boolean expression, String message)
-	{Thread.dumpStack();
+	{
 		if (!expression) {
 			throw new IllegalStateException(message);
 		}
@@ -89,7 +89,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void state(boolean expression, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (!expression) {
 			throw new IllegalStateException(nullSafeGet(messageSupplier));
 		}
@@ -103,7 +103,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void state(boolean expression)
-	{Thread.dumpStack();
+	{
 		state(expression, "[Assertion failed] - this state invariant must be true");
 	}
 
@@ -120,7 +120,7 @@ public abstract class Assert {
 	 * @throws IllegalArgumentException if {@code expression} is {@code false}
 	 */
 	public static void isTrue(boolean expression, String message)
-	{Thread.dumpStack();
+	{
 		if (!expression) {
 			throw new IllegalArgumentException(message);
 		}
@@ -141,7 +141,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void isTrue(boolean expression, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (!expression) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
 		}
@@ -155,7 +155,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void isTrue(boolean expression)
-	{Thread.dumpStack();
+	{
 		isTrue(expression, "[Assertion failed] - this expression must be true");
 	}
 
@@ -171,7 +171,7 @@ public abstract class Assert {
 	 * @throws IllegalArgumentException if the object is not {@code null}
 	 */
 	public static void isNull(@Nullable Object object, String message)
-	{Thread.dumpStack();
+	{
 		if (object != null) {
 			throw new IllegalArgumentException(message);
 		}
@@ -191,7 +191,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void isNull(@Nullable Object object, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (object != null) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
 		}
@@ -204,7 +204,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void isNull(@Nullable Object object)
-	{Thread.dumpStack();
+	{
 		isNull(object, "[Assertion failed] - the object argument must be null");
 	}
 
@@ -220,7 +220,7 @@ public abstract class Assert {
 	 * @throws IllegalArgumentException if the object is {@code null}
 	 */
 	public static void notNull(@Nullable Object object, String message)
-	{Thread.dumpStack();
+	{
 		if (object == null) {
 			throw new IllegalArgumentException(message);
 		}
@@ -240,7 +240,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void notNull(@Nullable Object object, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (object == null) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
 		}
@@ -253,7 +253,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void notNull(@Nullable Object object)
-	{Thread.dumpStack();
+	{
 		notNull(object, "[Assertion failed] - this argument is required; it must not be null");
 	}
 
@@ -271,7 +271,7 @@ public abstract class Assert {
 	 * @see StringUtils#hasLength
 	 */
 	public static void hasLength(@Nullable String text, String message)
-	{Thread.dumpStack();
+	{
 		if (!StringUtils.hasLength(text)) {
 			throw new IllegalArgumentException(message);
 		}
@@ -293,7 +293,7 @@ public abstract class Assert {
 	 * @see StringUtils#hasLength
 	 */
 	public static void hasLength(@Nullable String text, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (!StringUtils.hasLength(text)) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
 		}
@@ -307,7 +307,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void hasLength(@Nullable String text)
-	{Thread.dumpStack();
+	{
 		hasLength(text, "[Assertion failed] - this String argument must have length; it must not be null or empty");
 	}
 
@@ -326,7 +326,7 @@ public abstract class Assert {
 	 * @see StringUtils#hasText
 	 */
 	public static void hasText(@Nullable String text, String message)
-	{Thread.dumpStack();
+	{
 		if (!StringUtils.hasText(text)) {
 			throw new IllegalArgumentException(message);
 		}
@@ -349,7 +349,7 @@ public abstract class Assert {
 	 * @see StringUtils#hasText
 	 */
 	public static void hasText(@Nullable String text, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (!StringUtils.hasText(text)) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
 		}
@@ -363,7 +363,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void hasText(@Nullable String text)
-	{Thread.dumpStack();
+	{
 		hasText(text, "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank");
 	}
 
@@ -380,7 +380,7 @@ public abstract class Assert {
 	 * @throws IllegalArgumentException if the text contains the substring
 	 */
 	public static void doesNotContain(@Nullable String textToSearch, String substring, String message)
-	{Thread.dumpStack();
+	{
 		if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring)
 				&& textToSearch.contains(substring)) {
 			throw new IllegalArgumentException(message);
@@ -402,7 +402,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void doesNotContain(@Nullable String textToSearch, String substring, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring)
 				&& textToSearch.contains(substring)) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
@@ -417,7 +417,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void doesNotContain(@Nullable String textToSearch, String substring)
-	{Thread.dumpStack();
+	{
 		doesNotContain(textToSearch, substring,
 				() -> "[Assertion failed] - this String argument must not contain the substring [" + substring + "]");
 	}
@@ -436,7 +436,7 @@ public abstract class Assert {
 	 *                                  contains no elements
 	 */
 	public static void notEmpty(@Nullable Object[] array, String message)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(array)) {
 			throw new IllegalArgumentException(message);
 		}
@@ -458,7 +458,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void notEmpty(@Nullable Object[] array, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (ObjectUtils.isEmpty(array)) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
 		}
@@ -472,7 +472,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void notEmpty(@Nullable Object[] array)
-	{Thread.dumpStack();
+	{
 		notEmpty(array, "[Assertion failed] - this array must not be empty: it must contain at least 1 element");
 	}
 
@@ -491,7 +491,7 @@ public abstract class Assert {
 	 *                                  element
 	 */
 	public static void noNullElements(@Nullable Object[] array, String message)
-	{Thread.dumpStack();
+	{
 		if (array != null) {
 			for (Object element : array) {
 				if (element == null) {
@@ -518,7 +518,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void noNullElements(@Nullable Object[] array, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (array != null) {
 			for (Object element : array) {
 				if (element == null) {
@@ -536,7 +536,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void noNullElements(@Nullable Object[] array)
-	{Thread.dumpStack();
+	{
 		noNullElements(array, "[Assertion failed] - this array must not contain any null elements");
 	}
 
@@ -554,7 +554,7 @@ public abstract class Assert {
 	 *                                  contains no elements
 	 */
 	public static void notEmpty(@Nullable Collection<?> collection, String message)
-	{Thread.dumpStack();
+	{
 		if (CollectionUtils.isEmpty(collection)) {
 			throw new IllegalArgumentException(message);
 		}
@@ -576,7 +576,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void notEmpty(@Nullable Collection<?> collection, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (CollectionUtils.isEmpty(collection)) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
 		}
@@ -590,7 +590,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void notEmpty(@Nullable Collection<?> collection)
-	{Thread.dumpStack();
+	{
 		notEmpty(collection,
 				"[Assertion failed] - this collection must not be empty: it must contain at least 1 element");
 	}
@@ -611,7 +611,7 @@ public abstract class Assert {
 	 * @since 5.2
 	 */
 	public static void noNullElements(@Nullable Collection<?> collection, String message)
-	{Thread.dumpStack();
+	{
 		if (collection != null) {
 			for (Object element : collection) {
 				if (element == null) {
@@ -638,7 +638,7 @@ public abstract class Assert {
 	 * @since 5.2
 	 */
 	public static void noNullElements(@Nullable Collection<?> collection, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (collection != null) {
 			for (Object element : collection) {
 				if (element == null) {
@@ -662,7 +662,7 @@ public abstract class Assert {
 	 *                                  entries
 	 */
 	public static void notEmpty(@Nullable Map<?, ?> map, String message)
-	{Thread.dumpStack();
+	{
 		if (CollectionUtils.isEmpty(map)) {
 			throw new IllegalArgumentException(message);
 		}
@@ -684,7 +684,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void notEmpty(@Nullable Map<?, ?> map, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		if (CollectionUtils.isEmpty(map)) {
 			throw new IllegalArgumentException(nullSafeGet(messageSupplier));
 		}
@@ -698,7 +698,7 @@ public abstract class Assert {
 	 */
 	@Deprecated
 	public static void notEmpty(@Nullable Map<?, ?> map)
-	{Thread.dumpStack();
+	{
 		notEmpty(map, "[Assertion failed] - this map must not be empty; it must contain at least one entry");
 	}
 
@@ -720,7 +720,7 @@ public abstract class Assert {
 	 * @throws IllegalArgumentException if the object is not an instance of type
 	 */
 	public static void isInstanceOf(Class<?> type, @Nullable Object obj, String message)
-	{Thread.dumpStack();
+	{
 		notNull(type, "Type to check against must not be null");
 		if (!type.isInstance(obj)) {
 			instanceCheckFailed(type, obj, message);
@@ -744,7 +744,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void isInstanceOf(Class<?> type, @Nullable Object obj, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		notNull(type, "Type to check against must not be null");
 		if (!type.isInstance(obj)) {
 			instanceCheckFailed(type, obj, nullSafeGet(messageSupplier));
@@ -763,7 +763,7 @@ public abstract class Assert {
 	 * @throws IllegalArgumentException if the object is not an instance of type
 	 */
 	public static void isInstanceOf(Class<?> type, @Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		isInstanceOf(type, obj, "");
 	}
 
@@ -785,7 +785,7 @@ public abstract class Assert {
 	 * @throws IllegalArgumentException if the classes are not assignable
 	 */
 	public static void isAssignable(Class<?> superType, @Nullable Class<?> subType, String message)
-	{Thread.dumpStack();
+	{
 		notNull(superType, "Super type to check against must not be null");
 		if (subType == null || !superType.isAssignableFrom(subType)) {
 			assignableCheckFailed(superType, subType, message);
@@ -809,7 +809,7 @@ public abstract class Assert {
 	 * @since 5.0
 	 */
 	public static void isAssignable(Class<?> superType, @Nullable Class<?> subType, Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		notNull(superType, "Super type to check against must not be null");
 		if (subType == null || !superType.isAssignableFrom(subType)) {
 			assignableCheckFailed(superType, subType, nullSafeGet(messageSupplier));
@@ -828,12 +828,12 @@ public abstract class Assert {
 	 * @throws IllegalArgumentException if the classes are not assignable
 	 */
 	public static void isAssignable(Class<?> superType, Class<?> subType)
-	{Thread.dumpStack();
+	{
 		isAssignable(superType, subType, "");
 	}
 
 	private static void instanceCheckFailed(Class<?> type, @Nullable Object obj, @Nullable String msg)
-	{Thread.dumpStack();
+	{
 		String className = (obj != null ? obj.getClass().getName() : "null");
 		String result = "";
 		boolean defaultMessage = true;
@@ -852,7 +852,7 @@ public abstract class Assert {
 	}
 
 	private static void assignableCheckFailed(Class<?> superType, @Nullable Class<?> subType, @Nullable String msg)
-	{Thread.dumpStack();
+	{
 		String result = "";
 		boolean defaultMessage = true;
 		if (StringUtils.hasLength(msg)) {
@@ -870,18 +870,18 @@ public abstract class Assert {
 	}
 
 	private static boolean endsWithSeparator(String msg)
-	{Thread.dumpStack();
+	{
 		return (msg.endsWith(":") || msg.endsWith(";") || msg.endsWith(",") || msg.endsWith("."));
 	}
 
 	private static String messageWithTypeName(String msg, @Nullable Object typeName)
-	{Thread.dumpStack();
+	{
 		return msg + (msg.endsWith(" ") ? "" : ": ") + typeName;
 	}
 
 	@Nullable
 	private static String nullSafeGet(@Nullable Supplier<String> messageSupplier)
-	{Thread.dumpStack();
+	{
 		return (messageSupplier != null ? messageSupplier.get() : null);
 	}
 

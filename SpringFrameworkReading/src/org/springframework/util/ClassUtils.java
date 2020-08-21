@@ -154,7 +154,7 @@ public abstract class ClassUtils {
 	 * Register the given common classes with the ClassUtils cache.
 	 */
 	private static void registerCommonClasses(Class<?>... commonClasses)
-	{Thread.dumpStack();
+	{
 		for (Class<?> clazz : commonClasses) {
 			commonClassCache.put(clazz.getName(), clazz);
 		}
@@ -178,7 +178,7 @@ public abstract class ClassUtils {
 	 */
 	@Nullable
 	public static ClassLoader getDefaultClassLoader()
-	{Thread.dumpStack();
+	{
 		ClassLoader cl = null;
 		try {
 			cl = Thread.currentThread().getContextClassLoader();
@@ -212,7 +212,7 @@ public abstract class ClassUtils {
 	 */
 	@Nullable
 	public static ClassLoader overrideThreadContextClassLoader(@Nullable ClassLoader classLoaderToUse)
-	{Thread.dumpStack();
+	{
 		Thread currentThread = Thread.currentThread();
 		ClassLoader threadContextClassLoader = currentThread.getContextClassLoader();
 		if (classLoaderToUse != null && !classLoaderToUse.equals(threadContextClassLoader)) {
@@ -352,7 +352,7 @@ public abstract class ClassUtils {
 	 *                               implemented by the class to be checked here)
 	 */
 	public static boolean isPresent(String className, @Nullable ClassLoader classLoader)
-	{Thread.dumpStack();
+	{
 		try {
 			forName(className, classLoader);
 			return true;
@@ -374,7 +374,7 @@ public abstract class ClassUtils {
 	 *                    which case this method will always return {@code true})
 	 */
 	public static boolean isVisible(Class<?> clazz, @Nullable ClassLoader classLoader)
-	{Thread.dumpStack();
+	{
 		if (classLoader == null) {
 			return true;
 		}
@@ -399,7 +399,7 @@ public abstract class ClassUtils {
 	 *                    {@code null} which indicates the system class loader)
 	 */
 	public static boolean isCacheSafe(Class<?> clazz, @Nullable ClassLoader classLoader)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		try {
 			ClassLoader target = clazz.getClassLoader();
@@ -442,7 +442,7 @@ public abstract class ClassUtils {
 	 * @since 5.0.6
 	 */
 	private static boolean isLoadable(Class<?> clazz, ClassLoader classLoader)
-	{Thread.dumpStack();
+	{
 		try {
 			return (clazz == classLoader.loadClass(clazz.getName()));
 			// Else: different class with same name found
@@ -466,7 +466,7 @@ public abstract class ClassUtils {
 	 */
 	@Nullable
 	public static Class<?> resolvePrimitiveClassName(@Nullable String name)
-	{Thread.dumpStack();
+	{
 		Class<?> result = null;
 		// Most class names will be quite long, considering that they
 		// SHOULD sit in a package, so a length check is worthwhile.
@@ -485,7 +485,7 @@ public abstract class ClassUtils {
 	 * @return whether the given class is a primitive wrapper class
 	 */
 	public static boolean isPrimitiveWrapper(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		return primitiveWrapperTypeMap.containsKey(clazz);
 	}
@@ -499,7 +499,7 @@ public abstract class ClassUtils {
 	 * @return whether the given class is a primitive or primitive wrapper class
 	 */
 	public static boolean isPrimitiveOrWrapper(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		return (clazz.isPrimitive() || isPrimitiveWrapper(clazz));
 	}
@@ -512,7 +512,7 @@ public abstract class ClassUtils {
 	 * @return whether the given class is a primitive array class
 	 */
 	public static boolean isPrimitiveArray(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		return (clazz.isArray() && clazz.getComponentType().isPrimitive());
 	}
@@ -525,7 +525,7 @@ public abstract class ClassUtils {
 	 * @return whether the given class is a primitive wrapper array class
 	 */
 	public static boolean isPrimitiveWrapperArray(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		return (clazz.isArray() && isPrimitiveWrapper(clazz.getComponentType()));
 	}
@@ -539,7 +539,7 @@ public abstract class ClassUtils {
 	 *         type
 	 */
 	public static Class<?> resolvePrimitiveIfNecessary(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		return (clazz.isPrimitive() && clazz != void.class ? primitiveTypeToWrapperMap.get(clazz) : clazz);
 	}
@@ -555,7 +555,7 @@ public abstract class ClassUtils {
 	 * @see TypeUtils#isAssignable
 	 */
 	public static boolean isAssignable(Class<?> lhsType, Class<?> rhsType)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(lhsType, "Left-hand side type must not be null");
 		Assert.notNull(rhsType, "Right-hand side type must not be null");
 		if (lhsType.isAssignableFrom(rhsType)) {
@@ -585,7 +585,7 @@ public abstract class ClassUtils {
 	 * @return if the type is assignable from the value
 	 */
 	public static boolean isAssignableValue(Class<?> type, @Nullable Object value)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(type, "Type must not be null");
 		return (value != null ? isAssignable(type, value.getClass()) : !type.isPrimitive());
 	}
@@ -597,7 +597,7 @@ public abstract class ClassUtils {
 	 * @return the corresponding fully qualified class name
 	 */
 	public static String convertResourcePathToClassName(String resourcePath)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(resourcePath, "Resource path must not be null");
 		return resourcePath.replace(PATH_SEPARATOR, PACKAGE_SEPARATOR);
 	}
@@ -609,7 +609,7 @@ public abstract class ClassUtils {
 	 * @return the corresponding resource path, pointing to the class
 	 */
 	public static String convertClassNameToResourcePath(String className)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(className, "Class name must not be null");
 		return className.replace(PACKAGE_SEPARATOR, PATH_SEPARATOR);
 	}
@@ -632,7 +632,7 @@ public abstract class ClassUtils {
 	 * @see Class#getResource
 	 */
 	public static String addResourcePathToPackagePath(Class<?> clazz, String resourceName)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(resourceName, "Resource name must not be null");
 		if (!resourceName.startsWith("/")) {
 			return classPackageAsResourcePath(clazz) + '/' + resourceName;
@@ -656,7 +656,7 @@ public abstract class ClassUtils {
 	 * @see Class#getResource
 	 */
 	public static String classPackageAsResourcePath(@Nullable Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		if (clazz == null) {
 			return "";
 		}
@@ -681,7 +681,7 @@ public abstract class ClassUtils {
 	 * @see java.util.AbstractCollection#toString()
 	 */
 	public static String classNamesToString(Class<?>... classes)
-	{Thread.dumpStack();
+	{
 		return classNamesToString(Arrays.asList(classes));
 	}
 
@@ -697,7 +697,7 @@ public abstract class ClassUtils {
 	 * @see java.util.AbstractCollection#toString()
 	 */
 	public static String classNamesToString(@Nullable Collection<Class<?>> classes)
-	{Thread.dumpStack();
+	{
 		if (CollectionUtils.isEmpty(classes)) {
 			return "[]";
 		}
@@ -719,7 +719,7 @@ public abstract class ClassUtils {
 	 * @see StringUtils#toStringArray
 	 */
 	public static Class<?>[] toClassArray(Collection<Class<?>> collection)
-	{Thread.dumpStack();
+	{
 		return collection.toArray(new Class<?>[0]);
 	}
 
@@ -731,7 +731,7 @@ public abstract class ClassUtils {
 	 * @return all interfaces that the given instance implements as an array
 	 */
 	public static Class<?>[] getAllInterfaces(Object instance)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(instance, "Instance must not be null");
 		return getAllInterfacesForClass(instance.getClass());
 	}
@@ -746,7 +746,7 @@ public abstract class ClassUtils {
 	 * @return all interfaces that the given object implements as an array
 	 */
 	public static Class<?>[] getAllInterfacesForClass(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		return getAllInterfacesForClass(clazz, null);
 	}
 
@@ -763,7 +763,7 @@ public abstract class ClassUtils {
 	 * @return all interfaces that the given object implements as an array
 	 */
 	public static Class<?>[] getAllInterfacesForClass(Class<?> clazz, @Nullable ClassLoader classLoader)
-	{Thread.dumpStack();
+	{
 		return toClassArray(getAllInterfacesForClassAsSet(clazz, classLoader));
 	}
 
@@ -775,7 +775,7 @@ public abstract class ClassUtils {
 	 * @return all interfaces that the given instance implements as a Set
 	 */
 	public static Set<Class<?>> getAllInterfacesAsSet(Object instance)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(instance, "Instance must not be null");
 		return getAllInterfacesForClassAsSet(instance.getClass());
 	}
@@ -790,7 +790,7 @@ public abstract class ClassUtils {
 	 * @return all interfaces that the given object implements as a Set
 	 */
 	public static Set<Class<?>> getAllInterfacesForClassAsSet(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		return getAllInterfacesForClassAsSet(clazz, null);
 	}
 
@@ -807,7 +807,7 @@ public abstract class ClassUtils {
 	 * @return all interfaces that the given object implements as a Set
 	 */
 	public static Set<Class<?>> getAllInterfacesForClassAsSet(Class<?> clazz, @Nullable ClassLoader classLoader)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		if (clazz.isInterface() && isVisible(clazz, classLoader)) {
 			return Collections.singleton(clazz);
@@ -842,7 +842,7 @@ public abstract class ClassUtils {
 	 */
 	@SuppressWarnings("deprecation") // on JDK 9
 	public static Class<?> createCompositeInterface(Class<?>[] interfaces, @Nullable ClassLoader classLoader)
-	{Thread.dumpStack();
+	{
 		Assert.notEmpty(interfaces, "Interface array must not be empty");
 		return Proxy.getProxyClass(classLoader, interfaces);
 	}
@@ -859,7 +859,7 @@ public abstract class ClassUtils {
 	 */
 	@Nullable
 	public static Class<?> determineCommonAncestor(@Nullable Class<?> clazz1, @Nullable Class<?> clazz2)
-	{Thread.dumpStack();
+	{
 		if (clazz1 == null) {
 			return clazz2;
 		}
@@ -894,7 +894,7 @@ public abstract class ClassUtils {
 	 * @since 5.0.3
 	 */
 	public static boolean isJavaLanguageInterface(Class<?> ifc)
-	{Thread.dumpStack();
+	{
 		return javaLanguageInterfaces.contains(ifc);
 	}
 
@@ -907,7 +907,7 @@ public abstract class ClassUtils {
 	 * @see Class#isMemberClass()
 	 */
 	public static boolean isInnerClass(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		return (clazz.isMemberClass() && !Modifier.isStatic(clazz.getModifiers()));
 	}
 
@@ -921,7 +921,7 @@ public abstract class ClassUtils {
 	 */
 	@Deprecated
 	public static boolean isCglibProxy(Object object)
-	{Thread.dumpStack();
+	{
 		return isCglibProxyClass(object.getClass());
 	}
 
@@ -934,7 +934,7 @@ public abstract class ClassUtils {
 	 */
 	@Deprecated
 	public static boolean isCglibProxyClass(@Nullable Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		return (clazz != null && isCglibProxyClassName(clazz.getName()));
 	}
 
@@ -946,7 +946,7 @@ public abstract class ClassUtils {
 	 */
 	@Deprecated
 	public static boolean isCglibProxyClassName(@Nullable String className)
-	{Thread.dumpStack();
+	{
 		return (className != null && className.contains(CGLIB_CLASS_SEPARATOR));
 	}
 
@@ -959,7 +959,7 @@ public abstract class ClassUtils {
 	 * @return the user-defined class
 	 */
 	public static Class<?> getUserClass(Object instance)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(instance, "Instance must not be null");
 		return getUserClass(instance.getClass());
 	}
@@ -972,7 +972,7 @@ public abstract class ClassUtils {
 	 * @return the user-defined class
 	 */
 	public static Class<?> getUserClass(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		if (clazz.getName().contains(CGLIB_CLASS_SEPARATOR)) {
 			Class<?> superclass = clazz.getSuperclass();
 			if (superclass != null && superclass != Object.class) {
@@ -992,7 +992,7 @@ public abstract class ClassUtils {
 	 */
 	@Nullable
 	public static String getDescriptiveType(@Nullable Object value)
-	{Thread.dumpStack();
+	{
 		if (value == null) {
 			return null;
 		}
@@ -1016,7 +1016,7 @@ public abstract class ClassUtils {
 	 * @param typeName the type name to match
 	 */
 	public static boolean matchesTypeName(Class<?> clazz, @Nullable String typeName)
-	{Thread.dumpStack();
+	{
 		return (typeName != null && (typeName.equals(clazz.getTypeName()) || typeName.equals(clazz.getSimpleName())));
 	}
 
@@ -1028,7 +1028,7 @@ public abstract class ClassUtils {
 	 * @throws IllegalArgumentException if the className is empty
 	 */
 	public static String getShortName(String className)
-	{Thread.dumpStack();
+	{
 		Assert.hasLength(className, "Class name must not be empty");
 		int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR);
 		int nameEndIndex = className.indexOf(CGLIB_CLASS_SEPARATOR);
@@ -1047,7 +1047,7 @@ public abstract class ClassUtils {
 	 * @return the class name of the class without the package name
 	 */
 	public static String getShortName(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		return getShortName(getQualifiedName(clazz));
 	}
 
@@ -1060,7 +1060,7 @@ public abstract class ClassUtils {
 	 * @see java.beans.Introspector#decapitalize(String)
 	 */
 	public static String getShortNameAsProperty(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		String shortName = getShortName(clazz);
 		int dotIndex = shortName.lastIndexOf(PACKAGE_SEPARATOR);
 		shortName = (dotIndex != -1 ? shortName.substring(dotIndex + 1) : shortName);
@@ -1075,7 +1075,7 @@ public abstract class ClassUtils {
 	 * @return the file name of the ".class" file
 	 */
 	public static String getClassFileName(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		String className = clazz.getName();
 		int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR);
@@ -1091,7 +1091,7 @@ public abstract class ClassUtils {
 	 *         default package
 	 */
 	public static String getPackageName(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		return getPackageName(clazz.getName());
 	}
@@ -1105,7 +1105,7 @@ public abstract class ClassUtils {
 	 *         default package
 	 */
 	public static String getPackageName(String fqClassName)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(fqClassName, "Class name must not be null");
 		int lastDotIndex = fqClassName.lastIndexOf(PACKAGE_SEPARATOR);
 		return (lastDotIndex != -1 ? fqClassName.substring(0, lastDotIndex) : "");
@@ -1119,7 +1119,7 @@ public abstract class ClassUtils {
 	 * @return the qualified name of the class
 	 */
 	public static String getQualifiedName(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		return clazz.getTypeName();
 	}
@@ -1132,7 +1132,7 @@ public abstract class ClassUtils {
 	 * @return the qualified name of the method
 	 */
 	public static String getQualifiedMethodName(Method method)
-	{Thread.dumpStack();
+	{
 		return getQualifiedMethodName(method, null);
 	}
 
@@ -1147,7 +1147,7 @@ public abstract class ClassUtils {
 	 * @since 4.3.4
 	 */
 	public static String getQualifiedMethodName(Method method, @Nullable Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(method, "Method must not be null");
 		return (clazz != null ? clazz : method.getDeclaringClass()).getName() + '.' + method.getName();
 	}
@@ -1164,7 +1164,7 @@ public abstract class ClassUtils {
 	 * @see Class#getMethod
 	 */
 	public static boolean hasConstructor(Class<?> clazz, Class<?>... paramTypes)
-	{Thread.dumpStack();
+	{
 		return (getConstructorIfAvailable(clazz, paramTypes) != null);
 	}
 
@@ -1181,7 +1181,7 @@ public abstract class ClassUtils {
 	 */
 	@Nullable
 	public static <T> Constructor<T> getConstructorIfAvailable(Class<T> clazz, Class<?>... paramTypes)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		try {
 			return clazz.getConstructor(paramTypes);
@@ -1203,7 +1203,7 @@ public abstract class ClassUtils {
 	 * @see Class#getMethod
 	 */
 	public static boolean hasMethod(Class<?> clazz, String methodName, Class<?>... paramTypes)
-	{Thread.dumpStack();
+	{
 		return (getMethodIfAvailable(clazz, methodName, paramTypes) != null);
 	}
 
@@ -1227,7 +1227,7 @@ public abstract class ClassUtils {
 	 * @see Class#getMethod
 	 */
 	public static Method getMethod(Class<?> clazz, String methodName, @Nullable Class<?>... paramTypes)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Assert.notNull(methodName, "Method name must not be null");
 		if (paramTypes != null) {
@@ -1266,7 +1266,7 @@ public abstract class ClassUtils {
 	 */
 	@Nullable
 	public static Method getMethodIfAvailable(Class<?> clazz, String methodName, @Nullable Class<?>... paramTypes)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Assert.notNull(methodName, "Method name must not be null");
 		if (paramTypes != null) {
@@ -1293,7 +1293,7 @@ public abstract class ClassUtils {
 	 * @return the number of methods with the given name
 	 */
 	public static int getMethodCountForName(Class<?> clazz, String methodName)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Assert.notNull(methodName, "Method name must not be null");
 		int count = 0;
@@ -1323,7 +1323,7 @@ public abstract class ClassUtils {
 	 * @return whether there is at least one method with the given name
 	 */
 	public static boolean hasAtLeastOneMethodWithName(Class<?> clazz, String methodName)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Assert.notNull(methodName, "Method name must not be null");
 		Method[] declaredMethods = clazz.getDeclaredMethods();
@@ -1367,7 +1367,7 @@ public abstract class ClassUtils {
 	 * @see #getInterfaceMethodIfPossible
 	 */
 	public static Method getMostSpecificMethod(Method method, @Nullable Class<?> targetClass)
-	{Thread.dumpStack();
+	{
 		if (targetClass != null && targetClass != method.getDeclaringClass() && isOverridable(method, targetClass)) {
 			try {
 				if (Modifier.isPublic(method.getModifiers())) {
@@ -1404,7 +1404,7 @@ public abstract class ClassUtils {
 	 * @see #getMostSpecificMethod
 	 */
 	public static Method getInterfaceMethodIfPossible(Method method)
-	{Thread.dumpStack();
+	{
 		if (Modifier.isPublic(method.getModifiers()) && !method.getDeclaringClass().isInterface()) {
 			Class<?> current = method.getDeclaringClass();
 			while (current != null && current != Object.class) {
@@ -1438,13 +1438,13 @@ public abstract class ClassUtils {
 	 *         false} otherwise
 	 */
 	public static boolean isUserLevelMethod(Method method)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(method, "Method must not be null");
 		return (method.isBridge() || (!method.isSynthetic() && !isGroovyObjectMethod(method)));
 	}
 
 	private static boolean isGroovyObjectMethod(Method method)
-	{Thread.dumpStack();
+	{
 		return method.getDeclaringClass().getName().equals("groovy.lang.GroovyObject");
 	}
 
@@ -1455,7 +1455,7 @@ public abstract class ClassUtils {
 	 * @param targetClass the target class to check against
 	 */
 	private static boolean isOverridable(Method method, @Nullable Class<?> targetClass)
-	{Thread.dumpStack();
+	{
 		if (Modifier.isPrivate(method.getModifiers())) {
 			return false;
 		}
@@ -1477,7 +1477,7 @@ public abstract class ClassUtils {
 	 */
 	@Nullable
 	public static Method getStaticMethod(Class<?> clazz, String methodName, Class<?>... args)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Assert.notNull(methodName, "Method name must not be null");
 		try {
@@ -1489,7 +1489,7 @@ public abstract class ClassUtils {
 	}
 
 	private static Set<Method> findMethodCandidatesByName(Class<?> clazz, String methodName)
-	{Thread.dumpStack();
+	{
 		Set<Method> candidates = new HashSet<>(1);
 		Method[] methods = clazz.getMethods();
 		for (Method method : methods) {
