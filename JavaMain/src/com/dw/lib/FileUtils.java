@@ -64,11 +64,35 @@ public class FileUtils {
     }
     
     /**
+	 * 
+	 * @param path
+	 * @param encoding
+	 * @return
+	 * @throws IOException
+	 */
+    private String readFile(Path path, Charset encoding) throws IOException 
+    {
+        byte[] encoded = Files.readAllBytes(path);
+        return new String(encoded, encoding);
+    }
+    
+    /**
      * read file into one whole string, large file should be careful
      * @param path of files
      * @return File string
      */
 	public String fileToString(String filePath) throws IOException {
+        String s = readFile(filePath,Charset.defaultCharset());
+
+       	return s;
+	}
+	
+	 /**
+     * read file into one whole string, large file should be careful
+     * @param path of files
+     * @return File string
+     */
+	public String fileToString(Path filePath) throws IOException {
         String s = readFile(filePath,Charset.defaultCharset());
 
        	return s;
@@ -181,7 +205,7 @@ public class FileUtils {
 	 * @param rootDirectory
 	 * @return
 	 */
-	public static List<Path> listFiles(String rootDirectory, boolean isIncludingEmptyFolder)
+	public List<Path> listFiles(String rootDirectory, boolean isIncludingEmptyFolder)
 	{
 	    List<Path> files = new ArrayList<Path>();
 	    listFiles(rootDirectory, files, isIncludingEmptyFolder);

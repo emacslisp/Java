@@ -19,4 +19,16 @@ public class RegexService {
 		boolean b = m.matches();  
 		return b;
 	}
+	
+	//             System.out.println("Counting down ...");
+	public static void main(String[] args) {
+		
+		String s = "       System.out.println(\"Counting down ...\");";
+		Pattern pattern = Pattern.compile("System");
+		Matcher m = pattern.matcher(s);
+		if (m.find()) {
+			System.out.println("matches");
+		}
+		
+	}
 }

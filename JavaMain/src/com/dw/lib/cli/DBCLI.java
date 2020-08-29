@@ -43,6 +43,12 @@ public class DBCLI {
 		
 	}
 	
+	public static void mongodbHandler(String host, 
+			String dbName, String username,
+			String password,String port, String[] args) throws Exception {
+		
+	}
+	
 	public static void main(String[] args) {
 		if (args.length == 0) {
 			System.out.println("db <config-json> <sql-file>");
@@ -54,7 +60,7 @@ public class DBCLI {
 			System.out.println("   \"password\": \"12345678\",");
 			System.out.println("   \"dbName\": \"databaseName\"");
 			System.out.println("}");
-			System.out.println("type is 'mysq', 'postgresql', 'mongodb', 'oracle'");
+			System.out.println("type is 'mysql', 'postgresql', 'mongodb', 'oracle'");
 			System.out.println("sql file is statement split with ';'");
 			System.out.println("for example:");
 			System.out.println("select * from db;");
@@ -89,10 +95,10 @@ public class DBCLI {
 			if(dbType.equals("mysql")) {
 				mysqlHandler(host, dbName, username, password, port, args);
 			} else if (dbType.equals("mongodb")) {
-				
+				mongodbHandler(host, dbName, username, password, port, args);
 			}
 			else if (dbType.equals("postgresql")) {
-				
+				postgresqlHandler(host, dbName, username, password, port, args);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
