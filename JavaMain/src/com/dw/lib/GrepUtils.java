@@ -36,6 +36,7 @@ public class GrepUtils {
 					System.out.println(p.toString());
 					System.out.println(sb.toString());
 				}
+				s.clear();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
