@@ -75,7 +75,7 @@ public interface MultiValueMap<K, V> extends Map<K, List<V>> {
 	 * @since 5.2
 	 */
 	default void addIfAbsent(K key, @Nullable V value)
-	{Thread.dumpStack();
+	{
 		if (!containsKey(key)) {
 			add(key, value);
 		}

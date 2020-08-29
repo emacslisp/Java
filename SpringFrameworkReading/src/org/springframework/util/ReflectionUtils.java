@@ -100,7 +100,7 @@ public abstract class ReflectionUtils {
 	 * @param ex the reflection exception to handle
 	 */
 	public static void handleReflectionException(Exception ex)
-	{Thread.dumpStack();
+	{
 		if (ex instanceof NoSuchMethodException) {
 			throw new IllegalStateException("Method not found: " + ex.getMessage());
 		}
@@ -126,7 +126,7 @@ public abstract class ReflectionUtils {
 	 * @param ex the invocation target exception to handle
 	 */
 	public static void handleInvocationTargetException(InvocationTargetException ex)
-	{Thread.dumpStack();
+	{
 		rethrowRuntimeException(ex.getTargetException());
 	}
 
@@ -144,7 +144,7 @@ public abstract class ReflectionUtils {
 	 * @throws RuntimeException the rethrown exception
 	 */
 	public static void rethrowRuntimeException(Throwable ex)
-	{Thread.dumpStack();
+	{
 		if (ex instanceof RuntimeException) {
 			throw (RuntimeException) ex;
 		}
@@ -168,7 +168,7 @@ public abstract class ReflectionUtils {
 	 * @throws Exception the rethrown exception (in case of a checked exception)
 	 */
 	public static void rethrowException(Throwable ex) throws Exception
-	{Thread.dumpStack();
+	{
 		if (ex instanceof Exception) {
 			throw (Exception) ex;
 		}
@@ -209,7 +209,7 @@ public abstract class ReflectionUtils {
 	 */
 	@SuppressWarnings("deprecation") // on JDK 9
 	public static void makeAccessible(Constructor<?> ctor)
-	{Thread.dumpStack();
+	{
 		if ((!Modifier.isPublic(ctor.getModifiers()) || !Modifier.isPublic(ctor.getDeclaringClass().getModifiers()))
 				&& !ctor.isAccessible()) {
 			ctor.setAccessible(true);
@@ -230,7 +230,7 @@ public abstract class ReflectionUtils {
 	 */
 	@Nullable
 	public static Method findMethod(Class<?> clazz, String name)
-	{Thread.dumpStack();
+	{
 		return findMethod(clazz, name, EMPTY_CLASS_ARRAY);
 	}
 
@@ -248,7 +248,7 @@ public abstract class ReflectionUtils {
 	 */
 	@Nullable
 	public static Method findMethod(Class<?> clazz, String name, @Nullable Class<?>... paramTypes)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Assert.notNull(name, "Method name must not be null");
 		Class<?> searchType = clazz;
@@ -281,7 +281,7 @@ public abstract class ReflectionUtils {
 	 */
 	@Nullable
 	public static Object invokeMethod(Method method, @Nullable Object target)
-	{Thread.dumpStack();
+	{
 		return invokeMethod(method, target, EMPTY_OBJECT_ARRAY);
 	}
 
@@ -300,7 +300,7 @@ public abstract class ReflectionUtils {
 	 */
 	@Nullable
 	public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args)
-	{Thread.dumpStack();
+	{
 		try {
 			return method.invoke(target, args);
 		} catch (Exception ex) {
@@ -320,7 +320,7 @@ public abstract class ReflectionUtils {
 	 *         it needs to be wrapped
 	 */
 	public static boolean declaresException(Method method, Class<?> exceptionType)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(method, "Method must not be null");
 		Class<?>[] declaredExceptions = method.getExceptionTypes();
 		for (Class<?> declaredException : declaredExceptions) {
@@ -343,7 +343,7 @@ public abstract class ReflectionUtils {
 	 * @see #doWithMethods
 	 */
 	public static void doWithLocalMethods(Class<?> clazz, MethodCallback mc)
-	{Thread.dumpStack();
+	{
 		Method[] methods = getDeclaredMethods(clazz, false);
 		for (Method method : methods) {
 			try {
@@ -367,7 +367,7 @@ public abstract class ReflectionUtils {
 	 * @see #doWithMethods(Class, MethodCallback, MethodFilter)
 	 */
 	public static void doWithMethods(Class<?> clazz, MethodCallback mc)
-	{Thread.dumpStack();
+	{
 		doWithMethods(clazz, mc, null);
 	}
 
@@ -384,7 +384,7 @@ public abstract class ReflectionUtils {
 	 * @throws IllegalStateException if introspection fails
 	 */
 	public static void doWithMethods(Class<?> clazz, MethodCallback mc, @Nullable MethodFilter mf)
-	{Thread.dumpStack();
+	{
 		// Keep backing up the inheritance hierarchy.
 		Method[] methods = getDeclaredMethods(clazz, false);
 		for (Method method : methods) {
@@ -414,7 +414,7 @@ public abstract class ReflectionUtils {
 	 * @throws IllegalStateException if introspection fails
 	 */
 	public static Method[] getAllDeclaredMethods(Class<?> leafClass)
-	{Thread.dumpStack();
+	{
 		final List<Method> methods = new ArrayList<>(32);
 		doWithMethods(leafClass, methods::add);
 		return methods.toArray(EMPTY_METHOD_ARRAY);
@@ -430,7 +430,7 @@ public abstract class ReflectionUtils {
 	 * @throws IllegalStateException if introspection fails
 	 */
 	public static Method[] getUniqueDeclaredMethods(Class<?> leafClass)
-	{Thread.dumpStack();
+	{
 		return getUniqueDeclaredMethods(leafClass, null);
 	}
 
@@ -446,7 +446,7 @@ public abstract class ReflectionUtils {
 	 * @since 5.2
 	 */
 	public static Method[] getUniqueDeclaredMethods(Class<?> leafClass, @Nullable MethodFilter mf)
-	{Thread.dumpStack();
+	{
 		final List<Method> methods = new ArrayList<>(32);
 		doWithMethods(leafClass, method -> {
 			boolean knownSignature = false;
@@ -488,12 +488,12 @@ public abstract class ReflectionUtils {
 	 * @see Class#getDeclaredMethods()
 	 */
 	public static Method[] getDeclaredMethods(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		return getDeclaredMethods(clazz, true);
 	}
 
 	private static Method[] getDeclaredMethods(Class<?> clazz, boolean defensive)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Method[] result = declaredMethodsCache.get(clazz);
 		if (result == null) {
@@ -522,7 +522,7 @@ public abstract class ReflectionUtils {
 
 	@Nullable
 	private static List<Method> findConcreteMethodsOnInterfaces(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		List<Method> result = null;
 		for (Class<?> ifc : clazz.getInterfaces()) {
 			for (Method ifcMethod : ifc.getMethods()) {
@@ -543,7 +543,7 @@ public abstract class ReflectionUtils {
 	 * @see java.lang.Object#equals(Object)
 	 */
 	public static boolean isEqualsMethod(@Nullable Method method)
-	{Thread.dumpStack();
+	{
 		if (method == null || !method.getName().equals("equals")) {
 			return false;
 		}
@@ -557,7 +557,7 @@ public abstract class ReflectionUtils {
 	 * @see java.lang.Object#hashCode()
 	 */
 	public static boolean isHashCodeMethod(@Nullable Method method)
-	{Thread.dumpStack();
+	{
 		return (method != null && method.getName().equals("hashCode") && method.getParameterCount() == 0);
 	}
 
@@ -567,7 +567,7 @@ public abstract class ReflectionUtils {
 	 * @see java.lang.Object#toString()
 	 */
 	public static boolean isToStringMethod(@Nullable Method method)
-	{Thread.dumpStack();
+	{
 		return (method != null && method.getName().equals("toString") && method.getParameterCount() == 0);
 	}
 
@@ -576,7 +576,7 @@ public abstract class ReflectionUtils {
 	 * {@link java.lang.Object}.
 	 */
 	public static boolean isObjectMethod(@Nullable Method method)
-	{Thread.dumpStack();
+	{
 		return (method != null && (method.getDeclaringClass() == Object.class || isEqualsMethod(method)
 				|| isHashCodeMethod(method) || isToStringMethod(method)));
 	}
@@ -588,7 +588,7 @@ public abstract class ReflectionUtils {
 	 * @param renamedMethod the method to check
 	 */
 	public static boolean isCglibRenamedMethod(Method renamedMethod)
-	{Thread.dumpStack();
+	{
 		String name = renamedMethod.getName();
 		if (name.startsWith(CGLIB_RENAMED_METHOD_PREFIX)) {
 			int i = name.length() - 1;
@@ -611,7 +611,7 @@ public abstract class ReflectionUtils {
 	 */
 	@SuppressWarnings("deprecation") // on JDK 9
 	public static void makeAccessible(Method method)
-	{Thread.dumpStack();
+	{
 		if ((!Modifier.isPublic(method.getModifiers()) || !Modifier.isPublic(method.getDeclaringClass().getModifiers()))
 				&& !method.isAccessible()) {
 			method.setAccessible(true);
@@ -630,7 +630,7 @@ public abstract class ReflectionUtils {
 	 */
 	@Nullable
 	public static Field findField(Class<?> clazz, String name)
-	{Thread.dumpStack();
+	{
 		return findField(clazz, name, null);
 	}
 
@@ -646,7 +646,7 @@ public abstract class ReflectionUtils {
 	 */
 	@Nullable
 	public static Field findField(Class<?> clazz, @Nullable String name, @Nullable Class<?> type)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Assert.isTrue(name != null || type != null, "Either name or type of the field must be specified");
 		Class<?> searchType = clazz;
@@ -676,7 +676,7 @@ public abstract class ReflectionUtils {
 	 * @param value  the value to set (may be {@code null})
 	 */
 	public static void setField(Field field, @Nullable Object target, @Nullable Object value)
-	{Thread.dumpStack();
+	{
 		try {
 			field.set(target, value);
 		} catch (IllegalAccessException ex) {
@@ -701,7 +701,7 @@ public abstract class ReflectionUtils {
 	 */
 	@Nullable
 	public static Object getField(Field field, @Nullable Object target)
-	{Thread.dumpStack();
+	{
 		try {
 			return field.get(target);
 		} catch (IllegalAccessException ex) {
@@ -721,7 +721,7 @@ public abstract class ReflectionUtils {
 	 * @see #doWithFields
 	 */
 	public static void doWithLocalFields(Class<?> clazz, FieldCallback fc)
-	{Thread.dumpStack();
+	{
 		for (Field field : getDeclaredFields(clazz)) {
 			try {
 				fc.doWith(field);
@@ -740,7 +740,7 @@ public abstract class ReflectionUtils {
 	 * @throws IllegalStateException if introspection fails
 	 */
 	public static void doWithFields(Class<?> clazz, FieldCallback fc)
-	{Thread.dumpStack();
+	{
 		doWithFields(clazz, fc, null);
 	}
 
@@ -754,7 +754,7 @@ public abstract class ReflectionUtils {
 	 * @throws IllegalStateException if introspection fails
 	 */
 	public static void doWithFields(Class<?> clazz, FieldCallback fc, @Nullable FieldFilter ff)
-	{Thread.dumpStack();
+	{
 		// Keep backing up the inheritance hierarchy.
 		Class<?> targetClass = clazz;
 		do {
@@ -784,7 +784,7 @@ public abstract class ReflectionUtils {
 	 * @see Class#getDeclaredFields()
 	 */
 	private static Field[] getDeclaredFields(Class<?> clazz)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(clazz, "Class must not be null");
 		Field[] result = declaredFieldsCache.get(clazz);
 		if (result == null) {
@@ -807,7 +807,7 @@ public abstract class ReflectionUtils {
 	 * @throws IllegalStateException if introspection fails
 	 */
 	public static void shallowCopyFieldState(final Object src, final Object dest)
-	{Thread.dumpStack();
+	{
 		Assert.notNull(src, "Source for field copy cannot be null");
 		Assert.notNull(dest, "Destination for field copy cannot be null");
 		if (!src.getClass().isAssignableFrom(dest.getClass())) {
@@ -827,7 +827,7 @@ public abstract class ReflectionUtils {
 	 * @param field the field to check
 	 */
 	public static boolean isPublicStaticFinal(Field field)
-	{Thread.dumpStack();
+	{
 		int modifiers = field.getModifiers();
 		return (Modifier.isPublic(modifiers) && Modifier.isStatic(modifiers) && Modifier.isFinal(modifiers));
 	}
@@ -843,7 +843,7 @@ public abstract class ReflectionUtils {
 	 */
 	@SuppressWarnings("deprecation") // on JDK 9
 	public static void makeAccessible(Field field)
-	{Thread.dumpStack();
+	{
 		if ((!Modifier.isPublic(field.getModifiers()) || !Modifier.isPublic(field.getDeclaringClass().getModifiers())
 				|| Modifier.isFinal(field.getModifiers())) && !field.isAccessible()) {
 			field.setAccessible(true);
@@ -858,7 +858,7 @@ public abstract class ReflectionUtils {
 	 * @since 4.2.4
 	 */
 	public static void clearCache()
-	{Thread.dumpStack();
+	{
 		declaredMethodsCache.clear();
 		declaredFieldsCache.clear();
 	}

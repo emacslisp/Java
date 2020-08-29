@@ -222,7 +222,7 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 	@Override
 	@Nullable
 	protected Resource[] getConfigResources()
-	{Thread.dumpStack();
+	{
 		return this.configResources;
 	}
 

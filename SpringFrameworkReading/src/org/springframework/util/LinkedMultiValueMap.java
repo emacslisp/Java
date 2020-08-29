@@ -66,28 +66,28 @@ public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializa
 	@Override
 	@Nullable
 	public V getFirst(K key)
-	{Thread.dumpStack();
+	{
 		List<V> values = this.targetMap.get(key);
 		return (values != null && !values.isEmpty() ? values.get(0) : null);
 	}
 
 	@Override
 	public void add(K key, @Nullable V value)
-	{Thread.dumpStack();
+	{
 		List<V> values = this.targetMap.computeIfAbsent(key, k -> new LinkedList<>());
 		values.add(value);
 	}
 
 	@Override
 	public void addAll(K key, List<? extends V> values)
-	{Thread.dumpStack();
+	{
 		List<V> currentValues = this.targetMap.computeIfAbsent(key, k -> new LinkedList<>());
 		currentValues.addAll(values);
 	}
 
 	@Override
 	public void addAll(MultiValueMap<K, V> values)
-	{Thread.dumpStack();
+	{
 		for (Entry<K, List<V>> entry : values.entrySet()) {
 			addAll(entry.getKey(), entry.getValue());
 		}
@@ -95,7 +95,7 @@ public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializa
 
 	@Override
 	public void set(K key, @Nullable V value)
-	{Thread.dumpStack();
+	{
 		List<V> values = new LinkedList<>();
 		values.add(value);
 		this.targetMap.put(key, values);
@@ -103,13 +103,13 @@ public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializa
 
 	@Override
 	public void setAll(Map<K, V> values)
-	{Thread.dumpStack();
+	{
 		values.forEach(this::set);
 	}
 
 	@Override
 	public Map<K, V> toSingleValueMap()
-	{Thread.dumpStack();
+	{
 		LinkedHashMap<K, V> singleValueMap = new LinkedHashMap<>(this.targetMap.size());
 		this.targetMap.forEach((key, values) -> {
 			if (values != null && !values.isEmpty()) {
@@ -123,76 +123,76 @@ public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializa
 
 	@Override
 	public int size()
-	{Thread.dumpStack();
+	{
 		return this.targetMap.size();
 	}
 
 	@Override
 	public boolean isEmpty()
-	{Thread.dumpStack();
+	{
 		return this.targetMap.isEmpty();
 	}
 
 	@Override
 	public boolean containsKey(Object key)
-	{Thread.dumpStack();
+	{
 		return this.targetMap.containsKey(key);
 	}
 
 	@Override
 	public boolean containsValue(Object value)
-	{Thread.dumpStack();
+	{
 		return this.targetMap.containsValue(value);
 	}
 
 	@Override
 	@Nullable
 	public List<V> get(Object key)
-	{Thread.dumpStack();
+	{
 		return this.targetMap.get(key);
 	}
 
 	@Override
 	@Nullable
 	public List<V> put(K key, List<V> value)
-	{Thread.dumpStack();
+	{
 		return this.targetMap.put(key, value);
 	}
 
 	@Override
 	@Nullable
 	public List<V> remove(Object key)
-	{Thread.dumpStack();
+	{
 		return this.targetMap.remove(key);
 	}
 
 	@Override
 	public void putAll(Map<? extends K, ? extends List<V>> map)
-	{Thread.dumpStack();
+	{
 		this.targetMap.putAll(map);
 	}
 
 	@Override
 	public void clear()
-	{Thread.dumpStack();
+	{
 		this.targetMap.clear();
 	}
 
 	@Override
 	public Set<K> keySet()
-	{Thread.dumpStack();
+	{
 		return this.targetMap.keySet();
 	}
 
 	@Override
 	public Collection<List<V>> values()
-	{Thread.dumpStack();
+	{
 		return this.targetMap.values();
 	}
 
 	@Override
 	public Set<Entry<K, List<V>>> entrySet()
-	{Thread.dumpStack();
+	{
 		return this.targetMap.entrySet();
 	}
 
@@ -207,7 +207,7 @@ public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializa
 	 * @see #clone()
 	 */
 	public LinkedMultiValueMap<K, V> deepCopy()
-	{Thread.dumpStack();
+	{
 		LinkedMultiValueMap<K, V> copy = new LinkedMultiValueMap<>(this.targetMap.size());
 		this.targetMap.forEach((key, value) -> copy.put(key, new LinkedList<>(value)));
 		return copy;
@@ -227,25 +227,25 @@ public class LinkedMultiValueMap<K, V> implements MultiValueMap<K, V>, Serializa
 	 */
 	@Override
 	public LinkedMultiValueMap<K, V> clone()
-	{Thread.dumpStack();
+	{
 		return new LinkedMultiValueMap<>(this);
 	}
 
 	@Override
 	public boolean equals(@Nullable Object obj)
-	{Thread.dumpStack();
+	{
 		return this.targetMap.equals(obj);
 	}
 
 	@Override
 	public int hashCode()
-	{Thread.dumpStack();
+	{
 		return this.targetMap.hashCode();
 	}
 
 	@Override
 	public String toString()
-	{Thread.dumpStack();
+	{
 		return this.targetMap.toString();
 	}
 
