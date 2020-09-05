@@ -175,7 +175,7 @@ public class FileUtils {
 	//get Max Size of Files under a folder
 	// @todo: finish max File size
 	public long maxFilesize(String rootDirectory) {
-		List<Path> paths = listFiles(rootDirectory, false);
+		List<Path> paths = listFiles(rootDirectory, false, new ArrayList<String>());
 		
 		for(Path path : paths) {
 			
@@ -205,10 +205,10 @@ public class FileUtils {
 	 * @param rootDirectory
 	 * @return
 	 */
-	public List<Path> listFiles(String rootDirectory, boolean isIncludingEmptyFolder)
+	public List<Path> listFiles(String rootDirectory, boolean isIncludingEmptyFolder, List<String> excludeList)
 	{
 	    List<Path> files = new ArrayList<Path>();
-	    listFiles(rootDirectory, files, isIncludingEmptyFolder);
+	    listFiles(rootDirectory, files, isIncludingEmptyFolder, excludeList);
 
 	    return files;
 	}
@@ -232,8 +232,14 @@ public class FileUtils {
 	 * @param path
 	 * @param collectedFiles
 	 */
-	private static void listFiles(String path, List<Path> collectedFiles, boolean isIncludingEmptyFolder)
+	private static void listFiles(String path, List<Path> collectedFiles, boolean isIncludingEmptyFolder, List<String> excludeList)
 	{
+		for(String el: excludeList) {
+			if (path.indexOf(el) >= 0) {
+				return;
+			}
+		}
+		
 	    File root = new File(path);
 	    File[] files = root.listFiles();
 
@@ -252,10 +258,18 @@ public class FileUtils {
 	    {
 	        if (file.isDirectory())
 	        {
-	            listFiles(file.getAbsolutePath(), collectedFiles, isIncludingEmptyFolder);
+	            listFiles(file.getAbsolutePath(), collectedFiles, isIncludingEmptyFolder, excludeList);
 	        } else
 	        {
-	            collectedFiles.add(file.toPath());
+	        	boolean isAddIntoList = true;
+	        	for(String el: excludeList) {
+	    			if (file.toPath().toString().indexOf(el) >= 0) {
+	    				isAddIntoList = false;
+	    			}
+	    		}
+	        	
+	        	if(isAddIntoList)
+	        		collectedFiles.add(file.toPath());
 	        }
 	    }
 	}
@@ -339,7 +353,7 @@ public class FileUtils {
 		}
 		
 	    try {
-	    	List<Path> fileList = listFiles(source.getAbsolutePath(), true);
+	    	List<Path> fileList = listFiles(source.getAbsolutePath(), true, new ArrayList<String>());
 	    	
 	    	for(Path p : fileList) {
 	    		File sourceFile = p.toFile();
