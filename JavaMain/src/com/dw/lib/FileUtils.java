@@ -173,10 +173,11 @@ public class FileUtils {
 	}
 	
 	public void listToFile(List<String> lines, String filePath) throws IOException {
-		StringHelper sh = new StringHelper();
+		StringUtils sh = new StringUtils();
 		for(String line : lines) {
-			
+			sh.appendLine(line);
 		}
+		stringToFile(sh.toString(), filePath);
 	}
 	
 	//get Max Size of Files under a folder
