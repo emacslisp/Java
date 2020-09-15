@@ -2,9 +2,9 @@ package com.dw.lib;
 
 import java.io.UnsupportedEncodingException;
 
-public class StringService {
+public class StringUtils {
 	StringBuilder sb = new StringBuilder();
-	public StringService() {
+	public StringUtils() {
 		
 	}
 	

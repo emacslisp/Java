@@ -14,14 +14,14 @@ import org.jsoup.select.Elements;
 import com.dw.lib.FileUtils;
 import com.dw.lib.MysqlHelper;
 import com.dw.lib.RegexService;
-import com.dw.lib.StringService;
+import com.dw.lib.StringUtils;
 
 public class Dict {
 	String[] className = { "phonetic", "dict-basic-ul", "layout detail", "layout dual", "layout en",
 			"layout sort", "layout anno", "layout auth", "layout nfo", "layout nwd" };
 	
 	public String elementsToString(Elements elements) {
-		StringService ss = new StringService();
+		StringUtils ss = new StringUtils();
 		for (Element e : elements) {
 			if (e == null)
 				continue;
@@ -31,7 +31,7 @@ public class Dict {
 			
 			output = Jsoup.parse(output).text();
 			if (!output.equals("")) {
-				ss.appendLine(StringService.StringToUTF8(output));
+				ss.appendLine(StringUtils.StringToUTF8(output));
 			}
 		}
 		return ss.toString();
@@ -42,7 +42,7 @@ public class Dict {
 		try {
 			doc = Jsoup.connect(String.format("http://dict.cn/%s", word)).get();
 
-			StringService ss = new StringService();
+			StringUtils ss = new StringUtils();
 
 			for (String s : className) {
 				Elements elements = doc.getElementsByClass(s);

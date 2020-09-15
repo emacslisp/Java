@@ -113,7 +113,7 @@ public class MysqlHelper {
 		
 		ResultSet result = stmt.getResultSet();
 		List<String> columnName = this.columnName(result);
-		StringService ss = new StringService();
+		StringUtils ss = new StringUtils();
 		ss.appendLine("<table>");
 		ss.appendLine("<tr>");
 		for(String label: columnName) {

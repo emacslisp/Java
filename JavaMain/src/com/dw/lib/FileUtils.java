@@ -172,6 +172,13 @@ public class FileUtils {
 		writer.close();
 	}
 	
+	public void listToFile(List<String> lines, String filePath) throws IOException {
+		StringHelper sh = new StringHelper();
+		for(String line : lines) {
+			
+		}
+	}
+	
 	//get Max Size of Files under a folder
 	// @todo: finish max File size
 	public long maxFilesize(String rootDirectory) {
