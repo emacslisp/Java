@@ -9,7 +9,8 @@ import com.dw.lib.FileUtils;
 public class CppCpCLI {
 
 	public static void help() {
-		System.out.println("cppcp  <input file> <output folder> <final-file>");
+		System.out.println("cppcp  <input file> <output folder> <sh-output>");
+		System.out.println("output folder: ./cpp/");
 	}
 	
 	public static void main(String[] args) {
