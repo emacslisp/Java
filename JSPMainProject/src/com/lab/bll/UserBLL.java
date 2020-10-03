@@ -104,18 +104,23 @@ public class UserBLL {
 	public Connection initDataSource() {
 		Context initContext;
 		try {
-			initContext = new InitialContext();
+			/*initContext = new InitialContext();
 		
 			Context envContext  = (Context)initContext.lookup("java:/comp/env");
 			DataSource ds = (DataSource)envContext.lookup("jdbc/Test");
-			Connection conn = ds.getConnection();
+			Connection conn = ds.getConnection();*/
 			
-			return conn;
-		} catch (NamingException  e) {
+			Class.forName("com.mysql.jdbc.Driver");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useSSL=true", "root", "123456");
+
+		} /*catch (NamingException  e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
