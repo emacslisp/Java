@@ -5,10 +5,41 @@ import java.sql.*;
 import javax.naming.*;
 import javax.sql.DataSource;
 
+import com.dw.lib.CryptoGenerator;
+
 public class UserBLL {
 	Connection conn = null;
+	CryptoGenerator m;
 	public UserBLL() {
 		conn = initDataSource();
+		m = new CryptoGenerator();
+	}
+	
+	public UserBLL(boolean mockup) {
+		conn = initMockupDataSource();
+		m = new CryptoGenerator();
+	}
+	
+	public String getSalt(String username) {
+		if(conn != null) {
+			Statement stmt = null;
+			try {
+				stmt = conn.createStatement();
+				String sql = "select Salt from User where username = '" + username + "'";
+				ResultSet rs = stmt.executeQuery(sql);
+				System.out.println("=========== GET Salt successfully");
+				String salt="";
+				while (rs.next()) {
+					salt = rs.getString("Salt");
+				}
+				stmt.close();
+				return salt;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return "";
 	}
 	
 	public boolean validUserNamePassword(String username, String password) {
@@ -16,8 +47,10 @@ public class UserBLL {
 		if(conn != null) {
 			Statement stmt = null;
 			try {
+				String salt = this.getSalt(username);
+				String inputPassword = m.generateValue(password + salt);
 				stmt = conn.createStatement();
-				String sql = "select * from User where username = '" + username + "' and password = '" + password + "'";
+				String sql = "select * from User where username = '" + username + "' and password = '" + inputPassword + "'";
 				ResultSet rs = stmt.executeQuery(sql);
 				System.out.println("=========== execute JNDI query successfully");
 				int count = 0;
@@ -34,6 +67,9 @@ public class UserBLL {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
 			}
 
 			if(stmt!= null) {
@@ -48,6 +84,21 @@ public class UserBLL {
 		}
 		
 		return false;
+	}
+	
+	public Connection initMockupDataSource() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useSSL=true", "root", "123456");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	public Connection initDataSource() {
@@ -70,6 +121,7 @@ public class UserBLL {
 		
 		return null;
 	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
