@@ -1,7 +1,8 @@
 package com.dw.lib.cli;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Path;
 import java.util.List;
 
 import com.dw.lib.FileUtils;
@@ -9,37 +10,39 @@ import com.dw.lib.FileUtils;
 public class CppCpCLI {
 
 	public static void help() {
-		System.out.println("cppcp  <input file> <output folder> <sh-output>");
+		System.out.println("cppcp  <input folder> <output folder>");
 		System.out.println("output folder: ./cpp/");
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		if(args.length != 3) {
+		if(args.length != 2) {
 			help();
 			return;
 		}
 		
 		FileUtils fileUtils = new FileUtils();
-		String mainPath = args[1];
-		StringBuilder sb = new StringBuilder();
-		List<String> output = new ArrayList<String>();
+		String mainPath = args[0];
+		String outputFolder = args[1];
+		
+		if (!mainPath.endsWith("/")) {
+			mainPath += "/";
+		}
+		
+		if (!outputFolder.endsWith("/")) {
+			outputFolder += "/";
+		}
+
 		try {
-			List<String> lines = fileUtils.fileToList(args[0]);
-			
-			for(String line : lines) {
-				String[] paths = line.split("/");
-				sb.append(mainPath);
-				for(int i=0;i<paths.length-1;i++) {
-					if(!paths[i].equals("."))
-						sb.append(paths[i] + "/");
+			List<Path> headerFile = fileUtils.listFiles(mainPath, ".*.h");
+			for(Path p : headerFile) {
+				String outputFile = p.toString().replace(mainPath, outputFolder);
+				File output = new File(outputFile);
+				if(!fileUtils.isExisted(output.getParent())) {
+					(new File(output.getParent())).mkdirs();
 				}
-				output.add("mkdir -p " + sb.toString());
-				output.add("cp " + line + " " + sb.append(paths[paths.length-1]));
-				sb.setLength(0);
+				fileUtils.copyFileUsingStream(p.toFile(), output);
 			}
-			
-			fileUtils.listToFile(output, args[2]);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

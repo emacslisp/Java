@@ -22,6 +22,8 @@ import java.nio.file.attribute.FileOwnerAttributeView;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -221,6 +223,51 @@ public class FileUtils {
 	    return files;
 	}
 	
+	/**
+	 * 
+	 * @param rootDirectory
+	 * @return
+	 */
+	public List<Path> listFiles(String rootDirectory,String fileRegex)
+	{
+	    List<Path> files = new ArrayList<Path>();
+	    listFiles(rootDirectory, files, fileRegex);
+
+	    return files;
+	}
+	
+	private void listFiles(String path, List<Path> collectedFiles, String fileRegex) {
+	
+		if(fileRegex == null) {
+			fileRegex = ".*.h";
+		}
+	    File root = new File(path);
+	    File[] files = root.listFiles();
+
+	    if (files == null)
+	    {
+	        return;
+	    }
+
+	    for (File file : files)
+	    {
+	        if (file.isDirectory())
+	        {
+	            listFiles(file.getAbsolutePath(), collectedFiles, fileRegex);
+	        } else
+	        {
+	        	String fileName = file.getName();
+	        	Pattern pattern = Pattern.compile(fileRegex);
+	    		
+	    		Matcher m = pattern.matcher(fileName);
+	    		boolean b = m.matches();  
+	        	if(b)
+	        		collectedFiles.add(file.toPath());
+	        }
+	    }
+		
+	}
+
 	/**
 	 * get related path from absoluted path
 	 * @param base
