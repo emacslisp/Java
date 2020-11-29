@@ -1,4 +1,4 @@
-package com.main.boot;
+package com.model.restservice;
 
 public class Greeting {
 
