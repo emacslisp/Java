@@ -2,10 +2,10 @@ package javan.util;
 
 
 import java.io.Serializable;
-import java.util.function.Function;
-import java.util.function.ToIntFunction;
-import java.util.function.ToLongFunction;
-import java.util.function.ToDoubleFunction;
+import javan.util.function.Function;
+import javan.util.function.ToIntFunction;
+import javan.util.function.ToLongFunction;
+import javan.util.function.ToDoubleFunction;
 import javan.util.Comparators;
 
 /**

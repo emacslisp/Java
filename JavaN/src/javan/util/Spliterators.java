@@ -1,9 +1,9 @@
 package javan.util;
 
-import java.util.function.Consumer;
-import java.util.function.DoubleConsumer;
-import java.util.function.IntConsumer;
-import java.util.function.LongConsumer;
+import javan.util.function.Consumer;
+import javan.util.function.DoubleConsumer;
+import javan.util.function.IntConsumer;
+import javan.util.function.LongConsumer;
 
 /**
  * Static classes and methods for operating on or creating instances of
