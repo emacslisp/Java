@@ -123,6 +123,39 @@ public class BinaryTree {
     	return 2*i+2;
     }
     
+    public TreeNode arrayToTree2(Integer[] a) {
+    	Queue<TreeNode> q = new LinkedList<>();
+    	TreeNode head = new TreeNode(a[0].intValue());
+    	
+    	q.add(head);
+    	TreeNode cur = null;
+    	int count = 0;
+    	
+    	for (int i = 1; i < a.length; i++) {
+    		TreeNode node = null;
+    		if(a[i] != null)
+    			node = new TreeNode(a[i].intValue());
+    		
+    		if(count == 0){
+    			cur = q.poll();
+    		}
+    		
+    		if(count==0){
+	          count++;
+	          cur.left = node;
+	        }else {
+	          count = 0;
+	          cur.right = node;
+	        }
+    		
+	        if(node != null){
+	          q.add(node);
+	        }
+    	}
+    	
+    	return head;
+    }
+    
     public TreeNode arrayToTree(Integer[] a) {
     	// Integer[] a = {6,7,8,2,7,1,3,9,null,1,4,null,null,null,5};
     	Queue<Integer> q = new LinkedList<>();
@@ -167,12 +200,8 @@ public class BinaryTree {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BinaryTree tree = new BinaryTree(); 
-		   
-        tree.root = new TreeNode(1); 
-        tree.root.left = new TreeNode(2); 
-        tree.root.right = new TreeNode(3); 
-        tree.root.left.left = new TreeNode(4); 
-        tree.root.left.right = new TreeNode(5); 
+		Integer[] a = {1, 2, 3, 4, 5, null, null};
+        tree.root = tree.arrayToTree2(a);
    
         System.out.println("Height of tree is : " +  
                                       tree.treeHigh(tree.root));
