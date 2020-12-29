@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Stack;
 
-public class StackQueue {
+public class StackHelper {
 	
 	public void StackIterateExample() {
 		Stack<String> stackOfPlates = new Stack<>();
@@ -43,7 +43,7 @@ public class StackQueue {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		StackQueue s = new StackQueue();
+		StackHelper s = new StackHelper();
 		s.StackIterateExample();
 	}
 
