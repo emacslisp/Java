@@ -39,10 +39,16 @@ public class StringAlgorithm {
         
 		return result;
 	}
+	
+	public String reverse(String s) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(s);
+		return sb.reverse().toString();
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
