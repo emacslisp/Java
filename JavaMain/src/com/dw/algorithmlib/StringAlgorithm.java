@@ -48,7 +48,12 @@ public class StringAlgorithm {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		String s = "  ";
+		if(s.trim().equals("")) {
+			System.out.println("empty string equals");
+		} else {
+			System.out.println("equals() not working");
+		}
 	}
 
 }

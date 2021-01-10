@@ -33,8 +33,12 @@ public class DBCLI {
 		FileUtils fileUtils = new FileUtils();
 		String sql = fileUtils.fileToString(args[1]);
 		String[] sqls = sql.split(";");
-		for(String s : sqls)
-			mysqlHelper.printTable(s);
+		for(String s : sqls) {
+			if(!s.trim().equals("")) {
+				System.out.println(s);
+				mysqlHelper.printTable(s);
+			}
+		}
 		
 		mysqlHelper.close();
 	}
