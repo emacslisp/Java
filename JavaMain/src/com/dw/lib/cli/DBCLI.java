@@ -30,11 +30,13 @@ public class DBCLI {
 			}
 			return;
 		}
-		
-		String sql = args[1];
+		FileUtils fileUtils = new FileUtils();
+		String sql = fileUtils.fileToString(args[1]);
 		String[] sqls = sql.split(";");
 		for(String s : sqls)
 			mysqlHelper.printTable(s);
+		
+		mysqlHelper.close();
 	}
 	
 	public static void postgresqlHandler(String host, 
