@@ -1,47 +1,36 @@
 package com.dw.lib;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-public class PostgresqlHelper {
+public class MssqlHelper {
+
 	Connection conn;
 	Statement stmt;
-	public PostgresqlHelper() throws Exception {
+	String JDBCDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	public MssqlHelper() throws Exception {
 		conn = getConnection();
 		stmt = conn.createStatement();
 	}
 
-	public PostgresqlHelper(String url, String username, String password) throws Exception {
+	public MssqlHelper(String url, String username, String password) throws Exception {
 		conn = getConnection(url, username, password);
 		stmt = conn.createStatement();
 	}
 
 	public Connection getConnection() throws Exception {
-		Class.forName("org.postgresql.Driver");
-		Properties props = new Properties();
-		props.setProperty("user","root");
-		props.setProperty("password","123456");
-		props.setProperty("ssl","true");
-		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/testdb", props);
+		Class.forName(JDBCDriver);
+		return DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb?useSSL=true", "root", "123456");
 	}
-	
+
+	/**
+	 * url: jdbc:mysql://localhost:3306/testdb?useSSL=true username: String password: String
+	 */
 	public Connection getConnection(String url, String username, String password) throws Exception {
-		Class.forName("org.postgresql.Driver");
-		Properties props = new Properties();
-		props.setProperty("user",username);
-		props.setProperty("password",password);
-		props.setProperty("ssl","true");
-		return DriverManager.getConnection(url, props);
+		Class.forName(JDBCDriver);
+		return DriverManager.getConnection(url, username, password);
 	}
-	
 
 	// insert update delete and create
 	public int executeUpdate(String sql) throws Exception {
@@ -144,10 +133,17 @@ public class PostgresqlHelper {
 		System.out.println(ss.toString());
 		return ss.toString();
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://localhost:3306/springtutorial?useSSL=true", "root", "123456");
+		try {
+			mysqlHelper.printTable("select * from offers");
+			mysqlHelper.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

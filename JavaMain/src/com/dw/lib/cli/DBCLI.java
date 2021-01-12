@@ -55,6 +55,12 @@ public class DBCLI {
 		
 	}
 	
+	public static void oracleHandler(String host, 
+			String dbName, String username,
+			String password,String port, String[] args) throws Exception {
+		
+	}
+	
 	public static void main(String[] args) {
 		if (args.length == 0) {
 			System.out.println("db <config-json> <sql-file>");
@@ -105,6 +111,8 @@ public class DBCLI {
 			}
 			else if (dbType.equals("postgresql")) {
 				postgresqlHandler(host, dbName, username, password, port, args);
+			} else if (dbType.equals("oracle")) {
+				oracleHandler(host, dbName, username, password, port, args);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();

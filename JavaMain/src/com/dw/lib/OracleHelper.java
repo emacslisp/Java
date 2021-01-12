@@ -11,34 +11,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class PostgresqlHelper {
+public class OracleHelper {
 	Connection conn;
 	Statement stmt;
-	public PostgresqlHelper() throws Exception {
+	public OracleHelper() throws Exception {
 		conn = getConnection();
 		stmt = conn.createStatement();
 	}
 
-	public PostgresqlHelper(String url, String username, String password) throws Exception {
+	public OracleHelper(String url, String username, String password) throws Exception {
 		conn = getConnection(url, username, password);
 		stmt = conn.createStatement();
 	}
 
 	public Connection getConnection() throws Exception {
-		Class.forName("org.postgresql.Driver");
+		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Properties props = new Properties();
 		props.setProperty("user","root");
 		props.setProperty("password","123456");
-		props.setProperty("ssl","true");
-		return DriverManager.getConnection("jdbc:postgresql://localhost:5432/testdb", props);
+		return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", props);
 	}
 	
 	public Connection getConnection(String url, String username, String password) throws Exception {
-		Class.forName("org.postgresql.Driver");
+		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Properties props = new Properties();
 		props.setProperty("user",username);
 		props.setProperty("password",password);
-		props.setProperty("ssl","true");
 		return DriverManager.getConnection(url, props);
 	}
 	
