@@ -3,12 +3,38 @@ package com.dw.lib.cli;
 import java.nio.file.Files;
 import java.util.List;
 
+import com.dw.lib.DatabaseHelper;
 import com.dw.lib.FileUtils;
 import com.dw.lib.JSONService;
 import com.dw.lib.MysqlHelper;
+import com.dw.lib.OracleHelper;
+import com.dw.lib.PostgresqlHelper;
 import com.google.gson.JsonObject;
 
 public class DBCLI {
+	
+	public static void databaseCommon(DatabaseHelper helper, String[] args) throws Exception {
+		if(args.length == 1) {
+			// show all tables
+			System.out.println("Show All Tables");
+			List<String> tableNames = helper.getAllTables();
+			for(String s: tableNames) {
+				System.out.println(s);
+			}
+			return;
+		}
+		FileUtils fileUtils = new FileUtils();
+		String sql = fileUtils.fileToString(args[1]);
+		String[] sqls = sql.split(";");
+		for(String s : sqls) {
+			if(!s.trim().equals("")) {
+				System.out.println(s);
+				helper.printTable(s);
+			}
+		}
+		
+		helper.close();
+	}
 	
 	public static void mysqlHandler(String host, 
 			String dbName, String username,
@@ -21,32 +47,19 @@ public class DBCLI {
 		//?verifyServerCertificate=false&useSSL=true to disable warning message
 		MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName + "?verifyServerCertificate=false&useSSL=true", username, password);
 		
-		if(args.length == 1) {
-			// show all tables
-			System.out.println("Show All Tables");
-			List<String> tableNames = mysqlHelper.getAllTables();
-			for(String s: tableNames) {
-				System.out.println(s);
-			}
-			return;
-		}
-		FileUtils fileUtils = new FileUtils();
-		String sql = fileUtils.fileToString(args[1]);
-		String[] sqls = sql.split(";");
-		for(String s : sqls) {
-			if(!s.trim().equals("")) {
-				System.out.println(s);
-				mysqlHelper.printTable(s);
-			}
-		}
-		
-		mysqlHelper.close();
+		databaseCommon(mysqlHelper, args);
 	}
 	
 	public static void postgresqlHandler(String host, 
 			String dbName, String username,
 			String password,String port, String[] args) throws Exception {
-		
+		if (port == null) {
+			port = "5432";
+		}
+
+		//?verifyServerCertificate=false&useSSL=true to disable warning message
+		PostgresqlHelper postgresqlHelper = new PostgresqlHelper("jdbc:postgresql://"+host+":"+port+"/"+dbName + "?verifyServerCertificate=false&useSSL=true", username, password);
+		databaseCommon(postgresqlHelper, args);
 	}
 	
 	public static void mongodbHandler(String host, 
@@ -58,7 +71,14 @@ public class DBCLI {
 	public static void oracleHandler(String host, 
 			String dbName, String username,
 			String password,String port, String[] args) throws Exception {
+		if (port == null) {
+			port = "1521";
+		}
+
+		//?verifyServerCertificate=false&useSSL=true to disable warning message
+		OracleHelper oracleHelper = new OracleHelper("jdbc:oracle:thin:@"+host+":"+port+":"+dbName, username, password);
 		
+		databaseCommon(oracleHelper, args);
 	}
 	
 	public static void main(String[] args) {
