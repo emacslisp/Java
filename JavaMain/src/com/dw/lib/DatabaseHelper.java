@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class DatabaseHelper {
 
@@ -19,10 +20,20 @@ public class DatabaseHelper {
 		conn = getConnection(driver, url, username, password);
 		stmt = conn.createStatement();
 	}
-
+	
+	public DatabaseHelper(String driver, String url, Properties properties) throws Exception {
+		conn = getConnection(driver, url, properties);
+		stmt = conn.createStatement();
+	}
+	
 	public Connection getConnection(String driver, String url, String username, String password) throws Exception {
 		Class.forName(driver); // such as com.mysql.jdbc.Driver
 		return DriverManager.getConnection(url, username, password);
+	}
+
+	public Connection getConnection(String driver, String url, Properties properties) throws Exception {
+		Class.forName(driver); // such as com.mysql.jdbc.Driver
+		return DriverManager.getConnection(url, properties);
 	}
 
 	// insert update delete and create

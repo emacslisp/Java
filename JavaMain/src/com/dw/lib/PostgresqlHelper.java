@@ -20,6 +20,10 @@ public class PostgresqlHelper extends DatabaseHelper {
 	public PostgresqlHelper(String url, String username, String password) throws Exception {
 		super("org.postgresql.Driver", url, username, password);
 	}
+	
+	public PostgresqlHelper(String url, Properties properties) throws Exception {
+		super("org.postgresql.Driver", url, properties);
+	}
 
 	public Connection getConnection() throws Exception {
 		Class.forName("org.postgresql.Driver");
