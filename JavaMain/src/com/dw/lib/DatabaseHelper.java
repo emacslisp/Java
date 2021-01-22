@@ -42,6 +42,13 @@ public class DatabaseHelper {
 		// stmt.close();
 		return result;
 	}
+	
+	/*
+	 *  abstract method which will be override in every method
+	 */
+	public List<String> getAllDatabase() throws Exception {
+		return null;
+	}
 
 	// Get all Table of a database
 	public List<String> getAllTables() throws Exception {
@@ -73,7 +80,7 @@ public class DatabaseHelper {
 	}
 
 	public List<String> columnName(ResultSet result) throws Exception {
-		ArrayList arrayList = new ArrayList();
+		ArrayList<String> arrayList = new ArrayList<>();
 		ResultSetMetaData rsmd = result.getMetaData();
 		int columnCount = rsmd.getColumnCount();
 

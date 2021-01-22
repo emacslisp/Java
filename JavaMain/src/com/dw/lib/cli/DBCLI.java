@@ -27,7 +27,14 @@ public class DBCLI {
 		String sql = fileUtils.fileToString(args[1]);
 		String[] sqls = sql.split(";");
 		for(String s : sqls) {
-			if(!s.trim().equals("")) {
+			if (s.toLowerCase().equals("show databases")) {
+				List<String> allDatabase = helper.getAllDatabase();
+				System.out.println("Show All Databases");
+				for(String d: allDatabase) {
+					System.out.println(d);
+				}
+			}
+			else if(!s.trim().equals("")) {
 				System.out.println(s);
 				helper.printTable(s);
 			}

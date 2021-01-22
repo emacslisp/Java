@@ -18,6 +18,18 @@ public class MysqlHelper extends DatabaseHelper {
 		Class.forName("com.mysql.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb?useSSL=true", "root", "123456");
 	}
+	
+	@Override
+	public List<String> getAllDatabase() throws Exception {
+		List<String> result = new ArrayList<>();
+
+		ResultSet rs = stmt.executeQuery("Show Databases");
+		while (rs.next()) {
+			result.add(rs.getString(1));
+		}
+
+		return result;
+	}
 
 	/**
 	 * url: jdbc:mysql://localhost:3306/testdb?useSSL=true username: String password: String
