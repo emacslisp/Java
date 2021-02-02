@@ -21,11 +21,18 @@ public class MssqlHelper {
 
 	public Connection getConnection() throws Exception {
 		Class.forName(JDBCDriver);
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb?useSSL=true", "root", "123456");
+		return DriverManager.getConnection("jdbc:sqlserver://localhost\\\\sqlexpress;user=sa;password=123456", "sa", "123456");
 	}
 
 	/**
-	 * url: jdbc:mysql://localhost:3306/testdb?useSSL=true username: String password: String
+	 * url: String connectionUrl =
+                "jdbc:sqlserver://yourserver.database.windows.net:1433;"
+                        + "database=AdventureWorks;"
+                        + "user=yourusername@yourserver;"
+                        + "password=yourpassword;"
+                        + "encrypt=true;"
+                        + "trustServerCertificate=false;"
+                        + "loginTimeout=30;";
 	 */
 	public Connection getConnection(String url, String username, String password) throws Exception {
 		Class.forName(JDBCDriver);
