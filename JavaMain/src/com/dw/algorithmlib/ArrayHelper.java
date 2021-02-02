@@ -52,6 +52,25 @@ public class ArrayHelper {
 		System.out.println();
 	}
 	
+	public int maxSubArray(int[] nums) {
+		if (nums.length == 1)
+			return nums[0];
+
+		int sum = 0;
+		int maxSum = Integer.MIN_VALUE;
+		for (int i = 0; i < nums.length; i++) {
+			if (sum < 0) {
+				sum = nums[i];
+			} else {
+				sum += nums[i];
+			}
+
+			maxSum = Math.max(sum, maxSum);
+		}
+
+		return maxSum > sum ? maxSum : sum;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		 Integer[] intArray = { 1, 2, 3, 4, 5 };
@@ -66,6 +85,10 @@ public class ArrayHelper {
 
 	      System.out.println("\nArray characterArray contains:");
 	      printArray(charArray);   // pass a Character array
+	      
+	      ArrayHelper a = new ArrayHelper();
+	      int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
+	      System.out.println(a.maxSubArray(nums));
 	}
 
 }
