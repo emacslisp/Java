@@ -60,15 +60,15 @@ public class OJCLI {
 	}
 	
 	public static void printOutQuestion(MysqlHelper mysqlHelper, User user) {
+		
+	}
+	
+	public static void printOutHelp() {
 		System.out.println("v <question-id> - view question in html format");
 		System.out.println("t <question-id> <local-file-path> - submit for test only");
 		System.out.println("s <question-id> <local-file-path> - submit for oj full data set");
 		System.out.println("l - list all questions");
 		System.out.println("q - quit OJ System");
-	}
-	
-	public static void printOutHelp() {
-		
 	}
 	
 	public static void main(String[] args) {
