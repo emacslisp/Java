@@ -2,6 +2,8 @@ package com.dw.swing.lib;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 
 import com.dw.swing.ListDialog;
@@ -20,6 +22,10 @@ public class DButton extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent e) {
     	System.out.println("button");
     	MessageBox.show("this is infoMessage", "this is title");
+    }
+    
+    public void setMnemonic(KeyEvent e) {
+    	this.setMnemonic(e);
     }
 }
 
