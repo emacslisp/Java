@@ -38,7 +38,7 @@ public class DateTimeHelper {
 			DAY*(31+28+31+30+31+30+31+31+30+31+30)
 	}; 
 	
-	public boolean isLeap(int year) {
+	public boolean isLeapYear(int year) {
 		boolean leap = false;
 
         if(year % 4 == 0)
@@ -99,7 +99,7 @@ public class DateTimeHelper {
         }
         int total = 0;
         for(int i = minDate[0];i < maxDate[0];i++) {
-        	if( isLeap(i)) {
+        	if( isLeapYear(i)) {
         		total += 366;
         	}
         	else {
@@ -108,14 +108,14 @@ public class DateTimeHelper {
         }
         
         
-        if(isLeap(maxDate[0])) {
+        if(isLeapYear(maxDate[0])) {
         	total += leapMonth[maxDate[1] - 1] + maxDate[2];
         }
         else {
         	total += month[maxDate[1] - 1] + maxDate[2];
         }
         
-        if(isLeap(minDate[0])) {
+        if(isLeapYear(minDate[0])) {
         	total -= leapMonth[minDate[1] - 1] + minDate[2];
         }
         else {
@@ -136,6 +136,36 @@ public class DateTimeHelper {
 		Date date = new Date(unixTime);
 		return date;
 	}
+	
+	public String daysOfWeek(int day, int month, int year) {
+		int[] daysOfMonth = {
+	        31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+	    };
+	    String[] output = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+	    
+	    int totalDays = 0;
+	    for(int i=1970;i<year;i++) {
+	        if(isLeapYear(i)) {
+	            totalDays += 366;
+	        } else {
+	            totalDays += 365;
+	        }
+	    }
+
+	    for(int i=1;i<month;i++) {
+	        totalDays += daysOfMonth[i - 1];
+	    }
+
+	    if(month > 2 && isLeapYear(year)) {
+	        totalDays += 1;
+	    }
+
+	    totalDays += day;
+
+	    // 1970, 1 and 1 is Thursday
+	    int offset = (3 + totalDays) % 7;
+	    return output[offset];
+	}
 
 	public static void main(String[] args) {
 		String sDate1="31/12/1998";  
@@ -155,6 +185,11 @@ public class DateTimeHelper {
 			int result = dateTimeHelper.daysBetweenDates("2020-01-15", "2019-12-31");
 			
 			System.out.println(result);
+			
+			int day = 9;
+			int month = 2;
+			int year = 2021;
+			System.out.println(dateTimeHelper.daysOfWeek(day, month, year));
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
