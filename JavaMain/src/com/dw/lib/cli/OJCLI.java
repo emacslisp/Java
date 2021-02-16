@@ -59,8 +59,14 @@ public class OJCLI {
 		return null;
 	}
 	
-	public static void printOutQuestion(MysqlHelper mysqlHelper, User user) {
+	public static void printOutQuestion(MysqlHelper mysqlHelper, User user) throws Exception {
+		ResultSet result = mysqlHelper.executeQuery("select * from Question");
+		List<Question> questions = new ArrayList<Question>();
 		
+		while(result.next()) {
+			Question question = new Question();
+			
+		}
 	}
 	
 	public static void printOutHelp() {

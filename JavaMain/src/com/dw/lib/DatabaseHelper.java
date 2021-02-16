@@ -49,6 +49,13 @@ public class DatabaseHelper {
 	public List<String> getAllDatabase() throws Exception {
 		return null;
 	}
+	
+	/*
+	 * abstract method to return describe of table
+	 */
+	public List<String> descTable() throws Exception {
+		return null;
+	}
 
 	// Get all Table of a database
 	public List<String> getAllTables() throws Exception {
