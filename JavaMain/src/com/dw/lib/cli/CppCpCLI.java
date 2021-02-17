@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import com.dw.lib.EnvironmentHelper;
 import com.dw.lib.FileUtils;
 
 public class CppCpCLI {
 
 	public static void help() {
 		System.out.println("cppcp  <input folder> <output folder>");
+		System.out.println("use path");
 		System.out.println("output folder: ./cpp/");
 	}
 	
@@ -24,13 +26,26 @@ public class CppCpCLI {
 		FileUtils fileUtils = new FileUtils();
 		String mainPath = args[0];
 		String outputFolder = args[1];
+		boolean isWindows = EnvironmentHelper.getOSType() == EnvironmentHelper.OSType.WIN;
 		
-		if (!mainPath.endsWith("/")) {
-			mainPath += "/";
+		if(isWindows) {
+			if (!mainPath.endsWith("\\")) {
+				mainPath += "\\";
+			}
+		} else {
+			if (!mainPath.endsWith("/")) {
+				mainPath += "/";
+			}
 		}
 		
-		if (!outputFolder.endsWith("/")) {
-			outputFolder += "/";
+		if(isWindows) {
+			if (!outputFolder.endsWith("\\")) {
+				outputFolder += "\\";
+			}
+		} else {
+			if (!outputFolder.endsWith("/")) {
+				outputFolder += "/";
+			}
 		}
 
 		try {
