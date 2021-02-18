@@ -32,6 +32,8 @@ public class MathHelper {
     }
     
     public boolean isPrime(int n) {
+    	if (n<=1) return false;
+    	
     	boolean result = true;
     	for(int i=2;i<=Math.sqrt(n);i++) {
     		if(n%i == 0) {
