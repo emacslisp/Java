@@ -91,19 +91,17 @@ public class OJCLI {
 					case "v":
 						if(inputs.length == 2) {
 							// open html file with path here
+							int id = Integer.parseInt(inputs[1]);
+							
+							ojHelper.openHtmlFile(mysqlHelper, basePath, id);
 						}
 						break;
-					case "t":
-						if(inputs.length == 3) {
-							// open html file with path here
-							
-							// testJudge(inputs[1], inputs[2]);
-						}
 					case "s":
 						if(inputs.length == 3) {
-							// open html file with path here
-							
-							// ojJudge(inputs[1], inputs[2]);
+							// test full set of data
+							int id = Integer.parseInt(inputs[1]);
+							String filePath = inputs[2];
+							ojHelper.ojJudge(id, filePath);
 						}
 						break;
 					case "q":

@@ -1,5 +1,6 @@
 package com.dw.lib;
 
+import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +33,7 @@ public class OJHelper {
 
 	List<Question> questions = new ArrayList<Question>();
 	List<User> users = new ArrayList<User>();
+	FileUtils fileUtils = new FileUtils();
 
 	public User doAuth(MysqlHelper mysqlHelper, String userName, String password) throws Exception {
 		ResultSet result = mysqlHelper.executeQuery("select * from User where username = '" + userName + "'");
@@ -72,6 +74,31 @@ public class OJHelper {
 		for (Question q : questions) {
 			System.out.println(q.ID + "\t" + q.Title);
 		}
+	}
+	
+	public void openHtmlFile(MysqlHelper mysqlHelper, String basePath, int id) throws Exception {
+		ResultSet result = mysqlHelper.executeQuery("select * from Questions where ID="+id);
+
+		while (result.next()) {
+			Question question = new Question();
+			question.ID = result.getInt(1);
+			question.Title = result.getString(2);
+			question.HtmlFilePath = result.getString(3);
+			questions.add(question);
+		}
+
+		for (Question q : questions) {
+			String filePath = basePath + "/" + q.HtmlFilePath;
+			if(fileUtils.isExisted(filePath)) {
+				CommandLineUtil.runCommand("open " + filePath);
+			} else {
+				System.out.println(filePath + " doesn't existed");
+			}
+		}
+	}
+	
+	public void ojJudge(int id, String filePath) throws Exception {
+		
 	}
 
 	public static void main(String[] args) {
