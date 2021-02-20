@@ -1,73 +1,15 @@
 package com.dw.lib.cli;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
-
-import com.dw.lib.CryptoGenerator;
 import com.dw.lib.FileUtils;
 import com.dw.lib.JSONService;
 import com.dw.lib.MysqlHelper;
+import com.dw.lib.OJHelper;
+import com.dw.lib.OJHelper.User;
 import com.google.gson.JsonObject;
-
-class User {
-	int ID;
-	String UserName;
-	String Password;
-	String Salt;
-	Date CreatedDate;
-	Date LastLoginDate;
-	public User() {
-		
-	}
-}
-
-class Question {
-	int ID;
-	String Title;
-	String HtmlFilePath;
-	public Question() {
-		
-	}
-}
 
 public class OJCLI {
 
-	public static User doAuth(MysqlHelper mysqlHelper, String userName, String password) throws Exception {
-		ResultSet result = mysqlHelper.executeQuery("select * from User where username = '" + userName + "'");
-		List<User> users = new ArrayList<User>();
-		CryptoGenerator cg = new CryptoGenerator();
-		
-		while(result.next()) {
-			User user = new User();
-			user.ID = result.getInt(1);
-			user.UserName = result.getString(2);
-			user.Password = result.getString(3);
-			user.Salt = result.getString(4);
-			user.CreatedDate = result.getDate(5);
-			user.LastLoginDate = result.getDate(6);
-			users.add(user);
-		}
-		
-		if(users.size() == 1) {
-			String passwordEncryped = cg.generateValue(password + ":" + users.get(0).Salt);
-			if(passwordEncryped.equals(users.get(0).Password)) return users.get(0);
-		}
-		
-		return null;
-	}
-	
-	public static void printOutQuestion(MysqlHelper mysqlHelper, User user) throws Exception {
-		ResultSet result = mysqlHelper.executeQuery("select * from Question");
-		List<Question> questions = new ArrayList<Question>();
-		
-		while(result.next()) {
-			Question question = new Question();
-			
-		}
-	}
 	
 	public static void printOutHelp() {
 		System.out.println("v <question-id> - view question in html format");
@@ -98,6 +40,8 @@ public class OJCLI {
 		}
 		
 		FileUtils fileUtils = new FileUtils();
+		OJHelper ojHelper = new OJHelper();
+		
 		try {
 			JSONService jsonService = new JSONService();
 			JsonObject config;
@@ -117,12 +61,13 @@ public class OJCLI {
 			String dbName = config.get("dbName").getAsString();
 			String username = config.get("username").getAsString();
 			String password = config.get("pssword").getAsString();
+			String basePath = config.get("basePath").getAsString();
 			
 			
 			if(dbType.equals("mysql")) {
 				MysqlHelper mysqlHelper = new MysqlHelper("jdbc:mysql://"+host+":"+port+"/"+dbName + "?verifyServerCertificate=false&useSSL=true", dbUsername, dbPassword);
 				
-				User user = doAuth(mysqlHelper, username, password);
+				User user = ojHelper.doAuth(mysqlHelper, username, password);
 				
 				// auth successfully
 				if(!user.UserName.equals(username)) {
@@ -130,8 +75,9 @@ public class OJCLI {
 					return;
 				}
 				
-				printOutQuestion(mysqlHelper, user);
+				ojHelper.printOutQuestion(mysqlHelper, user);
 				printOutHelp();
+				
 				String inputLine = "";
 				boolean isContinue = true;
 				Scanner scanner = new Scanner(System.in);
@@ -164,7 +110,7 @@ public class OJCLI {
 						isContinue = false;
 						break;
 					case "l":
-						printOutQuestion(mysqlHelper, user);
+						ojHelper.printOutQuestion(mysqlHelper, user);
 						break;
 					default:
 						break;
