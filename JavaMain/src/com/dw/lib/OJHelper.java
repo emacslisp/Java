@@ -178,14 +178,28 @@ public class OJHelper {
 					return;
 				}
 				
-				report = cli.runCommand("java " + judgeFileNameWithoutExtention + "<" + inputFileName + " >" + outputFileName, timeout, dir);
+				String cmd = "/bin/sh " +
+						"-c \" cd " + workingFolder + " && " +
+						"java " + judgeFileNameWithoutExtention + 
+						" < " + inputFileName + 
+						" > " + outputFileName
+						+ "\"";
+				
+				report = cli.runCommand(cmd, timeout, dir);
 				
 				if(report.exitValue == 1) {
 					System.out.println("run time error: " + report.output);
 					return;
 				}
 			} else if (filePath.endsWith(".py")) {
-				Report report = cli.runCommand("python3 " + judgeFileNameWithoutExtention + "<" + inputFileName + " >" + outputFileName, timeout, dir);
+				String cmd = "/bin/sh " +
+						"-c \" cd " + workingFolder + " && " +
+						"python3 " + judgeFileNameWithoutExtention + 
+						"<" + inputFileName + 
+						" > " + outputFileName
+						+ "\"";
+				
+				Report report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
 					System.out.println("error: " + report.output);
 					return;
@@ -196,11 +210,13 @@ public class OJHelper {
 					System.out.println("compile error: " + report.output);
 					return;
 				}
+				
 				String cmd = "/bin/sh " +
-						"-c \"" +
-						workingFolder + "/" + judgeFileNameWithoutExtention+ ".run" + 
-						" < " + workingFolder + "/" + inputFileName + 
-						" > " + workingFolder + "/" + outputFileName +"\"";
+						"-c \" cd " + workingFolder + " && " +
+						"./" + judgeFileNameWithoutExtention+ ".run" + 
+						" < " + inputFileName + 
+						" > "  + outputFileName 
+						+ "\"";
 				
 				report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
@@ -215,7 +231,14 @@ public class OJHelper {
 					return;
 				}
 				
-				report = cli.runCommand("./" + judgeFileNameWithoutExtention + ".run" + " < " + inputFileName + " > " + outputFileName, timeout, dir);
+				String cmd = "/bin/sh " +
+						"-c \" cd " + workingFolder + " && " +
+						"./" + judgeFileNameWithoutExtention+ ".run" + 
+						" < " + inputFileName + 
+						" > "  + outputFileName 
+						+ "\"";
+				
+				report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
 					System.out.println("run time error: " + report.output);
 					return;
@@ -228,13 +251,27 @@ public class OJHelper {
 					return;
 				}
 				
-				report = cli.runCommand(judgeFileNameWithoutExtention + ".run" + "<" + inputFileName + " >" + outputFileName, timeout, dir);
+				String cmd = "/bin/sh " +
+						"-c \" cd " + workingFolder + " && " +
+						"./" + judgeFileNameWithoutExtention+ ".run" + 
+						" < " + inputFileName + 
+						" > "  + outputFileName 
+						+ "\"";
+				
+				report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
 					System.out.println("run time error: " + report.output);
 					return;
 				}
 			} else if (filePath.endsWith(".php")) {
-				Report report = cli.runCommand("php " + judgeFileName + "<" + inputFileName + " >" + outputFileName, timeout, dir);
+				String cmd = "/bin/sh " +
+						"-c \" cd " + workingFolder + " && " +
+						"php " + judgeFileNameWithoutExtention + 
+						"<" + inputFileName + 
+						" > " + outputFileName
+						+ "\"";
+				
+				Report report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
 					System.out.println("run time error: " + report.output);
 					return;
