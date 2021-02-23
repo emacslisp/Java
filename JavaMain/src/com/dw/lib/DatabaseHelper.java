@@ -3,6 +3,7 @@ package com.dw.lib;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -84,6 +85,20 @@ public class DatabaseHelper {
 		ResultSetMetaData rsmd = result.getMetaData();
 		int columnCount = rsmd.getColumnCount();
 		return columnCount;
+	}
+	
+	public int prepareStatement(String sql, List<Pair<String, String>> input) throws SQLException {
+		PreparedStatement st = conn.prepareStatement(sql);
+		int count = 1;
+		for(Pair<String, String> x : input) {
+			if(x.first.equals("string"))
+				st.setString(count++, x.second);
+			
+			if(x.first.equals("int"))
+				st.setInt(count++, Integer.parseInt(x.second));
+		}
+		int result = st.executeUpdate();
+		return result;
 	}
 
 	public List<String> columnName(ResultSet result) throws Exception {
