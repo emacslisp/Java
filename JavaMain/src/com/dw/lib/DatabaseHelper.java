@@ -94,7 +94,7 @@ public class DatabaseHelper {
 			if(x.first.equals("string"))
 				st.setString(count++, x.second);
 			
-			if(x.first.equals("int"))
+			else if(x.first.equals("int"))
 				st.setInt(count++, Integer.parseInt(x.second));
 		}
 		int result = st.executeUpdate();

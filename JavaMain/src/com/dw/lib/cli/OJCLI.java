@@ -101,7 +101,7 @@ public class OJCLI {
 							// test full set of data
 							int id = Integer.parseInt(inputs[1]);
 							String filePath = inputs[2];
-							ojHelper.ojJudge(id, filePath);
+							ojHelper.ojJudge(mysqlHelper, id, filePath, user.ID);
 						}
 						break;
 					case "q":
