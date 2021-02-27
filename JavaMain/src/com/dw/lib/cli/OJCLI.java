@@ -96,6 +96,11 @@ public class OJCLI {
 							ojHelper.openHtmlFile(mysqlHelper, basePath, id);
 						}
 						break;
+						
+					case "l":
+						ojHelper.printOutQuestion(mysqlHelper, user);
+						break;
+						
 					case "s":
 						if(inputs.length == 3) {
 							// test full set of data
@@ -104,11 +109,9 @@ public class OJCLI {
 							ojHelper.ojJudge(mysqlHelper, id, filePath, user.ID);
 						}
 						break;
+						
 					case "q":
 						isContinue = false;
-						break;
-					case "l":
-						ojHelper.printOutQuestion(mysqlHelper, user);
 						break;
 					default:
 						break;

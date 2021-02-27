@@ -44,6 +44,25 @@ public class OJHelper {
 			
 		}
 	}
+	
+	public class JudgeResult {
+		public Status status;
+		public String log;
+		
+		public JudgeResult() {
+			status = Status.EMPTY;
+			log = "";
+		}
+	}
+	
+	public enum Status {
+		AC,
+		WA,
+		TLE,
+		RE,
+		CE,
+		EMPTY
+	}
 
 	List<Question> questions = new ArrayList<Question>();
 	List<User> users = new ArrayList<User>();
@@ -128,6 +147,10 @@ public class OJHelper {
 		
 	}
 	
+	public void insertResult(MysqlHelper mysqlHelper, int id, int userId, JudgeResult judgeResult) {
+		
+	}
+	
 	/**
 	 * 
 	 * @param mysqlHelper
@@ -136,7 +159,7 @@ public class OJHelper {
 	 * @param userId
 	 * @throws Exception
 	 */
-	public void ojJudge(MysqlHelper mysqlHelper, int id, String filePath, int userId) throws Exception {
+	public JudgeResult ojJudge(MysqlHelper mysqlHelper, int id, String filePath, int userId) throws Exception {
 		String BasePath = "/tmp";
 		String workingFolder = BasePath + "/" + userId + "/"+id;
 		File target = new File(workingFolder);
@@ -145,6 +168,7 @@ public class OJHelper {
 		String judgeFileNameWithoutExtention = judgeFileName.split("\\.")[0];
 		String inputFileName = "q"+id+"u"+userId+".in";
 		String outputFileName = "q"+id+"u"+userId+".out";
+		JudgeResult judgeResult = new JudgeResult();
 		
 		if(!target.exists()) {
 			target.mkdirs();
@@ -174,8 +198,9 @@ public class OJHelper {
 				Report report = cli.runCommand("javac " + judgeFileName, timeout, dir);
 				
 				if(report.exitValue == 1) {
-					System.out.println("compile error: " + report.output);
-					return;
+					judgeResult.log = "compile error: " + report.output;
+					judgeResult.status = Status.CE;
+					return judgeResult;
 				}
 				
 				String cmd = "/bin/sh " +
@@ -188,8 +213,9 @@ public class OJHelper {
 				report = cli.runCommand(cmd, timeout, dir);
 				
 				if(report.exitValue == 1) {
-					System.out.println("run time error: " + report.output);
-					return;
+					judgeResult.log = "run time error: " + report.output;
+					judgeResult.status = Status.RE;
+					return judgeResult;
 				}
 			} else if (filePath.endsWith(".py")) {
 				String cmd = "/bin/sh " +
@@ -201,14 +227,16 @@ public class OJHelper {
 				
 				Report report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
-					System.out.println("error: " + report.output);
-					return;
+					judgeResult.log = "compile error: " + report.output;
+					judgeResult.status = Status.CE;
+					return judgeResult;
 				}
 			} else if (filePath.endsWith(".cpp")) {
 				Report report = cli.runCommand("g++ -std=c++11 " + judgeFileName + " -o " +  judgeFileNameWithoutExtention +".run", timeout, dir);
 				if(report.exitValue == 1) {
-					System.out.println("compile error: " + report.output);
-					return;
+					judgeResult.log = "compile error: " + report.output;
+					judgeResult.status = Status.CE;
+					return judgeResult;
 				}
 				
 				String cmd = "/bin/sh " +
@@ -220,15 +248,17 @@ public class OJHelper {
 				
 				report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
-					System.out.println("run time error: " + report.output);
-					return;
+					judgeResult.log = "run time error: " + report.output;
+					judgeResult.status = Status.RE;
+					return judgeResult;
 				}
 			} else if (filePath.endsWith(".c")) {
 				Report report = cli.runCommand("gcc " + judgeFileName + " -o " +  judgeFileNameWithoutExtention +".run", timeout, dir);
 				
 				if(report.exitValue == 1) {
-					System.out.println("compile error: " + report.output);
-					return;
+					judgeResult.log = "compile error: " + report.output;
+					judgeResult.status = Status.CE;
+					return judgeResult;
 				}
 				
 				String cmd = "/bin/sh " +
@@ -240,15 +270,17 @@ public class OJHelper {
 				
 				report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
-					System.out.println("run time error: " + report.output);
-					return;
+					judgeResult.log = "run time error: " + report.output;
+					judgeResult.status = Status.RE;
+					return judgeResult;
 				}
 				
 			} else if (filePath.endsWith(".m")) {
 				Report report = cli.runCommand("clang -framework Foundation " + judgeFileName + "-o " +  judgeFileNameWithoutExtention +".run", timeout, dir);
 				if(report.exitValue == 1) {
-					System.out.println("compile error: " + report.output);
-					return;
+					judgeResult.log = "compile error: " + report.output;
+					judgeResult.status = Status.CE;
+					return judgeResult;
 				}
 				
 				String cmd = "/bin/sh " +
@@ -260,8 +292,9 @@ public class OJHelper {
 				
 				report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
-					System.out.println("run time error: " + report.output);
-					return;
+					judgeResult.log = "run time error: " + report.output;
+					judgeResult.status = Status.RE;
+					return judgeResult;
 				}
 			} else if (filePath.endsWith(".php")) {
 				String cmd = "/bin/sh " +
@@ -273,8 +306,9 @@ public class OJHelper {
 				
 				Report report = cli.runCommand(cmd, timeout, dir);
 				if(report.exitValue == 1) {
-					System.out.println("run time error: " + report.output);
-					return;
+					judgeResult.log = "run time error: " + report.output;
+					judgeResult.status = Status.RE;
+					return judgeResult;
 				}
 			}
 			
@@ -287,15 +321,21 @@ public class OJHelper {
 			if(outputList.length == expectedOutputList.length) {
 				for(int i=0;i<outputList.length;i++) {
 					if (!outputList[i].equals(expectedOutputList[i])) {
-						System.out.println("WA, expect output: " + expectedOutputList[i] + " actual output: " + outputList[i]);
-						break;
+						judgeResult.log = "\"WA, expect output: \" + expectedOutputList[i] + \" actual output: \" + outputList[i]";
+						judgeResult.status = Status.WA;
+						return judgeResult;
 					}
 				}
-				System.out.println("Accepted");
+				judgeResult.log = "Accepted";
+				judgeResult.status = Status.AC;
+				return judgeResult;
 			} else {
-				System.out.println("WA, some of input didn't have output\n");
+				judgeResult.log = "\"WA, some of input didn't have output\\n\"";
+				judgeResult.status = Status.WA;
+				return judgeResult;
 			}
 		}
+		return judgeResult;
 	}
 
 	public static void main(String[] args) {
