@@ -96,4 +96,40 @@ public class CommandLineUtil {
 		
 		return new Report(result, 1);
 	}
+	
+	public Report runCommand(String[] input, long timeout, File dir) throws InterruptedException {
+		String result="";
+		
+		try {
+	        Process pr = Runtime.getRuntime().exec(input, null, dir);
+	        if(!pr.waitFor(timeout, TimeUnit.SECONDS)) {
+	        	pr.destroy();
+	        	return new Report("time out", 1);
+	        }
+	        BufferedReader read = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+	        String str = read.readLine();
+	        while (str != null){
+	            System.out.println(str);
+	            str = read.readLine();
+	            result += str;
+	            result += "\n";
+	        }
+	        
+	        InputStream error = pr.getErrorStream();
+	        InputStreamReader isrerror = new InputStreamReader(error);
+	        BufferedReader bre = new BufferedReader(isrerror);
+	        while ((str = bre.readLine()) != null) {
+	        	result += str;
+	            result += "\n";
+	        }
+	        
+	        return new Report(result, 0);
+
+	    } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    }
+		
+		return new Report(result, 1);
+	}
 }

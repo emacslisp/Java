@@ -2,6 +2,7 @@ package com.dw.lib.test;
 
 import com.dw.lib.MysqlHelper;
 import com.dw.lib.OJHelper;
+import com.dw.lib.OJHelper.JudgeResult;
 import com.dw.lib.OJHelper.User;
 
 public class OJCLITest {
@@ -40,9 +41,8 @@ public class OJCLITest {
 			helper.printOutQuestion(mysqlHelper, user);
 			
 			String filePath = "/Users/ewu/dev/cpp/leetcode-cpp/ABProblem_zoj.cpp";
-			helper.ojJudge(mysqlHelper, 1, filePath, user.ID);
-			
-			
+			JudgeResult result = helper.ojJudge(mysqlHelper, 1, filePath, user.ID);
+			helper.insertResult(mysqlHelper, 1, user.ID, result, filePath);
 			
 			mysqlHelper.close();
 			

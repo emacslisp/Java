@@ -1,8 +1,10 @@
 package com.dw.lib;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -131,7 +133,7 @@ public class OJHelper {
 		}
 	}
 	
-	public void insertJudgeData(MysqlHelper mysqlHelper, int questionId, String inputPath, String outputPath, String programPath) throws Exception {
+	public int insertJudgeData(MysqlHelper mysqlHelper, int questionId, String inputPath, String outputPath, String programPath) throws Exception {
 		String input = fileUtils.fileToString(inputPath);
 		String output = fileUtils.fileToString(outputPath);
 		String programCode = fileUtils.fileToString(programPath);
@@ -144,11 +146,21 @@ public class OJHelper {
 		
 		
 		int result = mysqlHelper.prepareStatement("insert into OJData(QuestionId, JudgeDataInput, JudgeDataOutput, programCode) values(?, ?, ?, ?)", paraList );
+		return result;
 		
 	}
 	
-	public void insertResult(MysqlHelper mysqlHelper, int id, int userId, JudgeResult judgeResult) {
+	public int insertResult(MysqlHelper mysqlHelper, int questionId, int userId, JudgeResult judgeResult, String programPath) throws SQLException, IOException {
+		String programCode = fileUtils.fileToString(programPath);
 		
+		List<Pair<String, String>> paraList = new ArrayList<Pair<String, String>>();
+		paraList.add(new Pair<String, String>("int", userId+""));
+		paraList.add(new Pair<String, String>("int", questionId+""));
+		paraList.add(new Pair<String, String>("string", programCode));
+		paraList.add(new Pair<String, String>("string", judgeResult.status.toString()));
+		paraList.add(new Pair<String, String>("string", judgeResult.log));
+		int result = mysqlHelper.prepareStatement("insert into Submit(UserId, QuestionId, ProgramCode, Result, Message) values(?, ?, ?, ?, ?)", paraList);
+		return result;
 	}
 	
 	/**
@@ -194,6 +206,11 @@ public class OJHelper {
 			fileUtils.copyFileUsingStream(new File(filePath), new File(judgeTarget));
 			
 			File dir = new File(workingFolder);
+			String[] cmds = new String[] {
+					"/bin/sh",
+					"-c",
+					""
+			};
 			if (filePath.endsWith(".java")) {
 				Report report = cli.runCommand("javac " + judgeFileName, timeout, dir);
 				
@@ -203,14 +220,14 @@ public class OJHelper {
 					return judgeResult;
 				}
 				
-				String cmd = "/bin/sh " +
-						"-c \" cd " + workingFolder + " && " +
+				String cmd = "cd " + workingFolder + "; " +
 						"java " + judgeFileNameWithoutExtention + 
 						" < " + inputFileName + 
-						" > " + outputFileName
-						+ "\"";
+						" > " + outputFileName;
 				
-				report = cli.runCommand(cmd, timeout, dir);
+				cmds[2] = cmd;
+				
+				report = cli.runCommand(cmds, timeout, dir);
 				
 				if(report.exitValue == 1) {
 					judgeResult.log = "run time error: " + report.output;
@@ -218,42 +235,45 @@ public class OJHelper {
 					return judgeResult;
 				}
 			} else if (filePath.endsWith(".py")) {
-				String cmd = "/bin/sh " +
-						"-c \" cd " + workingFolder + " && " +
+				String cmd = "cd " + workingFolder + " && " +
 						"python3 " + judgeFileNameWithoutExtention + 
 						"<" + inputFileName + 
-						" > " + outputFileName
-						+ "\"";
+						" > " + outputFileName;
+				cmds[2] = cmd;
 				
-				Report report = cli.runCommand(cmd, timeout, dir);
+				Report report = cli.runCommand(cmds, timeout, dir);
 				if(report.exitValue == 1) {
 					judgeResult.log = "compile error: " + report.output;
 					judgeResult.status = Status.CE;
 					return judgeResult;
 				}
 			} else if (filePath.endsWith(".cpp")) {
-				Report report = cli.runCommand("g++ -std=c++11 " + judgeFileName + " -o " +  judgeFileNameWithoutExtention +".run", timeout, dir);
+				Report report = cli.runCommand(
+				"g++ -std=c++11 " + judgeFileName + " -o " +  judgeFileNameWithoutExtention +".run"
+				, timeout, dir);
+				
 				if(report.exitValue == 1) {
 					judgeResult.log = "compile error: " + report.output;
 					judgeResult.status = Status.CE;
 					return judgeResult;
 				}
 				
-				String cmd = "/bin/sh " +
-						"-c \" cd " + workingFolder + " && " +
+				String cmd = "cd " + workingFolder + "; " +
 						"./" + judgeFileNameWithoutExtention+ ".run" + 
 						" < " + inputFileName + 
-						" > "  + outputFileName 
-						+ "\"";
+						" > "  + outputFileName;
+				cmds[2] = cmd;
 				
-				report = cli.runCommand(cmd, timeout, dir);
+				report = cli.runCommand(cmds, timeout, dir);
 				if(report.exitValue == 1) {
 					judgeResult.log = "run time error: " + report.output;
 					judgeResult.status = Status.RE;
 					return judgeResult;
 				}
 			} else if (filePath.endsWith(".c")) {
-				Report report = cli.runCommand("gcc " + judgeFileName + " -o " +  judgeFileNameWithoutExtention +".run", timeout, dir);
+				Report report = cli.runCommand(
+				"gcc " + judgeFileName + " -o " +  judgeFileNameWithoutExtention +".run"
+				, timeout, dir);
 				
 				if(report.exitValue == 1) {
 					judgeResult.log = "compile error: " + report.output;
@@ -261,14 +281,14 @@ public class OJHelper {
 					return judgeResult;
 				}
 				
-				String cmd = "/bin/sh " +
-						"-c \" cd " + workingFolder + " && " +
+				String cmd = "cd " + workingFolder + " && " +
 						"./" + judgeFileNameWithoutExtention+ ".run" + 
 						" < " + inputFileName + 
-						" > "  + outputFileName 
-						+ "\"";
+						" > "  + outputFileName;
 				
-				report = cli.runCommand(cmd, timeout, dir);
+				cmds[2] = cmd;
+				
+				report = cli.runCommand(cmds, timeout, dir);
 				if(report.exitValue == 1) {
 					judgeResult.log = "run time error: " + report.output;
 					judgeResult.status = Status.RE;
@@ -276,35 +296,35 @@ public class OJHelper {
 				}
 				
 			} else if (filePath.endsWith(".m")) {
-				Report report = cli.runCommand("clang -framework Foundation " + judgeFileName + "-o " +  judgeFileNameWithoutExtention +".run", timeout, dir);
+				Report report = cli.runCommand(
+					"clang -framework Foundation " + judgeFileName + "-o " +  judgeFileNameWithoutExtention +".run"
+				, timeout, dir);
 				if(report.exitValue == 1) {
 					judgeResult.log = "compile error: " + report.output;
 					judgeResult.status = Status.CE;
 					return judgeResult;
 				}
 				
-				String cmd = "/bin/sh " +
-						"-c \" cd " + workingFolder + " && " +
+				String cmd = "cd " + workingFolder + " && " +
 						"./" + judgeFileNameWithoutExtention+ ".run" + 
 						" < " + inputFileName + 
-						" > "  + outputFileName 
-						+ "\"";
+						" > "  + outputFileName;
+				cmds[2] = cmd;
 				
-				report = cli.runCommand(cmd, timeout, dir);
+				report = cli.runCommand(cmds, timeout, dir);
 				if(report.exitValue == 1) {
 					judgeResult.log = "run time error: " + report.output;
 					judgeResult.status = Status.RE;
 					return judgeResult;
 				}
 			} else if (filePath.endsWith(".php")) {
-				String cmd = "/bin/sh " +
-						"-c \" cd " + workingFolder + " && " +
+				String cmd = " cd " + workingFolder + " && " +
 						"php " + judgeFileNameWithoutExtention + 
 						"<" + inputFileName + 
-						" > " + outputFileName
-						+ "\"";
+						" > " + outputFileName;
+				cmds[2] = cmd;
 				
-				Report report = cli.runCommand(cmd, timeout, dir);
+				Report report = cli.runCommand(cmds, timeout, dir);
 				if(report.exitValue == 1) {
 					judgeResult.log = "run time error: " + report.output;
 					judgeResult.status = Status.RE;

@@ -5,6 +5,7 @@ import com.dw.lib.FileUtils;
 import com.dw.lib.JSONService;
 import com.dw.lib.MysqlHelper;
 import com.dw.lib.OJHelper;
+import com.dw.lib.OJHelper.JudgeResult;
 import com.dw.lib.OJHelper.User;
 import com.google.gson.JsonObject;
 
@@ -106,7 +107,8 @@ public class OJCLI {
 							// test full set of data
 							int id = Integer.parseInt(inputs[1]);
 							String filePath = inputs[2];
-							ojHelper.ojJudge(mysqlHelper, id, filePath, user.ID);
+							JudgeResult result = ojHelper.ojJudge(mysqlHelper, id, filePath, user.ID);
+							ojHelper.insertResult(mysqlHelper, id, user.ID, result, filePath);
 						}
 						break;
 						
