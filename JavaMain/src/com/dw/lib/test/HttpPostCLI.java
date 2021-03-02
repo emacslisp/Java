@@ -194,6 +194,7 @@ public class HttpPostCLI extends Thread {
 			e.printStackTrace();
 		}
 	}
+	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		FileUtils fileUtils = new FileUtils();
