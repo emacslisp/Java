@@ -1,4 +1,4 @@
-package com.dw.lib.cli;
+package com.dw.lib.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
