@@ -217,5 +217,4 @@ public class HttpPostCLI extends Thread {
 			thread1.start();
 		}
 	}
-	
 }
