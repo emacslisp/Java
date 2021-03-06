@@ -40,4 +40,10 @@ public class StringUtils {
 		
 		return "";
 	}
+	
+	public static void main(String[] args) {
+		String s = "ABABAB";
+		String s2 = "ABAB";
+		System.out.println(s.substring(s2.length()));
+	}
 }
