@@ -30,6 +30,7 @@ public class OJHelper {
 		public int ID;
 		public String Title;
 		public String HtmlFilePath;
+		public String status;
 
 		public Question() {
 
@@ -97,18 +98,25 @@ public class OJHelper {
 	}
 
 	public void printOutQuestion(MysqlHelper mysqlHelper, User user) throws Exception {
-		ResultSet result = mysqlHelper.executeQuery("select * from Questions");
+		ResultSet result = mysqlHelper.executeQuery("select q.ID, q.Title, q.HtmlFilePath, s.Result from OJ.Questions as q  left join  OJ.Submit as s on s.QuestionId = q.ID " + 
+				"and s.UserId = " + user.ID + " and s.Result = 'AC'  " + 
+				"GROUP BY q.ID, s.Result;");
 
 		while (result.next()) {
 			Question question = new Question();
 			question.ID = result.getInt(1);
 			question.Title = result.getString(2);
 			question.HtmlFilePath = result.getString(3);
+			String status = result.getString(4);
+			if(status == null) {
+				status = "";
+			}
+			question.status = status;
 			questions.add(question);
 		}
 
 		for (Question q : questions) {
-			System.out.println(q.ID + "\t" + q.Title);
+			System.out.println(q.ID + " " + q.Title + "\t" + q.status);
 		}
 	}
 	
