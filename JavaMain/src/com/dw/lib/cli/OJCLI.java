@@ -111,6 +111,8 @@ public class OJCLI {
 							int id = Integer.parseInt(inputs[1]);
 							String filePath = inputs[2];
 							JudgeResult result = ojHelper.ojJudge(mysqlHelper, id, filePath, user.ID);
+							System.out.println(result.status.toString());
+							System.out.println("log: " + result.log);
 							ojHelper.insertResult(mysqlHelper, id, user.ID, result, filePath);
 						}
 						break;
