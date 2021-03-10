@@ -34,6 +34,7 @@ public class OJCLI {
 			System.out.println("   \"dbName\": \"databaseName\"");
 			System.out.println("   \"username\": \"user\",");
 			System.out.println("   \"pssword\": \"12345678\",");
+			System.out.println("   \"basePath\": \"/path/to/database/html\"");
 			System.out.println("}");
 			System.out.println("type is 'mysql', 'postgresql', 'mongodb', 'oracle'");
 			System.out.println("database that stored question, judge and submit history");
@@ -81,8 +82,10 @@ public class OJCLI {
 				
 				String inputLine = "";
 				boolean isContinue = true;
+				
 				Scanner scanner = new Scanner(System.in);
 				while (isContinue) {
+					System.out.print("> ");
 					inputLine = scanner.nextLine();
 
 					String[] inputs = inputLine.split(" ");

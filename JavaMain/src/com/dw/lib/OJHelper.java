@@ -67,7 +67,6 @@ public class OJHelper {
 		EMPTY
 	}
 
-	List<Question> questions = new ArrayList<Question>();
 	List<User> users = new ArrayList<User>();
 	FileUtils fileUtils = new FileUtils();
 	CommandLineUtil cli = new CommandLineUtil();
@@ -101,7 +100,7 @@ public class OJHelper {
 		ResultSet result = mysqlHelper.executeQuery("select q.ID, q.Title, q.HtmlFilePath, s.Result from OJ.Questions as q  left join  OJ.Submit as s on s.QuestionId = q.ID " + 
 				"and s.UserId = " + user.ID + " and s.Result = 'AC'  " + 
 				"GROUP BY q.ID, s.Result;");
-
+		List<Question> questions = new ArrayList<Question>();
 		while (result.next()) {
 			Question question = new Question();
 			question.ID = result.getInt(1);
@@ -121,8 +120,9 @@ public class OJHelper {
 	}
 	
 	public void openHtmlFile(MysqlHelper mysqlHelper, String basePath, int id) throws Exception {
-		ResultSet result = mysqlHelper.executeQuery("select * from Questions where ID="+id);
-
+		System.out.println("select * from Questions where Id="+id);
+		ResultSet result = mysqlHelper.executeQuery("select * from Questions where Id="+id);
+		List<Question> questions = new ArrayList<Question>();
 		while (result.next()) {
 			Question question = new Question();
 			question.ID = result.getInt(1);
