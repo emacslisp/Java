@@ -89,7 +89,7 @@ public class UserBLL {
 	public Connection initMockupDataSource() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			return DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useSSL=true", "root", "123456");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/Test?useSSL=true", "root", "987654321");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,7 +111,7 @@ public class UserBLL {
 			Connection conn = ds.getConnection();*/
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			return DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useSSL=true", "root", "123456");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/Test?useSSL=true", "root", "987654321");
 
 		} /*catch (NamingException  e) {
 			// TODO Auto-generated catch block
@@ -129,7 +129,8 @@ public class UserBLL {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
+		System.out.println("Test");
 	}
 
 }
