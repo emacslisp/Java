@@ -30,10 +30,10 @@ public class OJCLI {
 			System.out.println("   \"host\": \"localhost\",");
 			System.out.println("   \"port\": 3306,");
 			System.out.println("   \"dbUsername\": \"root\",");
-			System.out.println("   \"dbPssword\": \"12345678\",");
+			System.out.println("   \"dbPassword\": \"12345678\",");
 			System.out.println("   \"dbName\": \"databaseName\"");
 			System.out.println("   \"username\": \"user\",");
-			System.out.println("   \"pssword\": \"12345678\",");
+			System.out.println("   \"password\": \"12345678\",");
 			System.out.println("   \"basePath\": \"/path/to/database/html\"");
 			System.out.println("}");
 			System.out.println("type is 'mysql', 'postgresql', 'mongodb', 'oracle'");
@@ -58,11 +58,11 @@ public class OJCLI {
 			String dbType = config.get("type").getAsString();
 			String host = config.get("host").getAsString();
 			String dbUsername = config.get("dbUsername").getAsString();
-			String dbPassword = config.get("dbPssword").getAsString();
+			String dbPassword = config.get("dbPassword").getAsString();
 			String port = config.get("port").getAsString();
 			String dbName = config.get("dbName").getAsString();
 			String username = config.get("username").getAsString();
-			String password = config.get("pssword").getAsString();
+			String password = config.get("password").getAsString();
 			String basePath = config.get("basePath").getAsString();
 			
 			
