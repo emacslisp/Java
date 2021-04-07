@@ -6,7 +6,7 @@ import org.apache.tomcat.util.Diagnostics;
 
 public class tomcat {
 	public static void main(String[] args) {
-		// Diagnostics();
+		Diagnostics();
 		
 		getProperty();
 	}

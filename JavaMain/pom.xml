@@ -96,6 +96,13 @@
 		    <artifactId>mssql-jdbc</artifactId>
 		    <version>9.2.0.jre8</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.graphql-java/graphql-java -->
+		<dependency>
+		    <groupId>com.graphql-java</groupId>
+		    <artifactId>graphql-java</artifactId>
+		    <version>2021-03-30T02-57-48-22314931</version>
+		</dependency>
+		
 	</dependencies>
   
 </project>
