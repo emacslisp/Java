@@ -119,7 +119,7 @@ public class JVMInfo {
 
 		sb.append(requestedSm.getString("diagnostics.vmInfoPath"));
 		sb.append(":" + CRLF);
-		sb.append(INDENT1 + "bootClassPath: " + runtimeMXBean.getBootClassPath() + CRLF);
+		//sb.append(INDENT1 + "bootClassPath: " + runtimeMXBean.getBootClassPath() + CRLF);
 		sb.append(INDENT1 + "classPath: " + runtimeMXBean.getClassPath() + CRLF);
 		sb.append(INDENT1 + "libraryPath: " + runtimeMXBean.getLibraryPath() + CRLF);
 		sb.append(CRLF);
