@@ -1,6 +1,6 @@
 package com.dw.algorithmlib;
 
-public class StringAlgorithm {
+public class StringHelper {
 	
 	public boolean isPalindrom(String s) {
 		boolean result = true;
