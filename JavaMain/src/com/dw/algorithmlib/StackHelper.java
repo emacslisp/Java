@@ -6,6 +6,41 @@ import java.util.Stack;
 
 public class StackHelper {
 	
+	public boolean validateStackSequences(int[] pushed, int[] popped) {
+		if(popped.length == 0) return true;
+		Stack<Integer> stack = new Stack<Integer>();
+		int index = 0;
+		int i = 0;
+		while(true) {
+			if(stack.size() == 0) {
+				stack.push(pushed[i++]);
+				continue;
+			}
+			
+			if(stack.peek() == popped[index]) {
+				stack.pop();
+				index++;
+			} else {
+				
+				if(i >= pushed.length) break;
+				
+				stack.push(pushed[i++]);
+			}
+			
+			if(index >= popped.length) {
+				break;
+			}
+		}
+		
+		System.out.println(index);
+		System.out.println(i);
+		
+		if(stack.size() == 0) return true;
+		
+		return false;
+		
+    }
+	
 	public void StackIterateExample() {
 		Stack<String> stackOfPlates = new Stack<>();
 
@@ -45,6 +80,11 @@ public class StackHelper {
 		// TODO Auto-generated method stub
 		StackHelper s = new StackHelper();
 		s.StackIterateExample();
+		
+		int[] pushed = {1,2,3,4,5};
+		int[] popped = {4,3,5,2,1};
+		boolean result = s.validateStackSequences(pushed, popped);
+		System.out.println(result);
 	}
 
 }
