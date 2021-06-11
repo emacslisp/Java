@@ -116,26 +116,26 @@ final class GenericTypeAwarePropertyDescriptor extends PropertyDescriptor {
 	}
 
 	public Class<?> getBeanClass()
-	{
+	{Thread.dumpStack();
 		return this.beanClass;
 	}
 
 	@Override
 	@Nullable
 	public Method getReadMethod()
-	{
+	{Thread.dumpStack();
 		return this.readMethod;
 	}
 
 	@Override
 	@Nullable
 	public Method getWriteMethod()
-	{
+	{Thread.dumpStack();
 		return this.writeMethod;
 	}
 
 	public Method getWriteMethodForActualAccess()
-	{
+	{Thread.dumpStack();
 		Assert.state(this.writeMethod != null, "No write method available");
 		Set<Method> ambiguousCandidates = this.ambiguousWriteMethods;
 		if (ambiguousCandidates != null) {
@@ -149,7 +149,7 @@ final class GenericTypeAwarePropertyDescriptor extends PropertyDescriptor {
 	}
 
 	public MethodParameter getWriteMethodParameter()
-	{
+	{Thread.dumpStack();
 		Assert.state(this.writeMethodParameter != null, "No write method available");
 		return this.writeMethodParameter;
 	}
@@ -157,19 +157,19 @@ final class GenericTypeAwarePropertyDescriptor extends PropertyDescriptor {
 	@Override
 	@Nullable
 	public Class<?> getPropertyType()
-	{
+	{Thread.dumpStack();
 		return this.propertyType;
 	}
 
 	@Override
 	public Class<?> getPropertyEditorClass()
-	{
+	{Thread.dumpStack();
 		return this.propertyEditorClass;
 	}
 
 	@Override
 	public boolean equals(@Nullable Object other)
-	{
+	{Thread.dumpStack();
 		if (this == other) {
 			return true;
 		}
@@ -182,7 +182,7 @@ final class GenericTypeAwarePropertyDescriptor extends PropertyDescriptor {
 
 	@Override
 	public int hashCode()
-	{
+	{Thread.dumpStack();
 		int hashCode = getBeanClass().hashCode();
 		hashCode = 29 * hashCode + ObjectUtils.nullSafeHashCode(getReadMethod());
 		hashCode = 29 * hashCode + ObjectUtils.nullSafeHashCode(getWriteMethod());
