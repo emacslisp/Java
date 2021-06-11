@@ -244,7 +244,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * @since 5.0.2
 	 */
 	default boolean hasConstructorArgumentValues()
-	{Thread.dumpStack();
+	{
 		return !getConstructorArgumentValues().isEmpty();
 	}
 
@@ -263,7 +263,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * @since 5.0.2
 	 */
 	default boolean hasPropertyValues()
-	{Thread.dumpStack();
+	{
 		return !getPropertyValues().isEmpty();
 	}
 
