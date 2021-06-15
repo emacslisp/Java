@@ -73,32 +73,32 @@ public class PluginDescriptorBuilder
         return pluginDescriptor;
     }
 
-    private String extractGroupId( PlexusConfiguration c )
+    private String extractGroupId( PlexusConfiguration c ) throws PlexusConfigurationException
     {
         return c.getChild( "groupId" ).getValue();
     }
 
-    private String extractArtifactId( PlexusConfiguration c )
+    private String extractArtifactId( PlexusConfiguration c ) throws PlexusConfigurationException
     {
         return c.getChild( "artifactId" ).getValue();
     }
 
-    private String extractVersion( PlexusConfiguration c )
+    private String extractVersion( PlexusConfiguration c ) throws PlexusConfigurationException
     {
         return c.getChild( "version" ).getValue();
     }
 
-    private String extractGoalPrefix( PlexusConfiguration c )
+    private String extractGoalPrefix( PlexusConfiguration c ) throws PlexusConfigurationException
     {
         return c.getChild( "goalPrefix" ).getValue();
     }
 
-    private String extractName( PlexusConfiguration c )
+    private String extractName( PlexusConfiguration c ) throws PlexusConfigurationException
     {
         return c.getChild( "name" ).getValue();
     }
 
-    private String extractDescription( PlexusConfiguration c )
+    private String extractDescription( PlexusConfiguration c ) throws PlexusConfigurationException
     {
         return c.getChild( "description" ).getValue();
     }
@@ -118,7 +118,7 @@ public class PluginDescriptorBuilder
         return mojos;
     }
 
-    private boolean extractInheritedByDefault( PlexusConfiguration c )
+    private boolean extractInheritedByDefault( PlexusConfiguration c ) throws PlexusConfigurationException
     {
         String inheritedByDefault = c.getChild( "inheritedByDefault" ).getValue();
 
@@ -129,7 +129,7 @@ public class PluginDescriptorBuilder
         return false;
     }
 
-    private boolean extractIsolatedRealm( PlexusConfiguration c )
+    private boolean extractIsolatedRealm( PlexusConfiguration c ) throws PlexusConfigurationException
     {
         String isolatedRealm = c.getChild( "isolatedRealm" ).getValue();
 
@@ -140,7 +140,7 @@ public class PluginDescriptorBuilder
         return false;
     }
 
-    private List<ComponentDependency> extractComponentDependencies( PlexusConfiguration c )
+    private List<ComponentDependency> extractComponentDependencies( PlexusConfiguration c ) throws PlexusConfigurationException
     {
 
         PlexusConfiguration[] dependencyConfigurations = c.getChild( "dependencies" ).getChildren( "dependency" );
@@ -154,7 +154,7 @@ public class PluginDescriptorBuilder
         return dependencies;
     }
 
-    private ComponentDependency extractComponentDependency( PlexusConfiguration d )
+    private ComponentDependency extractComponentDependency( PlexusConfiguration d ) throws PlexusConfigurationException
     {
         ComponentDependency cd = new ComponentDependency();
 
