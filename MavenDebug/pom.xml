@@ -44,5 +44,23 @@
 	    <artifactId>javax.inject</artifactId>
 	    <version>1</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.sonatype.plexus/plexus-cipher -->
+	<dependency>
+	    <groupId>org.sonatype.plexus</groupId>
+	    <artifactId>plexus-cipher</artifactId>
+	    <version>1.7</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.codehaus.plexus/plexus-interpolation -->
+	<dependency>
+	    <groupId>org.codehaus.plexus</groupId>
+	    <artifactId>plexus-interpolation</artifactId>
+	    <version>1.26</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.12.0</version>
+	</dependency>
   </dependencies>
 </project>
