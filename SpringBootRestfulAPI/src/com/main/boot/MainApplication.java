@@ -10,7 +10,7 @@ import com.model.restservice.UserRepository;
 @ComponentScan("com.controller")
 @ComponentScan(basePackages = {"com.security"})
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = UserRepository.class)
+@EnableJpaRepositories(basePackages = {"com.model.restservice"})
 public class MainApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);
