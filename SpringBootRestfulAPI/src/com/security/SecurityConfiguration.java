@@ -27,9 +27,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 		http.authorizeRequests()
+		.antMatchers("/").permitAll()
 		.antMatchers("/greetings").hasRole("ADMIN")
 		.antMatchers("/user").hasAnyRole("ADMIN", "USER")
-		.antMatchers("/").permitAll()
 		.and().httpBasic();
 	}
 	
