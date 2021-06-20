@@ -1,10 +1,12 @@
+create database SpringDB;
+
 drop table USER;
 CREATE TABLE IF NOT EXISTS User (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  userName VARCHAR(128),
-  password VARCHAR(128),
-  roles VARCHAR(1024),
-  active BOOLEAN default true,
+  Id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  UserName VARCHAR(128),
+  Password VARCHAR(128),
+  Roles VARCHAR(1024),
+  Active BOOLEAN default true,
   CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
   INDEX(UserName)
 ) engine=InnoDB;
