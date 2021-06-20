@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.model.restservice.User;
+import com.main.boot.model.User;
 
 public class AppUserDetails implements UserDetails{
 	/**

@@ -10,8 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.model.restservice.User;
-import com.model.restservice.UserRepository;
+import com.main.boot.model.User;
+import com.main.boot.model.UserRepository;
 import com.security.AppUserDetails;
 
 @SpringBootTest

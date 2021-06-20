@@ -1,4 +1,4 @@
-package com.model.restservice;
+package com.main.boot.model;
 
 import javax.persistence.*;
 

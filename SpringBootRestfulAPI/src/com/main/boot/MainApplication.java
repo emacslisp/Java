@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.model.restservice.UserRepository;
+import com.main.boot.model.UserRepository;
 
 @ComponentScan("com.controller")
 @ComponentScan(basePackages = {"com.security"})
