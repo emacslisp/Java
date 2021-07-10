@@ -431,6 +431,28 @@ public class FileUtils {
 	    }
 	}
 	
+	/**
+	 * Create Empty File with file name
+	 * @param filename - target file name
+	 * @return boolean - determine whether file is created successfully or not.
+	 */
+	public boolean createEmptyFile(String filename) {
+		File f = new File(filename);
+		
+		if(f.exists()) {
+			return true;
+		} else {
+			try {
+				return f.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return false;
+	}
+	
 	public static void main(String[] args) {
 
 		FileUtils utils = new FileUtils();
