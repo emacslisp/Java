@@ -21,6 +21,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileOwnerAttributeView;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -448,6 +449,25 @@ public class FileUtils {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		
+		return false;
+	}
+	
+	public boolean deleteFolderAndFile(String filename) throws IOException {
+		File f = new File(filename);
+
+		if (f.exists()) {
+			if(f.isFile()) f.delete();
+			if(f.isDirectory()) {
+				Files.walk(Paths.get(filename))
+			    .sorted(Comparator.reverseOrder())
+			    .map(Path::toFile)
+			    .forEach(File::delete);
+				f.delete();
+			}
+			
+			return true;
 		}
 		
 		return false;
