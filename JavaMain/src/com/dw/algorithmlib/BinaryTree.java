@@ -1,7 +1,10 @@
 package com.dw.algorithmlib;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class BinaryTree {
@@ -123,6 +126,39 @@ public class BinaryTree {
     	return 2*i+2;
     }
     
+    /**
+     * Convert Tree to Array
+     * @param root - Tree Root Node
+     * @return List<Integer> - List of Integer
+     */
+    public List<Integer> treeToArray(TreeNode root) {
+    	Queue<TreeNode> q = new LinkedList<>();
+    	
+    	q.add(root);
+    	
+    	List<Integer> result = new ArrayList<>();
+    	
+    	while(q.size() > 0) {
+    		TreeNode p = q.peek();
+    		
+    		if(p == null) {
+    			result.add(null);
+    			q.poll();
+    			continue;
+    		}
+    		
+    		result.add(p.val);
+    		q.poll();
+    		
+    		if(p.left == null && p.right == null) continue;
+    		
+    		q.add(p.left);
+    		q.add(p.right);
+    	}
+    	
+    	return result;
+    }
+    
     public TreeNode arrayToTree2(Integer[] a) {
     	Queue<TreeNode> q = new LinkedList<>();
     	TreeNode head = new TreeNode(a[0].intValue());
@@ -200,8 +236,18 @@ public class BinaryTree {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BinaryTree tree = new BinaryTree(); 
-		Integer[] a = {1, 2, 3, 4, 5, null, null};
+		Integer[] a = {1, 2, 3, 4, null, null, 5};
         tree.root = tree.arrayToTree2(a);
+        
+        List<Integer> list = tree.treeToArray(tree.root);
+        
+        // Arrays.stream(list.toArray()).map(x -> x).forEach(System.out::println);
+        for(Integer x : list) {
+        	System.out.print(x);
+        	System.out.print("\t");
+        }
+        
+        System.out.print("\n");
    
         System.out.println("Height of tree is : " +  
                                       tree.treeHigh(tree.root));
