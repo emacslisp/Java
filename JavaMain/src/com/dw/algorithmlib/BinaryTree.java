@@ -91,6 +91,26 @@ public class BinaryTree {
         inOrder(node.right); 
     } 
     
+    boolean isEqual(TreeNode node, TreeNode n) {
+    	if(node == null && n== null) return true;
+    	if(node == null || n== null) return false;
+    	
+    	if(node.val != n.val) 
+    		return false;
+    	
+    	return isEqual(node.left, n.left) && isEqual(node.right, n.right);
+    }
+    
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if(root == null) return false;
+        
+        if(root.val == subRoot.val && isEqual(root, subRoot)) {
+        	return true;
+        }
+        
+        return  isSubtree(root.right, subRoot) || isSubtree(root.left, subRoot);
+    }
+    
     void deleteTree(TreeNode node) 
     { 
         // In Java automatic garbage collection 
