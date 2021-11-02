@@ -15,7 +15,8 @@ public class PostTest {
 		//getTest();
 		//postTest();
 		HttpPostHelper helper = new HttpPostHelper();
-		
+		String urlCmd = helper.ConvertToCURL("/Users/ewu/dev/vocus/post/tulip/tulip.conf", null);
+		System.out.println(urlCmd);
 		helper.Post("/Users/ewu/dev/vocus/post/tulip/tulip.conf", null, null);
 	}
 	

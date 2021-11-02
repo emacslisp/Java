@@ -52,9 +52,13 @@ public class PostCLI {
 		try {
 			HttpPostHelper helper = new HttpPostHelper();
 			if (args.length == 1) {
+				String curlCommand = helper.ConvertToCURL(args[0], null);
+				System.out.println(curlCommand);
 				helper.Post(args[0], null, outputFilePath);
 			}
 			else if(args.length >= 2) {
+				String curlCommand = helper.ConvertToCURL(args[0], args[1]);
+				System.out.println(curlCommand);
 				helper.Post(args[0], args[1], outputFilePath);
 			}
 			

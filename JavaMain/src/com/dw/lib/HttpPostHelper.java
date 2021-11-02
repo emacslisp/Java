@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Base64;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -43,6 +44,42 @@ public class HttpPostHelper {
 			url = url.replace(speicalCharactorMapping[index][0], speicalCharactorMapping[index][1]);
 		}
 		return url;
+	}
+	
+	public String ConvertToCURL(String configPath, String bodyFilePath) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			FileUtils utils = new FileUtils();
+			String config = utils.fileToString(configPath);
+
+			JsonParser parser = new JsonParser();
+			JsonObject data = parser.parse(config).getAsJsonObject();
+			String urlStr = data.get("url").getAsString();
+			String method = data.get("method").getAsString();
+
+			JsonObject headers = data.get("headers").getAsJsonObject();
+
+			sb.append("curl -X" + method.toUpperCase() + " \\\n");
+
+			if (headers != null)
+				for (Entry<String, JsonElement> entry : headers.entrySet()) {
+					// System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue()
+					// );
+					sb.append("--header '" + entry.getKey() + ":" + entry.getValue() + "' \\\n");
+				}
+
+			if (bodyFilePath != null && utils.isExisted(bodyFilePath)) {
+				String bodyStr = utils.fileToString(bodyFilePath);
+				sb.append("-d '" + bodyStr + "' \\\n");
+			}
+			sb.append(urlStr);
+
+			return sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "";
 	}
 	
 	public void Post(String configPath, String bodyFilePath, String outputFilePath) {
