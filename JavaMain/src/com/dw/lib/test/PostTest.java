@@ -17,6 +17,8 @@ public class PostTest {
 		HttpPostHelper helper = new HttpPostHelper();
 		String urlCmd = helper.ConvertToCURL("/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.config", "/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.body");
 		System.out.println(urlCmd);
+		urlCmd = helper.ConvertToWget("/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.config", "/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.body");
+		System.out.println(urlCmd);
 		//helper.Post("/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.config", "/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.body", null);
 	}
 	

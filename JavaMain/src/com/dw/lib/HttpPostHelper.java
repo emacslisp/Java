@@ -46,6 +46,44 @@ public class HttpPostHelper {
 		return url;
 	}
 	
+	public String ConvertToWget(String configPath, String bodyFilePath) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			FileUtils utils = new FileUtils();
+			String config = utils.fileToString(configPath);
+
+			JsonParser parser = new JsonParser();
+			JsonObject data = parser.parse(config).getAsJsonObject();
+			String urlStr = data.get("url").getAsString();
+			String method = data.get("method").getAsString();
+
+			JsonObject headers = data.get("headers").getAsJsonObject();
+
+			sb.append("wget --no-check-certificate --method POST \\\n");
+			
+
+			if (headers != null)
+				for (Entry<String, JsonElement> entry : headers.entrySet()) {
+					// System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue()
+					// );
+					sb.append("--header '" + entry.getKey() + ":" + entry.getValue().getAsString() + "' \\\n");
+				}
+
+			if (bodyFilePath != null && utils.isExisted(bodyFilePath)) {
+				String bodyStr = utils.fileToString(bodyFilePath);
+				sb.append("--body-data '" + bodyStr + "' \\\n");
+			}
+			
+			sb.append(urlStr);
+
+			return sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+	
 	public String ConvertToCURL(String configPath, String bodyFilePath) {
 		StringBuilder sb = new StringBuilder();
 		try {
