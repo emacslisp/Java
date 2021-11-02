@@ -74,7 +74,7 @@ public class HttpPostHelper {
 				sb.append("--body-data '" + bodyStr + "' \\\n");
 			}
 			
-			sb.append(urlStr);
+			sb.append("-O output " + urlStr);
 
 			return sb.toString();
 		} catch (Exception e) {
