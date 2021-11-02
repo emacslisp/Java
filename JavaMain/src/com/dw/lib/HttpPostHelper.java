@@ -59,20 +59,19 @@ public class HttpPostHelper {
 
 			JsonObject headers = data.get("headers").getAsJsonObject();
 
-			sb.append("curl -X" + method.toUpperCase() + " \\\n");
+			sb.append("curl --request " + method.toUpperCase() + " " + urlStr + " \\\n");
 
 			if (headers != null)
 				for (Entry<String, JsonElement> entry : headers.entrySet()) {
 					// System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue()
 					// );
-					sb.append("--header '" + entry.getKey() + ":" + entry.getValue() + "' \\\n");
+					sb.append("--header '" + entry.getKey() + ":" + entry.getValue().getAsString() + "' \\\n");
 				}
 
 			if (bodyFilePath != null && utils.isExisted(bodyFilePath)) {
 				String bodyStr = utils.fileToString(bodyFilePath);
-				sb.append("-d '" + bodyStr + "' \\\n");
+				sb.append("-d '" + bodyStr + "'");
 			}
-			sb.append(urlStr);
 
 			return sb.toString();
 		} catch (Exception e) {

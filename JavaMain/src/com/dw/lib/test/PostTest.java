@@ -15,9 +15,9 @@ public class PostTest {
 		//getTest();
 		//postTest();
 		HttpPostHelper helper = new HttpPostHelper();
-		String urlCmd = helper.ConvertToCURL("/Users/ewu/dev/vocus/post/tulip/tulip.conf", null);
+		String urlCmd = helper.ConvertToCURL("/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.config", "/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.body");
 		System.out.println(urlCmd);
-		helper.Post("/Users/ewu/dev/vocus/post/tulip/tulip.conf", null, null);
+		//helper.Post("/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.config", "/Users/ewu/dev/vocus/post/smileApi/GetAccountInfo.body", null);
 	}
 	
 	public static void getTest() {
